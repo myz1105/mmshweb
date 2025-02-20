@@ -5,49 +5,50 @@ import { button as buttonStyles } from "@heroui/theme";
 
 import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { FaInstagram } from "react-icons/fa";
 
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title({ color: "violet" })}>Make&nbsp;</span>
+        <span className={title({ color: "violet" })}>Use&nbsp;</span>
         <span className={title()}>MMSH&nbsp;</span>
         <br />
         <span className={title({ color: "violet" })}>
-          websites regardless of your design experience.
+          to solve your logistics and accounting problems
         </span>
         <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
+          Beautiful, quick and modern app is ready to serve you
         </div>
       </div>
 
       <div className="flex gap-3">
         <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
+          className={`${buttonStyles({
             radius: "full",
             variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
+          })} bg-indigo-600 text-white hover:bg-indigo-800`}
+          href="/about"
         >
-          Documentation
+          Learn More
         </Link>
         <Link
           isExternal
           className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
+          href="https://www.instagram.com/mmshlogistics?igsh=MW9mbjd0aXB0Y2xpdw=="
         >
-          <GithubIcon size={20} />
-          GitHub
+          <FaInstagram size={20} />
+          Instagram
         </Link>
       </div>
 
       <div className="mt-8">
         <Snippet hideCopyButton hideSymbol variant="bordered">
           <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
+            Get started by registering{" "}
+            <Link href="/authentication">
+              <Code color="primary">Login</Code>
+            </Link>
           </span>
         </Snippet>
       </div>

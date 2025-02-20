@@ -18,15 +18,11 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
   SearchIcon,
-  Logo,
   MMSHLogo,
 } from "@/components/icons";
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaTelegram, FaWhatsapp, FaEnvelope, FaSignInAlt } from "react-icons/fa";
+import { SocialMedia } from "./mini_components/Social_media";
 
 export const Navbar = () => {
   const searchInput = (
@@ -82,36 +78,31 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <FaInstagram className="text-default-500 text-lg" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
-          </Link>
-          <ThemeSwitch />
+            <SocialMedia />
+          <ThemeSwitch/>
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            isExternal
             as={Link}
             className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
+            href="/authentication"
+            startContent={<FaSignInAlt className="text-primary" />}
             variant="flat"
           >
-            Sponsor
+            Login
           </Button>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
+          {/* Instagram */}
+          <Link isExternal aria-label="Instagram" href="https://www.instagram.com/mmshlogistics?igsh=MW9mbjd0aXB0Y2xpdw==">
+                <FaInstagram className="text-default-500 w-5 h-5 hover:text-pink-500 transition" />
+            </Link>
+          <Link isExternal aria-label="Telegram" href="https://telegram.me/logistikammsh">
+            <FaTelegram className="text-default-500 w-5 h-5 hover:text-blue-500 transition" />
+          </Link>
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
@@ -123,13 +114,15 @@ export const Navbar = () => {
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                  index === siteConfig.navMenuItems.length - 1
+                    ? item.label === "Login"
+                      ? "primary"
+                      : item.label === "Logout" 
+                        ? "danger"
+                        : "foreground"
+                    : "foreground"
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
