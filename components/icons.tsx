@@ -83,6 +83,8 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
     <path
       transform="translate(963,1015)"
       d="m0 0h127l4 1v31l-1 7-2 1h-53l-7-1-16 1h-55l-1-6v-33z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(720,981)"
@@ -99,10 +101,14 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
     <path
       transform="translate(1413,1189)"
       d="m0 0h32l10 1 4 4v3h54l11 1 2 5-1 14-1 5-3 1h-122l-6-2-5-17-5-11v-3z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(604,1189)"
       d="m0 0h35l30 1 2 2-7 18-3 11-7 2h-123l-2-6v-18l1-1 13-1h51l2-4 3-3z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(1348,1370)"
@@ -119,10 +125,14 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
     <path
       transform="translate(1008,1080)"
       d="m0 0h40l10 1 2 6 4 40v6l-5 1h-8l-10-3-5-4-7-2h-7l-8 4-5 4h-19v-15l3-28 2-9z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(946,1242)"
       d="m0 0h161l1 1 1 10-2 6-2 1h-154l-5-2-1-3v-9z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(1255,1370)"
@@ -139,6 +149,7 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
     <path
       transform="translate(1050,1394)"
       d="m0 0 10 1 10 5 7 8 3 9v9l-3 10-8 9-9 4h-15l-10-5-7-8-3-10v-8l3-10 7-8 9-5z"
+      fill="currentColor"
     />
     <path
       transform="translate(709,1185)"
@@ -213,6 +224,8 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
     <path
       transform="translate(1177,1523)"
       d="m0 0h7l6 4 3 5 1 6v12l-2 7-4 5-4 2h-6l-6-4-4-8v-16l3-8z"
+      fill="currentColor"
+      fillRule="evenodd"
     />
     <path
       transform="translate(1110,1516)"
@@ -232,10 +245,10 @@ export const MMSHLogo: React.FC<IconSvgProps> = ({
       fill="currentColor"
       fillRule="evenodd"
     />
-    <path
+    {/* <path
       transform="translate(1281,623)"
       d="m0 0 7 6 7 8 1 7-4 5-3 1h-19l-4-4 4-4 6-3h3l1-14z"
-    />
+    /> */}
     <path
       transform="translate(1291,1523)"
       d="m0 0h8l5 3 2 4v8l-4 5-7 2-6-2-4-4-1-8 4-6z"

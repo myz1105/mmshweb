@@ -13,22 +13,42 @@ import {
   parseCountry,
   CountryData,
 } from "react-international-phone";
-export default function CountrySelection() {
+import { IoIosArrowDown } from "react-icons/io";
+
+interface CountrySelectionProps {
+  onSelect: (country: CountryData) => void; // Callback function type
+}
+
+export default function CountrySelection({ onSelect }: CountrySelectionProps) {
   const [selectedKey, setSelectedKey] = useState("uz");
   const [country, setCountry] = useState<CountryData>();
 
   useEffect(() => {
     if (selectedKey) {
-      var c = defaultCountries.find((x) => x[1] == selectedKey);
-      if (c) setCountry(c);
+      const c = defaultCountries.find((x) => x[1] === selectedKey);
+      if (c) {
+        setCountry(c);
+        onSelect(c); // Call the onSelect callback with the selected country
+      }
     }
-  }, [selectedKey]);
+  }, [selectedKey, onSelect]);
 
   return (
-    <Dropdown>
+    <Dropdown
+      backdrop="blur"
+      classNames={{
+        base: "before:bg-default-200", // change arrow background
+        content:
+          "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-default-200 dark:from-default-50 dark:to-black",
+      }}
+    >
       <DropdownTrigger>
-        <Button className="capitalize" variant="bordered">
+        <Button
+          className="capitalize w-full flex justify-between"
+          variant="bordered"
+        >
           {country ? country[0] : "Select country"}
+          <IoIosArrowDown />
         </Button>
       </DropdownTrigger>
       <DropdownMenu
@@ -40,21 +60,20 @@ export default function CountrySelection() {
         onSelectionChange={(string) =>
           setSelectedKey(string.currentKey ? string.currentKey : "")
         }
+        items={defaultCountries}
+        style={{ maxHeight: "600px", overflowY: "auto" }}
       >
-        {defaultCountries.map((c) => {
-          const country = parseCountry(c);
-          return (
-            <DropdownItem key={country.iso2}>
-              <div className="flex">
-                <div className="flex-none">
-                  <FlagImage iso2={country.iso2} />
-                </div>
-                <div className="flex-auto">{country.name}</div>
-                <div className="flex-auto">{country.dialCode}</div>
+        {(item) => (
+          <DropdownItem key={item[1]} textValue={item[1]}>
+            <div className="flex items-center gap-2">
+              <div className="flex-none ">
+                <FlagImage iso2={item[1]} size={25} />
               </div>
-            </DropdownItem>
-          );
-        })}
+              <div className="grow">{item[0]}</div>
+              <div className="flex-none">+{item[2]}</div>
+            </div>
+          </DropdownItem>
+        )}
       </DropdownMenu>
     </Dropdown>
   );
