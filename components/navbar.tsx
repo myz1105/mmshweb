@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -7,22 +8,23 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@heroui/navbar";
-import { Button } from "@heroui/button";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
-
+import { Button } from "@heroui/button";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { useRouter } from "next/navigation";
 import {
   SearchIcon,
   MMSHLogo,
 } from "@/components/icons";
-import { FaInstagram, FaTelegram, FaWhatsapp, FaEnvelope, FaSignInAlt } from "react-icons/fa";
+import { FaInstagram, FaTelegram, FaSignInAlt } from "react-icons/fa";
 import { SocialMedia } from "./mini_components/Social_media";
+import LanguageToggle from "@/components/languages/button";
 
 export const Navbar = () => {
   const searchInput = (
@@ -45,6 +47,7 @@ export const Navbar = () => {
       type="search"
     />
   );
+  const router = useRouter();
 
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
@@ -84,14 +87,16 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
+            className="text-md text-color-default"
             href="/authentication"
             startContent={<FaSignInAlt className="text-primary" />}
-            variant="flat"
+            color="secondary"
+            variant="ghost"
+            onClick={() => router.push("/authentication")}
           >
-            Login
+            login
           </Button>
+          <LanguageToggle/>
         </NavbarItem>
       </NavbarContent>
 
@@ -103,7 +108,8 @@ export const Navbar = () => {
           <Link isExternal aria-label="Telegram" href="https://telegram.me/logistikammsh">
             <FaTelegram className="text-default-500 w-5 h-5 hover:text-blue-500 transition" />
           </Link>
-        <ThemeSwitch />
+          <ThemeSwitch />
+          <LanguageToggle/>
         <NavbarMenuToggle />
       </NavbarContent>
 

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { SocialMedia } from "./mini_components/Social_media";
+import { Divider } from "@heroui/react";
 
 export const Footer = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -14,11 +15,11 @@ export const Footer = () => {
   }, [darkMode]);
 
   return (
-    <footer className="w-full bg-white dark:bg-black text-gray-800 dark:text-gray-200 py-6 relative">
-      <hr className="mb-2"/>
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between relative z-10">
+    <footer className="w-full bg-inherit py-6 relative">
+      <Divider className="my-4" />
+      <div className="max-w-6xl mx-auto px-6  flex flex-col md:flex-row items-center justify-between relative z-10">
         {/* Logo / Brand */}
-        <div className="text-lg font-bold text-gray-500">MMSH</div>
+        <div className="text-lg font-bold ">MMSH</div>
 
         {/* Social Media Links */}
         <div className="flex space-x-4 mt-4 md:mt-0">
