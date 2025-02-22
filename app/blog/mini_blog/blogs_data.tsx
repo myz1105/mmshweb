@@ -106,7 +106,7 @@ const posts = [
       description: "Tracing the journey of pop music from the 60s to the present.",
       author: "David White",
       role: "Music Historian",
-      img: "https://images.unsplash.com/photo-1516726817505-f5ed8256249f?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
       videoId: "e_04ZrNroTo", // Wheels on the Bus
     },
     {

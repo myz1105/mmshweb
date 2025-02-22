@@ -49,7 +49,7 @@ export default function Home() {
           <span>
             {t("Home.get_started")}{" "}
             <Link href="/authentication">
-              <Code color="primary">{t("login")}</Code>
+              <Code color="primary">{t("Home.login")}</Code>
             </Link>
           </span>
         </Snippet>

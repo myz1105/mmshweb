@@ -1,17 +1,21 @@
 "use client";
 import React from "react";
 import posts from "./blogs_data";
+import { useTranslation } from "react-i18next";
 
 const Comments: React.FC = () => {
+  
+  const { t } = useTranslation();  
+
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0 text-center">
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            From the Blog
+            {t('Blog.blogs.from')}
           </h2>
           <p className="mt-2 text-lg">
-            Learn how to grow your business with our expert advice.
+          {t('Blog.blogs.learn')}
           </p>
         </div>
 

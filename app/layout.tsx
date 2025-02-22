@@ -4,22 +4,25 @@ import { Link } from "@heroui/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
-
-import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/logo_fixed.png",
-  },
-};
+// ✅ Remove static metadata and use a function to generate it dynamically
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await import("i18next"); // ✅ Import translation function dynamically
+
+  return {
+    title: {
+      default: t("siteConfig.name"), // ✅ Now uses translation
+      template: `%s - ${t("siteConfig.name")}`, // ✅ Now uses translation
+    },
+    description: t("siteConfig.description"), // ✅ Now uses translation
+    icons: {
+      icon: "/logo_fixed.png",
+    },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: [

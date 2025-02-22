@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 import { SocialMedia } from "./mini_components/Social_media";
 import { Divider } from "@heroui/react";
+import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const { t } = useTranslation(); 
 
   useEffect(() => {
     if (darkMode) {
@@ -29,7 +31,7 @@ export const Footer = () => {
 
       {/* Copyright */}
       <div className="text-center text-sm mt-4 relative z-10">
-        &copy; {new Date().getFullYear()} MMSH Logistics. All rights reserved.
+        &copy; {new Date().getFullYear()} MMSH Logistics. {t('Footer.rights')}
       </div>
     </footer>
   );
