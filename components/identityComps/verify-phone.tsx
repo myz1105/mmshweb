@@ -1,5 +1,5 @@
 "use client";
-import { InputOtp, Button, Alert } from "@heroui/react";
+import { InputOtp, Button, Alert, CircularProgress } from "@heroui/react";
 import React, { useState, useRef, useEffect } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 
@@ -56,7 +56,7 @@ export default function VerifyPhone({ onUpdate }: VerifyNumberProps) {
       <Alert
         color={timeLeft === 0 ? "primary" : "default"}
         endContent={
-          timeLeft === 0 && (
+          timeLeft === 0 ? (
             <Button
               color="primary"
               variant="light"
@@ -67,12 +67,23 @@ export default function VerifyPhone({ onUpdate }: VerifyNumberProps) {
             >
               Send
             </Button>
+          ) : (
+            <CircularProgress
+              color="default"
+              formatOptions={{ style: "unit", unit: "second" }}
+              showValueLabel={true}
+              value={timeLeft}
+              maxValue={60}
+            />
           )
         }
         title={
+          timeLeft === 0 ? "Try again" : `You can send another SMS in just`
+        }
+        aria-label={
           timeLeft === 0
-            ? "Try again"
-            : `You can send another SMS in just ${timeLeft} seconds`
+            ? "Try again to send SMS"
+            : `You can send another SMS in ${timeLeft} seconds`
         }
       />
     </div>
