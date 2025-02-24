@@ -7,6 +7,7 @@ import { Providers } from "./providers";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import Sidebar from "@/components/main_components/sidebar";
 
 // ✅ Remove static metadata and use a function to generate it dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -46,13 +47,7 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex flex-col h-screen">
-            <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          {children}
         </Providers>
       </body>
     </html>

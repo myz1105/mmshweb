@@ -31,7 +31,7 @@ export default function Authentication() {
   }>();
   const [canSubmit, setCanSubmit] = useState(false);
   const [state, setState] = useState<AuthenticationState>(
-    AuthenticationState.EnterClientInfoState
+    AuthenticationState.EnterPhoneNumber
   );
   const [loading, setLoading] = useState(false);
   const [verifyCode, setVerifyCode] = useState("");
@@ -295,7 +295,7 @@ export default function Authentication() {
         {state === AuthenticationState.EnterPhoneNumber && <EnterPhoneHeader />}
         {state === AuthenticationState.VerificationState && (
           <VerifyPhoneHeader
-            phoneNumber={phone?.formattedPhone || "+998 33 000 88 66"}
+            phoneNumber={phone?.formattedPhone || ""}
             onEditPressed={handlePhoneEdit}
           />
         )}

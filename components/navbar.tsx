@@ -41,7 +41,7 @@ export const Navbar = () => {
         </Kbd>
       }
       labelPlacement="outside"
-      placeholder={t('Navbar.search')}
+      placeholder={t("Navbar.search")}
       startContent={
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
@@ -52,7 +52,14 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar
+      maxWidth="full"
+      position="sticky"
+      classNames={{
+        wrapper:
+          "border border-default-200 bg-gradient-to-br from-white to-default-200 dark:from-default-50 dark:to-black h-[7vh] ",
+      }}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
@@ -78,7 +85,10 @@ export const Navbar = () => {
         </ul>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
+      <NavbarContent
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
         <NavbarItem className="hidden sm:flex gap-2">
           <SocialMedia />
           <ThemeSwitch />
@@ -100,10 +110,18 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Instagram" href="https://www.instagram.com/mmshlogistics">
+        <Link
+          isExternal
+          aria-label="Instagram"
+          href="https://www.instagram.com/mmshlogistics"
+        >
           <FaInstagram className="text-default-500 w-5 h-5 hover:text-pink-500 transition" />
         </Link>
-        <Link isExternal aria-label="Telegram" href="https://telegram.me/logistikammsh">
+        <Link
+          isExternal
+          aria-label="Telegram"
+          href="https://telegram.me/logistikammsh"
+        >
           <FaTelegram className="text-default-500 w-5 h-5 hover:text-blue-500 transition" />
         </Link>
         <ThemeSwitch />

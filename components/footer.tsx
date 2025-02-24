@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (darkMode) {
@@ -17,8 +17,7 @@ export const Footer = () => {
   }, [darkMode]);
 
   return (
-    <footer className="w-full bg-inherit py-6 relative">
-      <Divider className="my-4" />
+    <footer className="w-full bg-inherit relative pt-4">
       <div className="max-w-6xl mx-auto px-6  flex flex-col md:flex-row items-center justify-between relative z-10">
         {/* Logo / Brand */}
         <div className="text-lg font-bold ">MMSH</div>
@@ -31,7 +30,7 @@ export const Footer = () => {
 
       {/* Copyright */}
       <div className="text-center text-sm mt-4 relative z-10">
-        &copy; {new Date().getFullYear()} MMSH Logistics. {t('Footer.rights')}
+        &copy; {new Date().getFullYear()} MMSH Logistics. {t("Footer.rights")}
       </div>
     </footer>
   );
