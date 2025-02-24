@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import { Navbar } from "@/components/navbar";
-import Sidebar from "@/components/main_components/sidebar";
 import { Footer } from "@/components/footer";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const IdentityLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative flex flex-col h-screen">
       <Navbar />
@@ -20,4 +19,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MainLayout;
+export default IdentityLayout;

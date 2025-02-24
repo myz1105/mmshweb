@@ -33,7 +33,7 @@ const LanguageToggle: React.FC = () => {
   return (
     <>
       <Button
-        onClick={toggleLanguage}
+        onPress={toggleLanguage}
         className="text-md text-color-default"
         startContent={<FaGlobe className="text-primary" />}
         color="secondary"

@@ -57,7 +57,7 @@ export const Navbar = () => {
       position="sticky"
       classNames={{
         wrapper:
-          "border border-default-200 bg-gradient-to-br from-white to-default-200 dark:from-default-50 dark:to-black h-[7vh] ",
+          "border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black h-[7vh] ",
       }}
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -94,19 +94,6 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
-            className="text-md text-color-default"
-            href="/authentication"
-            startContent={<FaSignInAlt className="text-primary" />}
-            color="secondary"
-            variant="ghost"
-            onClick={() => router.push("/authentication")}
-          >
-            {t("Navbar.login")} {/* ✅ Now properly translated */}
-          </Button>
-          <LanguageToggle />
-        </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
@@ -125,7 +112,6 @@ export const Navbar = () => {
           <FaTelegram className="text-default-500 w-5 h-5 hover:text-blue-500 transition" />
         </Link>
         <ThemeSwitch />
-        <LanguageToggle />
         <NavbarMenuToggle />
       </NavbarContent>
 

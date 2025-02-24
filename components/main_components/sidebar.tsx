@@ -6,6 +6,7 @@ import {
   Listbox,
   ListboxItem,
   Selection,
+  ListboxSection,
 } from "@heroui/react";
 import { MMSHLogo } from "@/components/icons";
 import React from "react";
@@ -17,7 +18,14 @@ import {
 } from "react-icons/io5";
 import { GiCargoCrate } from "react-icons/gi";
 import { FaTruckPlane } from "react-icons/fa6";
-import { MdAccountBalance, MdContactSupport, MdGroup } from "react-icons/md";
+import {
+  MdAccountBalance,
+  MdContactSupport,
+  MdGroup,
+  MdAccountCircle,
+} from "react-icons/md";
+import { RiContactsBook2Fill } from "react-icons/ri";
+import { FaBuildingUser } from "react-icons/fa6";
 
 export default function Sidebar() {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
@@ -35,7 +43,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className=" w-screen max-w-max flex-auto h-[92vh]  text-sm/6 ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-default-200 dark:from-default-50 dark:to-black">
+    <div className=" w-screen max-w-max flex-auto h-[92vh]  text-sm/6 ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black">
       <div className="p-4 h-full flex flex-col">
         {" "}
         {/* Set flex direction to column */}
@@ -60,71 +68,129 @@ export default function Sidebar() {
               variant="faded"
               onSelectionChange={setSelectedKeys} // Use the new handler
             >
-              <ListboxItem
-                startContent={
-                  <IoMdHome
-                    size={24}
-                    className="dark:text-gray-300 text-gray-600"
-                  />
-                }
-                key="home"
-              >
-                <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                  Home
-                </div>
-              </ListboxItem>
-              <ListboxItem
-                startContent={
-                  <GiCargoCrate
-                    size={24}
-                    className="dark:text-gray-300 text-gray-600"
-                  />
-                }
-                key="logistics"
-              >
-                <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                  Load management
-                </div>
-              </ListboxItem>
-              <ListboxItem
-                startContent={
-                  <FaTruckPlane
-                    size={24}
-                    className="dark:text-gray-300 text-gray-600"
-                  />
-                }
-                key="truk-management"
-              >
-                <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                  Truck management
-                </div>
-              </ListboxItem>
-              <ListboxItem
-                startContent={
-                  <IoChatboxEllipsesSharp
-                    size={24}
-                    className="dark:text-gray-300 text-gray-600"
-                  />
-                }
-                key="messanger"
-              >
-                <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                  Messanger
-                </div>
-              </ListboxItem>
-              <ListboxItem
-                startContent={
-                  <IoMdSettings
-                    size={24}
-                    className="dark:text-gray-300 text-gray-600"
-                  />
-                }
-                key="settings"
-              >
-                <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                  Settings
-                </div>
-              </ListboxItem>
+              <ListboxSection title="Personal">
+                <ListboxItem
+                  startContent={
+                    <MdAccountCircle
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="profile"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Profile
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <MdGroup
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="teams"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Teams
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <RiContactsBook2Fill
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="contacts"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Contacts
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <IoChatboxEllipsesSharp
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="messanger"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Messanger
+                  </div>
+                </ListboxItem>
+              </ListboxSection>
+              <ListboxSection title="Company management">
+                <ListboxItem
+                  startContent={
+                    <MdAccountBalance
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="accounting"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Accounting
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <FaBuildingUser
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="hr"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Human resource
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <GiCargoCrate
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="logistics"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Load management
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <FaTruckPlane
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="truk-management"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Truck management
+                  </div>
+                </ListboxItem>
+              </ListboxSection>
+              <ListboxSection title="Application settings">
+                <ListboxItem
+                  startContent={
+                    <IoMdSettings
+                      size={24}
+                      className="dark:text-gray-300 text-gray-600"
+                    />
+                  }
+                  key="settings"
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Settings
+                  </div>
+                </ListboxItem>
+              </ListboxSection>
             </Listbox>
           </ListboxWrapper>
         </div>
