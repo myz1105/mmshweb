@@ -178,44 +178,47 @@ export default function Authentication() {
       }
     }
     if (state === AuthenticationState.EnterClientInfoState) {
+      let imgData: any | null;
       try {
         const result = await handleUploadImage();
-        const res = await fetch(BaseAddress + "Client/Create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Token}`,
-          },
-          body: JSON.stringify({
-            name: clientInfo?.firstname,
-            surname: clientInfo?.surname,
-            img: result.data,
-          }),
-        });
-
-        if (!res.ok) {
-          addToast({
-            title: "Error",
-            description: "Error occured while request.",
-            color: "danger",
-          });
-        }
-
-        const result1 = await res.json();
-        const { Message, Status, Data } = result1;
-        if (Status === 100) {
-          setClient(Data);
-          setState(AuthenticationState.AuthReady);
-        } else {
-          addToast({
-            description: Message,
-            color: "warning",
-          });
-        }
-        setLoading(false);
+        imgData = result.data;
       } catch (error) {
         console.error("Upload failed:", error);
       }
+
+      const res = await fetch(BaseAddress + "Client/Create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Token}`,
+        },
+        body: JSON.stringify({
+          name: clientInfo?.firstname,
+          surname: clientInfo?.surname,
+          img: imgData,
+        }),
+      });
+
+      if (!res.ok) {
+        addToast({
+          title: "Error",
+          description: "Error occured while request.",
+          color: "danger",
+        });
+      }
+
+      const result1 = await res.json();
+      const { Message, Status, Data } = result1;
+      if (Status === 100) {
+        setClient(Data);
+        setState(AuthenticationState.AuthReady);
+      } else {
+        addToast({
+          description: Message,
+          color: "warning",
+        });
+      }
+      setLoading(false);
       setLoading(false);
     }
     if (state === AuthenticationState.AuthReady) {

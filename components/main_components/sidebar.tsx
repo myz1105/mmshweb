@@ -1,4 +1,4 @@
-"use client";
+import React, { useState } from "react";
 import {
   Input,
   Avatar,
@@ -7,10 +7,15 @@ import {
   ListboxItem,
   Selection,
   ListboxSection,
+  Button,
 } from "@heroui/react";
-import { MMSHLogo } from "@/components/icons";
-import React from "react";
-import { IoMdHome, IoIosGlobe, IoMdSettings } from "react-icons/io";
+import {
+  IoMdHome,
+  IoIosGlobe,
+  IoMdSettings,
+  IoIosArrowDropright,
+  IoIosArrowDropleft,
+} from "react-icons/io";
 import {
   IoChatboxEllipsesSharp,
   IoLogOutSharp,
@@ -27,46 +32,96 @@ import {
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaBuildingUser } from "react-icons/fa6";
 
+interface SidebarProps {
+  onUpdate: () => void;
+}
+
 export default function Sidebar() {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set(["home"])
-  ); // Keep it as a Set
+  );
+
+  const [isExtended, setIsExtended] = useState(true);
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
     [selectedKeys]
   );
 
-  // Create a function to handle selection changes
   const handleSelectionChange = (keys: Set<string>) => {
-    setSelectedKeys(keys); // Update state with the selected keys
+    setSelectedKeys(keys);
+  };
+
+  const handleOnUpdateWidth = () => {
+    setIsExtended(!isExtended);
+    console.log(!isExtended);
+  };
+
+  return isExtended ? (
+    <SidebarExtended onUpdate={handleOnUpdateWidth} />
+  ) : (
+    <SidebarShrinked onUpdate={handleOnUpdateWidth} />
+  );
+}
+
+export const ListboxWrapper = ({ children }: { children: any }) => (
+  <div className="w-full border-small px-1 py-2 rounded-small border-none">
+    {children}
+  </div>
+);
+
+export function SidebarExtended({ onUpdate }: SidebarProps) {
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set(["home"])
+  );
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selectedKeys).join(", "),
+    [selectedKeys]
+  );
+
+  const handleSelectionChange = (keys: Set<string>) => {
+    setSelectedKeys(keys);
   };
 
   return (
-    <div className=" w-screen max-w-max flex-auto h-[92vh]  text-sm/6 ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black">
-      <div className="p-4 h-full flex flex-col">
-        {" "}
-        {/* Set flex direction to column */}
-        <div className="p-3 flex-none">
-          <User
-            avatarProps={{
-              src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
-            }}
-            description="Product Designer"
-            name="Jane Doe"
-          />
+    <div className="w-screen max-w-max flex-auto h-[92vh] text-sm/6 ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black">
+      <div className="p-4 h-full flex flex-col relative">
+        <div className="pl-3 py-3 flex-none">
+          <div className="flex w-full items-center justify-between pt-5">
+            <User
+              avatarProps={{
+                src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+              }}
+              description="Product Designer"
+              name="Muhammad Mustafo Zikrillayevich"
+            />
+            <Button
+              isIconOnly
+              variant="light"
+              color="default"
+              size="sm"
+              className=" absolute right-0 top-1 mx-1"
+              onPress={() => {
+                onUpdate();
+              }}
+            >
+              <IoIosArrowDropleft
+                size={20}
+                className="default text-gray-500"
+              ></IoIosArrowDropleft>
+            </Button>
+          </div>
         </div>
         <div className="grow">
-          {" "}
-          {/* This will take up the available space */}
           <ListboxWrapper>
             <Listbox
               disallowEmptySelection
               aria-label="Single selection example"
-              selectedKeys={selectedKeys} // Pass the Set directly
+              selectedKeys={selectedKeys}
               selectionMode="single"
               variant="faded"
-              onSelectionChange={setSelectedKeys} // Use the new handler
+              onSelectionChange={setSelectedKeys}
             >
               <ListboxSection title="Personal">
                 <ListboxItem
@@ -77,6 +132,7 @@ export default function Sidebar() {
                     />
                   }
                   key="profile"
+                  textValue="Profile" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Profile
@@ -90,6 +146,7 @@ export default function Sidebar() {
                     />
                   }
                   key="teams"
+                  textValue="Teams" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Teams
@@ -103,6 +160,7 @@ export default function Sidebar() {
                     />
                   }
                   key="contacts"
+                  textValue="Contacts" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Contacts
@@ -116,9 +174,10 @@ export default function Sidebar() {
                     />
                   }
                   key="messanger"
+                  textValue="Messenger" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
-                    Messanger
+                    Messenger
                   </div>
                 </ListboxItem>
               </ListboxSection>
@@ -131,6 +190,7 @@ export default function Sidebar() {
                     />
                   }
                   key="accounting"
+                  textValue=" Accounting" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Accounting
@@ -144,6 +204,7 @@ export default function Sidebar() {
                     />
                   }
                   key="hr"
+                  textValue="Human resource" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Human resource
@@ -157,6 +218,7 @@ export default function Sidebar() {
                     />
                   }
                   key="logistics"
+                  textValue="Load management" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Load management
@@ -169,7 +231,8 @@ export default function Sidebar() {
                       className="dark:text-gray-300 text-gray-600"
                     />
                   }
-                  key="truk-management"
+                  key="truck-management"
+                  textValue="Truck management" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Truck management
@@ -185,6 +248,7 @@ export default function Sidebar() {
                     />
                   }
                   key="settings"
+                  textValue="Settings" // Add textValue prop
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Settings
@@ -195,16 +259,14 @@ export default function Sidebar() {
           </ListboxWrapper>
         </div>
         <div className="mt-auto">
-          {" "}
-          {/* This will push the second Listbox to the bottom */}
           <ListboxWrapper>
             <Listbox
               disallowEmptySelection
               aria-label="Single selection example"
-              selectedKeys={selectedKeys} // Pass the Set directly
+              selectedKeys={selectedKeys}
               selectionMode="single"
               variant="faded"
-              onSelectionChange={setSelectedKeys} // Use the new handler
+              onSelectionChange={setSelectedKeys}
             >
               <ListboxItem
                 startContent={
@@ -214,6 +276,7 @@ export default function Sidebar() {
                   />
                 }
                 key="support"
+                textValue="Support" // Add textValue prop
               >
                 <div className="pt-1 ms-3 dark:text-gray-300 text-gray-600">
                   Support
@@ -227,6 +290,7 @@ export default function Sidebar() {
                   />
                 }
                 key="logout"
+                textValue="Log out" // Add textValue prop
               >
                 <div className="pt-1 ms-3 dark:text-gray-300 text-gray-600">
                   Log out
@@ -235,15 +299,185 @@ export default function Sidebar() {
             </Listbox>
           </ListboxWrapper>
         </div>
-        {/* The rest of your sidebar content remains unchanged */}
-        {/* ... */}
       </div>
     </div>
   );
 }
 
-export const ListboxWrapper = ({ children }: { children: any }) => (
-  <div className="w-full border-small  px-1 py-2 rounded-small border-none">
-    {children}
-  </div>
-);
+export function SidebarShrinked({ onUpdate }: SidebarProps) {
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set(["home"])
+  );
+
+  const selectedValue = React.useMemo(
+    () => Array.from(selectedKeys).join(", "),
+    [selectedKeys]
+  );
+
+  const handleSelectionChange = (keys: Set<string>) => {
+    setSelectedKeys(keys);
+  };
+
+  return (
+    <div className=" w-fit max-w-max flex-auto h-[92vh] text-sm/6 ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black">
+      <div className="w-full flex justify-center">
+        <Button
+          isIconOnly
+          variant="light"
+          color="default"
+          size="sm"
+          className="mt-1 mx-auto"
+          onPress={() => {
+            onUpdate();
+          }}
+        >
+          <IoIosArrowDropright
+            size={20}
+            className="default text-gray-500"
+          ></IoIosArrowDropright>
+        </Button>
+      </div>
+
+      <div className="py-4 px-2 h-full flex flex-col relative">
+        <div className=" px-2 flex-none">
+          <div className="flex-col w-full items-center">
+            <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
+          </div>
+        </div>
+        <div className="grow">
+          <ListboxWrapper>
+            <Listbox
+              disallowEmptySelection
+              aria-label="Single selection example"
+              selectedKeys={selectedKeys}
+              selectionMode="single"
+              variant="faded"
+              onSelectionChange={setSelectedKeys}
+              hideSelectedIcon
+            >
+              <ListboxSection title=" ">
+                <ListboxItem
+                  key="profile"
+                  textValue="Profile" // Add textValue prop
+                >
+                  <MdAccountCircle
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="teams"
+                  textValue="Teams" // Add textValue prop
+                >
+                  <MdGroup
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="contacts"
+                  textValue="Contacts" // Add textValue prop
+                >
+                  <RiContactsBook2Fill
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="messanger"
+                  textValue="Messenger" // Add textValue prop
+                >
+                  <IoChatboxEllipsesSharp
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+              </ListboxSection>
+              <ListboxSection title=" ">
+                <ListboxItem
+                  key="accounting"
+                  textValue=" Accounting" // Add textValue prop
+                >
+                  <MdAccountBalance
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="hr"
+                  textValue="Human resource" // Add textValue prop
+                >
+                  <FaBuildingUser
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="logistics"
+                  textValue="Load management" // Add textValue prop
+                >
+                  <GiCargoCrate
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+                <ListboxItem
+                  key="truck-management"
+                  textValue="Truck management" // Add textValue prop
+                >
+                  <FaTruckPlane
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+              </ListboxSection>
+              <ListboxSection title=" ">
+                <ListboxItem
+                  key="settings"
+                  textValue="Settings" // Add textValue prop
+                >
+                  <IoMdSettings
+                    size={24}
+                    className="dark:text-gray-300 text-gray-600"
+                  />
+                </ListboxItem>
+              </ListboxSection>
+            </Listbox>
+          </ListboxWrapper>
+        </div>
+        <div className="mt-auto">
+          <ListboxWrapper>
+            <Listbox
+              disallowEmptySelection
+              aria-label="Single selection example"
+              selectedKeys={selectedKeys}
+              selectionMode="single"
+              variant="faded"
+              onSelectionChange={setSelectedKeys}
+              hideSelectedIcon
+            >
+              <ListboxItem
+                key="support"
+                textValue="Support" // Add textValue prop
+              >
+                <MdContactSupport
+                  size={24}
+                  className="dark:text-gray-300 text-gray-600"
+                />
+              </ListboxItem>
+              <ListboxItem
+                key="logout"
+                textValue="Log out" // Add textValue prop
+              >
+                <IoLogOutSharp
+                  size={24}
+                  className="dark:text-gray-300 text-gray-600"
+                />
+              </ListboxItem>
+            </Listbox>
+          </ListboxWrapper>
+        </div>
+      </div>
+    </div>
+  );
+}
