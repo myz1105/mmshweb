@@ -10,7 +10,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Navbar />
       <div className="flex flex-grow pt-1">
         <div className="overflow-auto h-full w-full">
-          <main className="container mx-auto max-w-7xl px-6 flex-grow h-full">
+          <main className="w-full flex-grow h-full">
             {children}
           </main>
         </div>
