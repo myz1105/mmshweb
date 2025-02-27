@@ -1,6 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@heroui/react";
+import { User, Textarea, Avatar, Divider, Button } from "@heroui/react";
+import { IoMdArrowBack } from "react-icons/io";
+import { GoPaperclip } from "react-icons/go";
+import { FaMicrophoneAlt } from "react-icons/fa";
+import { BsSendFill } from "react-icons/bs";
+import { useRouter } from "next/navigation";
+import { Input } from "@heroui/input";
 
 type ReplyType = {
   sender: string;
@@ -15,14 +21,26 @@ type MessageDetailProps = {
   time: string;
   avatar: string;
   replies?: ReplyType[];
+  isOnline: boolean;
+  goBack: () => void;
 };
 
-const MessageDetail: React.FC<MessageDetailProps> = ({ sender, text, time, avatar, replies, isOnline = [] }) => {
+const MessageDetail: React.FC<MessageDetailProps> = ({
+  sender,
+  text,
+  time,
+  avatar,
+  replies,
+  isOnline,
+  goBack,
+}) => {
   const [userColors, setUserColors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     try {
-      const storedColors = JSON.parse(localStorage.getItem("userColors") || "{}");
+      const storedColors = JSON.parse(
+        localStorage.getItem("userColors") || "{}"
+      );
       setUserColors(storedColors);
     } catch (error) {
       console.error("Error parsing user colors from localStorage:", error);
@@ -33,67 +51,134 @@ const MessageDetail: React.FC<MessageDetailProps> = ({ sender, text, time, avata
   const getColor = (user: string) => userColors[user] || "primary";
 
   // Sort messages in order of time
-  const allMessages = [{ sender, text, time, avatar }, ...replies].sort(
+  var msgs = replies
+    ? [{ sender, text, time, avatar }, ...replies]
+    : [{ sender, text, time, avatar }];
+  const allMessages = msgs.sort(
     (a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()
   );
 
+  // Check user is writing or not
+  const [writing, setWriting] = useState<string>("");
+  const maxCharacters = 1000;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newWriting = event.target.value;
+    if (newWriting.length <= maxCharacters) {
+      setWriting(newWriting);
+    }
+  };
+
+  const router = useRouter();
+
   return (
     <div className="flex flex-col w-full h-full">
-      
       {/* Header with Avatar and Name */}
-      <div className="w-full h-[50px] bg-default-100/70 backdrop-blur-md flex items-center px-4 shadow-md rounded-md relative">
-        <Avatar
-          src={avatar}
-          alt={`${sender}'s Avatar`}
-          size="md"
-          className={`shadow-md border border-${getColor(sender)}`}
-          color={getColor(sender)}
+      <div className="w-full h-[12vh] min-h-[60px]  flex items-center px-2 gap-3 rounded-md relative">
+        <Button
+          isIconOnly
+          variant="light"
+          size="sm"
+          className="sm:hidden"
+          onPress={() => {
+            goBack();
+          }}
+        >
+          <IoMdArrowBack className="text-gray-600" size={24} />
+        </Button>
+        <User
+          avatarProps={{
+            isBordered: true,
+            src: avatar,
+          }}
+          description="Manager"
+          name={sender}
+          classNames={{ name: "font-bold" }}
         />
-        
-        <div className="ml-3 flex items-center space-x-2">
-          <span className={`font-semibold text-sm text-${getColor(sender)}`}>{sender}</span>
-          <span className={`w-2 h-2 rounded-full ${isOnline ? "bg-green-500" : "bg-gray-400"}`}></span>
-        </div>
       </div>
+      <Divider className="w-full  border-none h-[.7px]" />
 
-
-
-      <div className="p-3 rounded-lg shadow-sm flex flex-col gap-3 overflow-auto">
+      <div className="p-3 rounded-lg shadow-sm flex flex-col grow gap-3 overflow-auto max-h-[75vh] ">
         {allMessages.map((msg, index) => {
-          const messageColor = getColor(msg.sender); // Get sender's assigned color
-
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`flex gap-3 ${msg.sender === sender ? "items-start" : "items-end flex-row-reverse"}`}
             >
-              {/* ✅ Show avatar only for the first message per sender */}
-              {(index === 0 || allMessages[index - 1].sender !== msg.sender) && (
+              {(index === 0 ||
+                allMessages[index - 1].sender !== msg.sender) && (
                 <Avatar
                   src={msg.avatar || avatar}
                   alt={`${msg.sender}'s Avatar`}
                   size="sm"
-                  className={`mt-2 shadow-md border border-${messageColor}`} // Ensure consistent color
-                  color={messageColor}
+                  className={`mt-2 shadow-md`}
                 />
               )}
 
-              {/* ✅ Message Content */}
               <div className="text-default-900 bg-default-100 max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[450px] xl:max-w-[500px] p-3 rounded-lg whitespace-pre-wrap">
-                {/* Sender and Time in One Line */}
                 <div className="flex justify-between w-full">
-                  <span className={`text-[15px] font-semibold text-${messageColor}`}>
+                  <span className={`text-[15px] font-semibold`}>
                     {msg.sender}
                   </span>
-                  <span className="text-[12px] text-default-600">{msg.time}</span>
+                  <span className="text-[12px] text-default-600">
+                    {msg.time}
+                  </span>
                 </div>
-
-                {/* Message Text */}
                 <p className="text-[15px] text-default-600">{msg.text}</p>
               </div>
             </div>
           );
         })}
+      </div>
+      <div className="w-full flex-none p-3 min-h-[9vh] min-h-[55px]">
+        {/* <Textarea
+          placeholder="Write your messages here..."
+          onChange={handleChange}
+          maxLength={maxCharacters}
+          size="sm"
+          startContent={
+            <div>
+              <GoPaperclip size={25} />
+            </div>
+          }
+          endContent={
+            <div>
+              <div className="p-2">
+                {writing.trim() ? (
+                  <BsSendFill size={25} />
+                ) : (
+                  <FaMicrophoneAlt size={25} />
+                )}
+              </div>
+              <div style={{ fontSize: "12px", alignSelf: "flex-end" }}>
+                {writing.length}/{maxCharacters}
+              </div>
+            </div>
+          }
+        /> */}
+        <Textarea
+          minRows={1}
+          maxRows={5}
+          placeholder="Write your messages here..."
+          onChange={handleChange}
+          maxLength={maxCharacters}
+          startContent={
+            <div>
+              <GoPaperclip size={25} />
+            </div>
+          }
+          endContent={
+            <div>
+              <div className="p-1">
+                {writing.trim() ? (
+                  <BsSendFill size={22} />
+                ) : (
+                  <FaMicrophoneAlt size={22} />
+                )}
+              </div>
+            </div>
+          }
+        />
       </div>
     </div>
   );

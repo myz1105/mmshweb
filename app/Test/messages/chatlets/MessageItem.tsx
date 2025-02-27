@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@heroui/react";
+import { Avatar, Badge, Button, Chip } from "@heroui/react";
 
 type MessageProps = {
   sender: string;
@@ -8,15 +8,25 @@ type MessageProps = {
   time: string;
   avatar: string;
   unreadMessages: number;
+  color: any;
+  isSelected: boolean;
 };
 
-const MessageItem: React.FC<MessageProps> = ({ sender, text, time, avatar, unreadMessages }) => {
+const MessageItem: React.FC<MessageProps> = ({
+  sender,
+  text,
+  time,
+  avatar,
+  unreadMessages,
+}) => {
   const [color, setColor] = useState<string>("primary");
 
   //  Use the already assigned color from localStorage
   useEffect(() => {
     try {
-      const storedColors = JSON.parse(localStorage.getItem("userColors") || "{}");
+      const storedColors = JSON.parse(
+        localStorage.getItem("userColors") || "{}"
+      );
       if (storedColors[sender]) {
         setColor(storedColors[sender]); //  Use stored color
       }
@@ -29,31 +39,50 @@ const MessageItem: React.FC<MessageProps> = ({ sender, text, time, avatar, unrea
     <div className="my-1 p-3 rounded-lg shadow-sm flex items-center space-x-3 relative cursor-pointer">
       {/*  Avatar with Consistent Border Color */}
       <div className="relative">
-        <Avatar
-          src={avatar}
-          alt={`${sender}'s Avatar`}
-          size="sm"
-          className={`shadow-md border border-${color}`} //  Use stored color
-          isBordered
-          color={color}
-        />
-
-        {/*  Unread Messages Badge */}
-        {unreadMessages > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-            {unreadMessages}
-          </span>
+        {unreadMessages > 0 ? (
+          <Badge
+            content={" "}
+            placement="bottom-right"
+            size="sm"
+            color="success"
+          >
+            <Avatar
+              src={avatar}
+              alt={`${sender}'s Avatar`}
+              size="sm"
+              className={`shadow-md border border-${color}`} // Use stored color
+              isBordered
+            />
+          </Badge>
+        ) : (
+          <Avatar
+            src={avatar}
+            alt={`${sender}'s Avatar`}
+            size="sm"
+            className={`shadow-md border border-${color}`} // Use stored color
+            isBordered
+          />
         )}
       </div>
 
       {/*  Sender & Message Preview */}
-      <div className="flex-1">
-        <h3 className={`text-${color} text-sm font-semibold`}>{sender}</h3> {/*  Name color matches stored color */}
-        <p className="text-default-600 text-xs truncate">{text}</p>
-      </div>
+      <div className="w-full  ">
+        <div className="flex w-full justify-between items-start">
+          <div className={`text-${color} text-sm font-semibold`}>{sender}</div>
 
-      {/*  Time Display */}
-      <span className="text-xs text-gray-400">{time}</span>
+          <span className="text-xs text-gray-400 self-center">{time}</span>
+        </div>
+
+        {/*  Time Display */}
+        <div className="flex w-full justify-between items-start">
+          <p className="text-default-600 text-xs truncate">{text}</p>
+          <div
+            className={`flex justify-center items-center py-[1] px-2 w-fit text-[11px] ${unreadMessages === 0 ? "hidden" : "bg-green-600 text-white"} rounded-lg`}
+          >
+            {unreadMessages}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -6,11 +6,21 @@ import { Input } from "@heroui/input";
 import { SearchIcon } from "@/components/icons";
 
 type MessageListProps = {
-  onMessageSelect: (message: { id: number; sender: string; text: string; time: string; avatar: string; unreadMessages: number }) => void;
-  userColors: { [key: string]: string };
+  onMessageSelect: (message: {
+    id: number;
+    sender: string;
+    text: string;
+    time: string;
+    avatar: string;
+    unreadMessages: number;
+  }) => void;
+  userColors?: { [key: string]: string };
 };
 
-const MessageList: React.FC<MessageListProps> = ({ onMessageSelect, userColors }) => {
+const MessageList: React.FC<MessageListProps> = ({
+  onMessageSelect,
+  userColors,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "unread">("all");
 
@@ -18,12 +28,15 @@ const MessageList: React.FC<MessageListProps> = ({ onMessageSelect, userColors }
   const filteredMessages = messages
     .filter((msg) => {
       if (filterType === "unread" && msg.unreadMessages === 0) return false;
-      return msg.sender.toLowerCase().includes(searchTerm.toLowerCase()) || msg.text.toLowerCase().includes(searchTerm.toLowerCase());
+      return (
+        msg.sender.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        msg.text.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     })
     .sort((a, b) => b.unreadMessages - a.unreadMessages); //  Sort by unread messages (highest first)
 
   return (
-    <div className="space-y-2 p-4 rounded-lg h-screen flex flex-col">
+    <div className="space-y-2 h-full p-4 rounded-lg flex flex-col">
       <h1 className="text-lg font-semibold">Chats</h1>
 
       {/*  Search Input */}
@@ -42,8 +55,7 @@ const MessageList: React.FC<MessageListProps> = ({ onMessageSelect, userColors }
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      {/*  Scrollable Message List with Invisible Scrollbar */}
-      <div className="flex-1 overflow-y-auto scrollbar-none">
+      <div className="flex-1 overflow-y-auto">
         {filteredMessages.length > 0 ? (
           filteredMessages.map((msg) => (
             <div
@@ -51,14 +63,14 @@ const MessageList: React.FC<MessageListProps> = ({ onMessageSelect, userColors }
               onClick={() => onMessageSelect(msg)}
               className="cursor-pointer hover:bg-default-100 transition rounded-lg"
             >
-              <MessageItem 
-                sender={msg.sender} 
-                text={msg.text} 
-                time={msg.time} 
+              <MessageItem
+                sender={msg.sender}
+                text={msg.text}
+                time={msg.time}
                 avatar={msg.avatar}
-                color={userColors?.[msg.sender] || "primary"} 
-                unreadMessages={msg.unreadMessages || 0} 
-                isSelected={false} 
+                color={userColors?.[msg.sender] || "primary"}
+                unreadMessages={msg.unreadMessages || 0}
+                isSelected={false}
               />
             </div>
           ))
