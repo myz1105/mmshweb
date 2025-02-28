@@ -14,7 +14,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-grow pt-1">
         <Sidebar />
         <ScrollShadow className="h-[92vh] w-full overflow-auto" size={20}>
-          <main className="h-max min-h-full w-full mb-2 p-4">{children}</main>
+          <main className="h-full min-h-full w-full px-2 ">{children}</main>
         </ScrollShadow>
       </div>
     </div>

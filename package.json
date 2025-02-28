@@ -9,6 +9,7 @@
   "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
  },
  "dependencies": {
+  "@heroicons/react": "^2.2.0",
   "@heroui/button": "2.2.9",
   "@heroui/code": "2.2.6",
   "@heroui/input": "2.4.9",
@@ -23,6 +24,7 @@
   "@heroui/theme": "^2.4.9",
   "@heroui/toast": "^2.0.3",
   "@iconify/react": "^5.2.0",
+  "@material-tailwind/react": "^2.1.10",
   "@react-aria/ssr": "3.9.7",
   "@react-aria/visually-hidden": "3.8.18",
   "axios": "^1.7.9",

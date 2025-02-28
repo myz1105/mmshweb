@@ -634,10 +634,10 @@ export default function LoadTable() {
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
       classNames={{
-        wrapper: "max-h-[382px]",
+        wrapper: "max-h-[70vh]",
       }}
       selectedKeys={selectedKeys}
-      selectionMode="multiple"
+      selectionMode="single"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
@@ -657,7 +657,7 @@ export default function LoadTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
+      <TableBody emptyContent={"No loads found"} items={sortedItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (

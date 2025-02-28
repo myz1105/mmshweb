@@ -50,7 +50,7 @@ const data = [
 
 export default function Profile() {
   return (
-    <>
+    <div>
       <dl className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
         {data.map(
           (
@@ -151,6 +151,12 @@ export default function Profile() {
       <div className="mt-5">
         <LoadTable />
       </div>
-    </>
+      <div className="mt-5">
+        <LoadTable />
+      </div>
+      <div className="mt-5">
+        <LoadTable />
+      </div>
+    </div>
   );
 }
