@@ -9,16 +9,16 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import Sidebar from "@/components/main_components/sidebar";
 
-// ✅ Remove static metadata and use a function to generate it dynamically
+//  Remove static metadata and use a function to generate it dynamically
 export async function generateMetadata(): Promise<Metadata> {
-  const { t } = await import("i18next"); // ✅ Import translation function dynamically
+  const { t } = await import("i18next"); // Import translation function dynamically
 
   return {
     title: {
-      default: t("siteConfig.name"), // ✅ Now uses translation
-      template: `%s - ${t("siteConfig.name")}`, // ✅ Now uses translation
+      default: t("siteConfig.name"), //    Now uses translation
+      template: `%s - ${t("siteConfig.name")}`, // Now uses translation
     },
-    description: t("siteConfig.description"), // ✅ Now uses translation
+    description: t("siteConfig.description"), //  Now uses translation
     icons: {
       icon: "/logo_fixed.png",
     },

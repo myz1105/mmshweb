@@ -63,7 +63,7 @@ export default function ProfileSettings() {
             />
 
           <div className="flex justify-center">
-            <Button className="bg-gray-800 text-white px-4 py-2">Update Profile</Button>
+            <Button className="bg-gray-700 text-white px-4 py-2">Update Profile</Button>
           </div>
             
       {/* <h1>HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello</h1> */}
