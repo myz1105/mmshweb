@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar";
 import Sidebar from "@/components/main_components/sidebar";
 import { ScrollShadow } from "@heroui/react";
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const LoadManagementLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative flex flex-col h-screen overflow-hidden ">
       <Navbar />
@@ -20,4 +20,4 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MainLayout;
+export default LoadManagementLayout;
