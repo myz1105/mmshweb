@@ -7,7 +7,6 @@ import { button as buttonStyles } from "@heroui/theme";
 import { title, subtitle } from "@/components/primitives";
 import { FaInstagram } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-import LoadTable from "@/components/table-components/loads-table";
 
 export default function Home() {
   const { t } = useTranslation();

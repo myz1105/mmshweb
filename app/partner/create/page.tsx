@@ -4,7 +4,7 @@ import { Step } from "@/components/main_components/stepper";
 import { Icon } from "@iconify/react";
 import { IoIosPerson } from "react-icons/io";
 import { Button } from "@heroui/react";
-import CreateTruckDetails from "./truck_details";
+import CreateTruckDetails from "./partner_details";
 
 interface CheckIconProps {
   size?: number;

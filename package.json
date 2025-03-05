@@ -27,6 +27,7 @@
     "@iconify/react": "^5.2.0",
     "@react-aria/ssr": "3.9.7",
     "@react-aria/visually-hidden": "3.8.18",
+    "@react-google-maps/api": "^2.20.6",
     "axios": "^1.7.9",
     "clsx": "2.1.1",
     "framer-motion": "11.13.1",
@@ -43,12 +44,15 @@
     "react": "18.3.1",
     "react-big-calendar": "^1.18.0",
     "react-dom": "18.3.1",
+    "react-hook-form": "^7.54.2",
     "react-i18next": "^15.4.1",
     "react-icons": "^5.4.0",
     "react-image-crop": "^11.0.7",
     "react-image-file-resizer": "^0.4.8",
     "react-international-phone": "^4.5.0",
-    "react-phone-input-2": "^2.15.1"
+    "react-phone-input-2": "^2.15.1",
+    "react-select": "^5.10.1",
+    "world-countries": "^5.1.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "15.0.4",
