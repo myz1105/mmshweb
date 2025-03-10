@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
-import { Switch } from "@headlessui/react";
+import { Switch } from "@heroui/react";
 import {
   Button,
   ButtonGroup,
@@ -13,7 +13,13 @@ import {
 } from "@heroui/react";
 
 export const ChevronDownIcon = () => (
-  <svg fill="none" height="14" viewBox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    fill="none"
+    height="14"
+    viewBox="0 0 24 24"
+    width="14"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       d="M17.9188 8.17969H11.6888H6.07877C5.11877 8.17969 4.63877 9.33969 5.31877 10.0197L10.4988 15.1997C11.3288 16.0297 12.6788 16.0297 13.5088 15.1997L15.4788 13.2297L18.6888 10.0197C19.3588 9.33969 18.8788 8.17969 17.9188 8.17969Z"
       fill="currentColor"
@@ -24,8 +30,11 @@ export const ChevronDownIcon = () => (
 export default function Settings() {
   const [darkMode, setDarkMode] = useState(false);
   const [translucentUI, setTranslucentUI] = useState(false);
-  const [selectedSize, setSelectedSize] = useState<keyof typeof sizeLabels>("medium"); // Fixed typing
-  const [selectedOption, setSelectedOption] = useState<Selection>(new Set(["eng"])); // Correct
+  const [selectedSize, setSelectedSize] =
+    useState<keyof typeof sizeLabels>("medium"); // Fixed typing
+  const [selectedOption, setSelectedOption] = useState<Selection>(
+    new Set(["eng"])
+  ); // Correct
 
   const labelsMap = {
     uz: "Uzbek",
@@ -39,7 +48,9 @@ export default function Settings() {
     small: "Small",
   } as const;
 
-  const selectedOptionValue = Array.from(selectedOption)[0] as keyof typeof labelsMap; // Ensure correct type
+  const selectedOptionValue = Array.from(
+    selectedOption
+  )[0] as keyof typeof labelsMap; // Ensure correct type
 
   return (
     <div className="p-6 rounded-xl w-120">
@@ -76,9 +87,7 @@ export default function Settings() {
 
         <div className="ml-auto relative">
           <ButtonGroup variant="flat" className="w-full">
-            <Button className="w-full p-1">
-              {sizeLabels[selectedSize]}
-            </Button>
+            <Button className="w-full p-1">{sizeLabels[selectedSize]}</Button>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <Button isIconOnly>
@@ -86,17 +95,23 @@ export default function Settings() {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
-              disallowEmptySelection
-              aria-label="Size options"
-              className="max-w-[300px]"
-              selectedKeys={new Set([selectedSize])}
-              selectionMode="single"
-              onSelectionChange={(keys) => setSelectedSize(Array.from(keys)[0] as keyof typeof sizeLabels)}
-            >
-              {Object.keys(sizeLabels).map((key) => (
-                <DropdownItem key={key}>{sizeLabels[key as keyof typeof sizeLabels]}</DropdownItem>
-              ))}
-            </DropdownMenu>
+                disallowEmptySelection
+                aria-label="Size options"
+                className="max-w-[300px]"
+                selectedKeys={new Set([selectedSize])}
+                selectionMode="single"
+                onSelectionChange={(keys) =>
+                  setSelectedSize(
+                    Array.from(keys)[0] as keyof typeof sizeLabels
+                  )
+                }
+              >
+                {Object.keys(sizeLabels).map((key) => (
+                  <DropdownItem key={key}>
+                    {sizeLabels[key as keyof typeof sizeLabels]}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
             </Dropdown>
           </ButtonGroup>
         </div>
@@ -111,7 +126,7 @@ export default function Settings() {
         </div>
         <Switch
           checked={translucentUI}
-          onChange={setTranslucentUI}
+          onValueChange={setTranslucentUI}
           style={{ marginLeft: "10px" }}
           className={`${
             translucentUI ? "bg-blue-500" : "bg-gray-700"
@@ -131,12 +146,12 @@ export default function Settings() {
         </div>
         <ButtonGroup variant="flat">
           <Button>{labelsMap[selectedOptionValue]}</Button>
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <Button isIconOnly>
-                  <ChevronDownIcon />
-                </Button>
-              </DropdownTrigger>
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Button isIconOnly>
+                <ChevronDownIcon />
+              </Button>
+            </DropdownTrigger>
             <DropdownMenu
               disallowEmptySelection
               aria-label="Language options"
@@ -146,7 +161,9 @@ export default function Settings() {
               onSelectionChange={setSelectedOption}
             >
               {Object.keys(labelsMap).map((key) => (
-                <DropdownItem key={key}>{labelsMap[key as keyof typeof labelsMap]}</DropdownItem>
+                <DropdownItem key={key}>
+                  {labelsMap[key as keyof typeof labelsMap]}
+                </DropdownItem>
               ))}
             </DropdownMenu>
           </Dropdown>

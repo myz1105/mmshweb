@@ -186,6 +186,19 @@ const CreateTrailer: React.FC = () => {
           <Checkbox value="san-francisco">San Francisco</Checkbox>
         </CheckboxGroup>
       </div>
+      <div className="flex flex-col gap-1 me-2">
+        <Input
+          variant="faded"
+          description="How many do you belts"
+          endContent={
+            <span className="text-default-600 dark:text-default-400">#</span>
+          }
+          label="Belts"
+          labelPlacement="outside"
+          placeholder="1"
+          type="number"
+        />
+      </div>
 
       <Divider className="my-5" />
     </div>

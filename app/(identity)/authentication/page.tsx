@@ -11,7 +11,7 @@ import { VerifyPhoneHeader } from "@/components/identityComps/verify-phone";
 import VerifyPhone from "@/components/identityComps/verify-phone";
 import EnterClientInfo from "@/components/identityComps/enter-client-info";
 import { addToast } from "@heroui/toast";
-import { BaseAddress, setToken, Token, setClient } from "@/types/api";
+import { BaseAddress, setToken, Token } from "@/types/api";
 import { setLocalStorage } from "@/utils/localstorage";
 import { Sura } from "next/font/google";
 type ClientParameters = {
@@ -20,8 +20,12 @@ type ClientParameters = {
   deviceModel?: string;
   clientId?: string;
 };
+import { useClient } from "@/contexts/profile-management/client-context";
+import { useRouter } from "next/navigation";
 
 export default function Authentication() {
+  const router = useRouter();
+
   //phone number validation
   const phoneUtil = PhoneNumberUtil.getInstance();
   const [phone, setPhone] = useState<{
@@ -40,6 +44,8 @@ export default function Authentication() {
     { firstname: string; surname: string } | undefined
   >();
   const [clientImageSrc, setClientImageSrc] = useState<string | undefined>();
+
+  const { setClient } = useClient();
 
   const handlePhoneUpdate = (phoneNumber: {
     phone: string;
@@ -181,10 +187,11 @@ export default function Authentication() {
       let imgData: any | null;
       try {
         const result = await handleUploadImage();
-        imgData = result.data;
+        imgData = result.Data;
       } catch (error) {
         console.error("Upload failed:", error);
       }
+      console.log("imgData", imgData);
 
       const res = await fetch(BaseAddress + "Client/Create", {
         method: "POST",
@@ -209,9 +216,11 @@ export default function Authentication() {
 
       const result1 = await res.json();
       const { Message, Status, Data } = result1;
+      console.log(result1);
       if (Status === 100) {
         setClient(Data);
         setState(AuthenticationState.AuthReady);
+        router.push("/main");
       } else {
         addToast({
           description: Message,
@@ -219,9 +228,10 @@ export default function Authentication() {
         });
       }
       setLoading(false);
-      setLoading(false);
     }
     if (state === AuthenticationState.AuthReady) {
+      const router = useRouter();
+      router.push("/main");
     }
   };
 

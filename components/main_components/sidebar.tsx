@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Input,
   Avatar,
@@ -31,6 +31,9 @@ import {
 } from "react-icons/md";
 import { RiContactsBook2Fill } from "react-icons/ri";
 import { FaBuildingUser } from "react-icons/fa6";
+import { getClient } from "@/data/static_data/profile-management";
+import { get } from "http";
+import { useClient } from "@/contexts/profile-management/client-context";
 
 interface SidebarProps {
   onUpdate: () => void;
@@ -71,10 +74,13 @@ export const ListboxWrapper = ({ children }: { children: any }) => (
 );
 
 export function SidebarExtended({ onUpdate }: SidebarProps) {
+  const { client } = useClient();
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set(["home"])
   );
-
+  useEffect(() => {
+    console.log("Client data:", client);
+  }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
     [selectedKeys]
@@ -94,7 +100,7 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
                 src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
               }}
               description="Product Designer"
-              name="Muhammad Mustafo Zikrillayevich"
+              name={client?.Info.Name + " " + client?.Info.Surname}
             />
             <Button
               isIconOnly

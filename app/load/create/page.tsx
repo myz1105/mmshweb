@@ -13,6 +13,7 @@ import { Button, Input, Checkbox, Link } from "@heroui/react";
 import CreateLoadDetails from "./create-load-details";
 import CreateLoadRoute from "./create-route";
 import CreateTrailer from "./required-trailer";
+import ContactInformation from "./contact-information";
 
 interface CheckIconProps {
   size?: number;
@@ -48,12 +49,13 @@ export enum LoadCreationStatus {
   EnterLoadDetails,
   EnterRoute,
   EnterTraileDetails,
+  EnterContactAndPrices,
 }
 
 const CreatePage: React.FC = () => {
   const handleOnChecked = (value: boolean) => {};
   const [loadCreationState, setLoadCreationState] = useState(
-    LoadCreationStatus.EnterLoadDetails
+    LoadCreationStatus.EnterContactAndPrices
   );
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
@@ -73,6 +75,9 @@ const CreatePage: React.FC = () => {
           )}
           {loadCreationState === LoadCreationStatus.EnterTraileDetails && (
             <CreateTrailer />
+          )}
+          {loadCreationState === LoadCreationStatus.EnterContactAndPrices && (
+            <ContactInformation />
           )}
           <div className="flex justify-between max-w-3xl gap-6 px-6">
             <Button variant="bordered">

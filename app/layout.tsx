@@ -8,6 +8,7 @@ import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import Sidebar from "@/components/main_components/sidebar";
+import { ClientProvider } from "@/contexts/profile-management/client-context";
 
 //  Remove static metadata and use a function to generate it dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,7 +48,7 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          {children}
+          <ClientProvider>{children}</ClientProvider>
         </Providers>
       </body>
     </html>

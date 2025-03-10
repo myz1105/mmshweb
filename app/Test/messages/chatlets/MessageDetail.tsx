@@ -74,7 +74,7 @@ const MessageDetail: React.FC<MessageDetailProps> = ({
   return (
     <div className="flex flex-col w-full h-full">
       {/* Header with Avatar and Name */}
-      <div className="w-full h-[12vh] min-h-[60px]  flex items-center px-2 gap-3 rounded-md relative">
+      <div className="w-full h-[12vh] min-h-[60px] max-h-[70px]  flex items-center px-2 gap-3 rounded-md relative">
         <Button
           isIconOnly
           variant="light"
