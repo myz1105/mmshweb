@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
-import { Card, CardBody, Input, Textarea, Button, Avatar, Badge, User } from "@heroui/react";
+import { Input, Textarea, Button, Avatar, Badge } from "@heroui/react";
 import { FaPencil } from "react-icons/fa6";
 
 export default function ProfileSettings() {
   const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [bio, setBio] = useState("");
 
   return (
     <div className="flex flex-col gap-6 mb-10">
@@ -31,44 +29,38 @@ export default function ProfileSettings() {
               <div className="text-default-500 text-xs">Hayo</div>
               <div className="text-default-500 text-xs">Contact: <span className="font-semibold">+99893 000 88 66 </span></div>
             </div>
-
-            
             </div>
-      <Input
-            label="Title"
-            labelPlacement="outside"
-            description="Set your current role."
-              placeholder="e.g Customer Support"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="text-white"
+            <Input
+              label="Title"
+              labelPlacement="outside"
+              description="Set your current role."
+                placeholder="e.g Customer Support"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="text-white"
             />
             <Input
-            label="Location"
-            labelPlacement="outside"
-            description="Set your current location."
-              placeholder="e.g Buenos Aires, Argentina"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="text-white"
+              label="Location"
+              labelPlacement="outside"
+              description="Set your current location."
+                placeholder="e.g Buenos Aires, Argentina"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="text-white"
             />
             <Textarea
-            label="Location"
-            labelPlacement="outside"
-            description="Specify your present whereabouts."
-              placeholder="e.g., 'Kate Moore - Acme.com Support Specialist. Passionate about solving tech issues, loves hiking and volunteering.'"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="text-white"
+              label="Location"
+              labelPlacement="outside"
+              description="Specify your present whereabouts."
+                placeholder="e.g., 'Kate Moore - Acme.com Support Specialist. Passionate about solving tech issues, loves hiking and volunteering.'"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="text-white"
             />
 
           <div className="flex justify-center">
             <Button className="bg-gray-700 text-white px-4 py-2">Update Profile</Button>
           </div>
-            
-      {/* <h1>HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello</h1> */}
-      
-     
     </div>
   );
 }
