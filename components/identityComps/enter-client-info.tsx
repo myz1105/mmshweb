@@ -15,7 +15,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { TbCameraPlus } from "react-icons/tb";
 // import Modal from "../image-tools/image-modal";
 import ImageCropper, { ImageCropperRef } from "../image-tools/image-crop";
-import { BaseAddress, Token } from "@/types/api";
+import { BaseAddressAPI, Token } from "@/types/api";
 interface ChildComponentProps {
   onImageUpdated: (src: string) => void;
   onUpdate: (

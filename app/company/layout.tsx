@@ -6,6 +6,7 @@ import { Footer } from "@/components/footer";
 import { ScrollShadow } from "@heroui/react";
 import { getLocalStorage } from "@/utils/localstorage";
 import { redirect } from "next/navigation";
+import { CreateCompanyProvider } from "./company-context";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -13,8 +14,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <Navbar />
       <div className="flex flex-grow pt-1">
         <Sidebar />
-        <ScrollShadow className="h-[92vh] w-full overflow-auto">
-          <main className="h-full w-full pb-2">{children}</main>
+        <ScrollShadow className="h-[92vh] w-full overflow-auto" size={20}>
+          <main className="h-full min-h-full w-full px-2 ">
+            <CreateCompanyProvider>{children}</CreateCompanyProvider>
+          </main>
         </ScrollShadow>
       </div>
     </div>

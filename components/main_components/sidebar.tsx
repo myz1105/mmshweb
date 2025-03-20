@@ -8,6 +8,12 @@ import {
   Selection,
   ListboxSection,
   Button,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Modal,
+  ModalContent,
+  useDisclosure,
 } from "@heroui/react";
 import {
   IoMdHome,
@@ -34,6 +40,9 @@ import { FaBuildingUser } from "react-icons/fa6";
 import { getClient } from "@/data/static_data/profile-management";
 import { get } from "http";
 import { useClient } from "@/contexts/profile-management/client-context";
+import { useRouter } from "next/navigation";
+import { Icon } from "@iconify/react";
+import ContactsModal from "@/app/profile/Contacts/contacts";
 
 interface SidebarProps {
   onUpdate: () => void;
@@ -74,17 +83,26 @@ export const ListboxWrapper = ({ children }: { children: any }) => (
 );
 
 export function SidebarExtended({ onUpdate }: SidebarProps) {
-  const { client } = useClient();
+  const router = useRouter();
+
+  const { client, getImg } = useClient();
+  const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
+    getImg(client?.Info.Img?.Img64)
+  );
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set(["home"])
   );
+
   useEffect(() => {
-    console.log("Client data:", client);
+    setAvatarSrc(getImg(client?.Info.Img?.Img64));
   }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
     [selectedKeys]
   );
+
+  //Contacts -------------------------------------------
+  const { isOpen, onOpenChange, onOpen } = useDisclosure();
 
   const handleSelectionChange = (keys: Set<string>) => {
     setSelectedKeys(keys);
@@ -97,9 +115,11 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
           <div className="flex w-full items-center justify-between pt-5">
             <User
               avatarProps={{
-                src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                src:
+                  avatarSrc ||
+                  "https://i.pravatar.cc/150?u=a04258114e29026702d",
               }}
-              description="Product Designer"
+              description={client?.Username}
               name={client?.Info.Name + " " + client?.Info.Surname}
             />
             <Button
@@ -131,6 +151,27 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
             >
               <ListboxSection title="Personal">
                 <ListboxItem
+                  onPress={() => {
+                    router.push("/main");
+                  }}
+                  startContent={
+                    <Icon
+                      icon="material-symbols-light:space-dashboard-rounded"
+                      className="dark:text-gray-300 text-gray-600"
+                      fontSize={28}
+                    />
+                  }
+                  key="main"
+                  textValue="Main" // Add textValue prop
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Main
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  onPress={() => {
+                    router.push("/profile");
+                  }}
                   startContent={
                     <MdAccountCircle
                       size={24}
@@ -167,9 +208,28 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
                   }
                   key="contacts"
                   textValue="Contacts" // Add textValue prop
+                  onPress={() => onOpen()}
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Contacts
+                  </div>
+                </ListboxItem>
+                <ListboxItem
+                  startContent={
+                    <Icon
+                      icon="ix:building1-filled"
+                      className="font-semibold dark:text-gray-300 text-gray-600"
+                      fontSize={24}
+                    />
+                  }
+                  key="companies"
+                  textValue="Companies"
+                  onPress={() => {
+                    router.push("/company");
+                  }}
+                >
+                  <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
+                    Companies
                   </div>
                 </ListboxItem>
                 <ListboxItem
@@ -304,6 +364,7 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
               </ListboxItem>
             </Listbox>
           </ListboxWrapper>
+          <ContactsModal isOpen={isOpen} onOpenChange={onOpenChange} />
         </div>
       </div>
     </div>
@@ -311,10 +372,18 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
 }
 
 export function SidebarShrinked({ onUpdate }: SidebarProps) {
+  const { client, getImg } = useClient();
+  const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
+    getImg(client?.Info.Img?.Img64)
+  );
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set(["home"])
   );
 
+  useEffect(() => {
+    setAvatarSrc(getImg(client?.Info.Img?.Img64));
+    console.log("image ready");
+  }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
     [selectedKeys]
@@ -347,7 +416,11 @@ export function SidebarShrinked({ onUpdate }: SidebarProps) {
       <div className="py-4 px-2 h-full flex flex-col relative">
         <div className=" px-2 flex-none">
           <div className="flex-col w-full items-center">
-            <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
+            <Avatar
+              src={
+                avatarSrc || "https://i.pravatar.cc/150?u=a04258114e29026702d"
+              }
+            />
           </div>
         </div>
         <div className="grow">

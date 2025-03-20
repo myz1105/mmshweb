@@ -9,6 +9,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import Sidebar from "@/components/main_components/sidebar";
 import { ClientProvider } from "@/contexts/profile-management/client-context";
+import { SignalRProvider } from "@/contexts/profile-management/signalR-context";
 
 //  Remove static metadata and use a function to generate it dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -47,9 +48,15 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <ClientProvider>{children}</ClientProvider>
-        </Providers>
+        <ClientProvider>
+          <SignalRProvider hubName="MMSHHUB/Notification">
+            <Providers
+              themeProps={{ attribute: "class", defaultTheme: "dark" }}
+            >
+              {children}
+            </Providers>
+          </SignalRProvider>
+        </ClientProvider>
       </body>
     </html>
   );

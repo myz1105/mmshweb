@@ -2,16 +2,15 @@
 import Profile from "../settings/settly/Profile";
 import Application from "./settly/Application";
 import Account from "./settly/Account";
-import { Tabs, Tab } from "@heroui/react"
-
+import { Tabs, Tab } from "@heroui/react";
 
 export default function SettingsPage() {
-  const tabs = ["Profile", "Account", "Appearance", "Application"];
+  const tabs = ["Profile", "Account", "Application", "Application"];
 
   return (
     <div className=" flex flex-col  px-6 py-3 max-w-3xl">
-      <h1 className="text-[5vh] font-bold">Settings</h1>
-      <Tabs aria-label="Options" fullWidth >
+      <div className="text-2xl font-semibold mb-5">Settings</div>
+      <Tabs aria-label="Options" fullWidth>
         <Tab key={tabs[0]} title={tabs[0]}>
           <Profile />
         </Tab>
@@ -22,6 +21,6 @@ export default function SettingsPage() {
           <Application />
         </Tab>
       </Tabs>
-    </div>  
+    </div>
   );
 }

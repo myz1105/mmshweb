@@ -7,28 +7,15 @@ import { button as buttonStyles } from "@heroui/theme";
 import { title, subtitle } from "@/components/primitives";
 import { FaInstagram } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
-<<<<<<< HEAD
 import LoadTable from "@/components/table-components/loads-table";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { useClient } from "@/contexts/profile-management/client-context";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-=======
->>>>>>> 2c022b18ff3a1d13871f069d857a28fb0b0dc663
 
 export default function Home() {
   const { t } = useTranslation();
-  const { client } = useClient();
-  const router = useRouter();
-  useEffect(() => {
-    if (!client) {
-      router.push("/authentication");
-    } else {
-      router.push("/main");
-    }
-    console.log(client);
-  }, [client]);
 
   return (
     <div className="relative flex flex-col h-screen">

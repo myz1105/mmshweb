@@ -1,4 +1,5 @@
-export const BaseAddress = "http://194.93.26.143:2035/api/";
+export const BaseAddressAPI = "http://194.93.26.143:2035/api/";
+export const BaseAddress = "http://194.93.26.143:2035/";
 export let Token = "";
 
 // Function to set the token

@@ -11,7 +11,7 @@ import { VerifyPhoneHeader } from "@/components/identityComps/verify-phone";
 import VerifyPhone from "@/components/identityComps/verify-phone";
 import EnterClientInfo from "@/components/identityComps/enter-client-info";
 import { addToast } from "@heroui/toast";
-import { BaseAddress, setToken, Token } from "@/types/api";
+import { BaseAddressAPI, setToken, Token } from "@/types/api";
 import { setLocalStorage } from "@/utils/localstorage";
 import { Sura } from "next/font/google";
 type ClientParameters = {
@@ -87,7 +87,7 @@ export default function Authentication() {
       if (phone && phone.phone) {
       }
       try {
-        const res = await fetch(BaseAddress + "Account/Init", {
+        const res = await fetch(BaseAddressAPI + "Account/Init", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export default function Authentication() {
       setLoading(true);
       if (verifyCode.length === 5) {
         try {
-          const res = await fetch(BaseAddress + "Account/Init", {
+          const res = await fetch(BaseAddressAPI + "Account/Init", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -193,7 +193,7 @@ export default function Authentication() {
       }
       console.log("imgData", imgData);
 
-      const res = await fetch(BaseAddress + "Client/Create", {
+      const res = await fetch(BaseAddressAPI + "Client/Create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -284,7 +284,7 @@ export default function Authentication() {
         const formData = new FormData();
         formData.append("formFile", file); // Append the file to FormData
         // Upload to your API
-        const apiUrl = BaseAddress + "Img/Upload"; // Replace with your API URL
+        const apiUrl = BaseAddressAPI + "Img/Upload"; // Replace with your API URL
         const uploadResponse = await fetch(apiUrl, {
           method: "POST",
           body: formData,

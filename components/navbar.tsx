@@ -22,7 +22,9 @@ import { useRouter } from "next/navigation";
 import { SearchIcon, MMSHLogo } from "@/components/icons";
 import { FaInstagram, FaTelegram, FaSignInAlt } from "react-icons/fa";
 import { SocialMedia } from "./mini_components/Social_media";
-import LanguageToggle from "@/components/languages/button";
+import { useClient } from "@/contexts/profile-management/client-context";
+import { User } from "@heroui/react";
+import { useState, useEffect } from "react";
 
 export const Navbar = () => {
   const { t } = useTranslation();
@@ -50,6 +52,13 @@ export const Navbar = () => {
   );
 
   const router = useRouter();
+  const { client, getImg } = useClient();
+  const [avatarSrc, setAvatarSrc] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (client && client.Info.Img)
+      setAvatarSrc(getImg(client?.Info.Img?.Img64));
+  }, [client]);
 
   return (
     <HeroUINavbar
@@ -94,6 +103,19 @@ export const Navbar = () => {
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        {client && (
+          <div className="p-1">
+            <User
+              avatarProps={{
+                size: "sm",
+                src:
+                  avatarSrc ||
+                  "https://i.pravatar.cc/150?u=a04258114e29026702d",
+              }}
+              name={client?.Info.Name + " " + client?.Info.Surname}
+            />
+          </div>
+        )}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
@@ -116,6 +138,18 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarMenu>
+        {client && (
+          <div className="p-1">
+            <User
+              avatarProps={{
+                src:
+                  avatarSrc ||
+                  "https://i.pravatar.cc/150?u=a04258114e29026702d",
+              }}
+              name={client?.Info.Name + " " + client?.Info.Surname}
+            />
+          </div>
+        )}
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
