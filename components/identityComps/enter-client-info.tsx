@@ -47,7 +47,6 @@ const EnterClientInfo: React.FC<ChildComponentProps> = ({
   }, [firstname, surname]);
 
   useEffect(() => {
-    console.log("dasadasdasdasdasdasd");
     if (imageSource) {
       onImageUpdated(imageSource);
     }

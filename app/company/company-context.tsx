@@ -116,9 +116,7 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const result = await response.json();
-      console.log("Files uploaded successfully:", result);
     } catch (error) {
-      console.error("Error uploading files:", error);
     }
   };
   const [isCompanyDocumentsValid, setCompanyDocumentsValidation] =
@@ -211,10 +209,8 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [bankAccounts]);
 
   useEffect(() => {
-    console.log("salom");
     setCompanyDocumentsValidation(files.length >= 3);
     let result = files.length >= 3 ? 100 : files.length * 33;
-    console.log(result);
     setCompanyDocsCompilationPercentage(result);
   }, [files]);
 
@@ -362,7 +358,6 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
     if (index === -1) {
       return prevBankAccounts;
     }
-    console.log("id:", index);
     const newBankAccounts = [...prevBankAccounts];
     const lastAccount =
       newBankAccounts[index].AccountNumbers[
@@ -417,7 +412,6 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const goBack = () => {
-    console.log("hello");
     if (canGoBack) {
       if (companyCreateState === CompanyCreateState.EnterCompanyBankDetails) {
         setCompanyCreateState(CompanyCreateState.EnterCompanyDetails);

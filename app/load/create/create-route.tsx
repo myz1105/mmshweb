@@ -133,12 +133,7 @@ const CreateLoadRoute: React.FC = () => {
                 onSelectionChange={(key) => {
                   const selectedOptionValue = Array.from(key)[0];
                   setLoadReadyState(selectedOptionValue as LoadReadyState);
-                  console.log(
-                    selectedOptionValue,
-                    LoadReadyState.LoadIsReadyAt,
-                    (selectedOptionValue as LoadReadyState) ==
-                      LoadReadyState.LoadIsReadyAt,
-                  );
+                
                 }}
               >
                 {Object.values(LoadReadyState)

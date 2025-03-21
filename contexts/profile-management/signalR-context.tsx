@@ -51,7 +51,6 @@ export const SignalRProvider: React.FC<
       .start()
       .then(() => {
         newConnection.on("Offline", (data) => {
-          console.log("dasd");
           addToast({
             title: `${data.phoneNumber} is offline!`,
             color: "danger",
@@ -70,12 +69,11 @@ export const SignalRProvider: React.FC<
       .catch((err) => console.error("Error connecting to SignalR hub", err));
 
     newConnection.onclose(() => {
-      console.log("Disconnected from SignalR hub");
       setIsConnected(false);
     });
 
     return () => {
-      newConnection.stop().then(() => console.log("Connection stopped"));
+      newConnection.stop().then(() => {});
     };
   }, [client, hubName]);
 

@@ -108,7 +108,6 @@ export default function Authentication() {
 
         const result = await res.json();
         const { Message, Status } = result;
-        console.log(result);
         if (Status === 202) {
           setState(AuthenticationState.VerificationState);
           setCanSubmit(false);
@@ -125,7 +124,6 @@ export default function Authentication() {
           description: "Error occured",
           color: "danger",
         });
-        console.error("Error:", error);
         setLoading(false);
       }
     }
@@ -191,7 +189,6 @@ export default function Authentication() {
       } catch (error) {
         console.error("Upload failed:", error);
       }
-      console.log("imgData", imgData);
 
       const res = await fetch(BaseAddressAPI + "Client/Create", {
         method: "POST",
@@ -216,7 +213,6 @@ export default function Authentication() {
 
       const result1 = await res.json();
       const { Message, Status, Data } = result1;
-      console.log(result1);
       if (Status === 100) {
         setClient(Data);
         setState(AuthenticationState.AuthReady);

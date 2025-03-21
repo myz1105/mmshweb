@@ -57,7 +57,6 @@ export default CreateCompanyBanks;
 const FileDropzone: React.FC<any> = ({ className }: { className: string }) => {
   const { files, setFiles, removeFile } = useCompany();
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
     if (acceptedFiles?.length) {
       setFiles((prevFiles: File[]) => {
         const existingFileNames = new Set(prevFiles.map((file) => file.name));

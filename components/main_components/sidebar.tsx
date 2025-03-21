@@ -66,7 +66,6 @@ export default function Sidebar() {
 
   const handleOnUpdateWidth = () => {
     setIsExtended(!isExtended);
-    console.log(!isExtended);
   };
 
   return isExtended ? (
@@ -382,7 +381,6 @@ export function SidebarShrinked({ onUpdate }: SidebarProps) {
 
   useEffect(() => {
     setAvatarSrc(getImg(client?.Info.Img?.Img64));
-    console.log("image ready");
   }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),

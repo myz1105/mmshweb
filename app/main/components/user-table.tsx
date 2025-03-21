@@ -201,7 +201,6 @@ export default function UserTable() {
 
   const renderCell = React.useCallback((user: UserType, columnKey: string) => {
     const cellValue = user[columnKey as keyof UserType];
-    console.log(columnKey);
     switch (columnKey) {
       case "Name":
         return (

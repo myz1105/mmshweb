@@ -194,9 +194,6 @@ const BankAccountField: React.FC<BankAccount & { bank: Bank }> = ({
     selectedOption,
   )[0] as keyof typeof labelsMap;
 
-  // useEffect(() => {
-  //   console.log(AccountNumber);
-  // }, []);
   return (
     <ButtonGroup key={id} variant="flat" className="grow">
       <Input

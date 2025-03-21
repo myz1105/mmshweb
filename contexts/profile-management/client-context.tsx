@@ -52,7 +52,6 @@ export const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const fetchClient = async (phone: string, clientId: string) => {
-    console.log(phone, clientId);
     setIsLoading(true);
     try {
       const res = await fetch(BaseAddressAPI + "Account/Init", {
@@ -75,7 +74,6 @@ export const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const result = await res.json();
-      console.log(result);
       const { Message, Status, Data } = result;
       if (Status === 100) {
         setClient(Data);
@@ -98,7 +96,6 @@ export const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const initListeners = (clnt: any) => {
-    console.log(clnt);
     const connect = new HubConnectionBuilder()
       .withUrl(BaseAddress + "UpdatesHub", {
         accessTokenFactory: () => {
