@@ -55,7 +55,7 @@ export default function Profile() {
         {data.map(
           (
             { title, value, change, changeType, iconName, trendChipPosition },
-            index
+            index,
           ) => (
             <Card
               key={index}
@@ -69,7 +69,7 @@ export default function Profile() {
                       "bg-success-50": changeType === "positive",
                       "bg-warning-50": changeType === "neutral",
                       "bg-danger-50": changeType === "negative",
-                    }
+                    },
                   )}
                 >
                   {changeType === "positive" ? (
@@ -145,7 +145,7 @@ export default function Profile() {
                 </Button>
               </div>
             </Card>
-          )
+          ),
         )}
       </dl>
       <div className="mt-5">

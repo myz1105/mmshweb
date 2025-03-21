@@ -55,9 +55,9 @@ export default function Account() {
       />
 
       <div className="w-full">
-        <label className="block text-sm font-medium mb-2">
+        <div className="block text-sm font-medium mb-2">
           Phone Number <span className="text-red-600">*</span>
-        </label>
+        </div>
       </div>
 
       <Button
@@ -68,4 +68,5 @@ export default function Account() {
       </Button>
     </Form>
   );
+  
 }

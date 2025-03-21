@@ -60,7 +60,15 @@ const MessageList: React.FC<MessageListProps> = ({
           filteredMessages.map((msg) => (
             <div
               key={msg.id}
+              role="button"
+              tabIndex={0}
               onClick={() => onMessageSelect(msg)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onMessageSelect(msg);
+                }
+              }}
               className="cursor-pointer hover:bg-default-100 transition rounded-lg"
             >
               <MessageItem

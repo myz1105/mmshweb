@@ -92,7 +92,7 @@ const Sessions: React.FC<SessionProps> = ({ onBack }) => {
                 >
                   {session.ClientId}
                 </ListboxItem>
-              ) : null // Return null if the condition is not met
+              ) : null, // Return null if the condition is not met
           )}
         </ListboxSection>
       </Listbox>

@@ -14,13 +14,31 @@ import {
 export default function LoadManager() {
   const [loadTypes, setLoadTypes] = useState<string[]>([]);
   const [packageTypes, setPackageTypes] = useState<string[]>([]);
-  
+
   const [newLoadType, setNewLoadType] = useState("");
   const [newPackageType, setNewPackageType] = useState("");
 
   useEffect(() => {
-    setLoadTypes(["Heavy Load", "Light Load", "Bulk", "Palletized Goods", "Heavy Load", "Light Load", "Bulk", "Palletized Goods"]);
-    setPackageTypes(["Fragile", "Boxed Goods", "Liquid Containers", "Frozen Items", "Heavy Load", "Light Load", "Bulk", "Palletized Goods"]);
+    setLoadTypes([
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+    ]);
+    setPackageTypes([
+      "Fragile",
+      "Boxed Goods",
+      "Liquid Containers",
+      "Frozen Items",
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+    ]);
   }, []);
 
   function addLoadType(newType: string) {
@@ -59,7 +77,6 @@ export default function LoadManager() {
             Add
           </Button>
         </div>
-
 
         {/* Load Types  Table */}
         <div className="max-h-[250px] block overflow-y-auto">

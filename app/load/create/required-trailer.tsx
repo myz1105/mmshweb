@@ -51,12 +51,12 @@ const sampleData: TreeNode[] = [
 
 const CreateTrailer: React.FC = () => {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set(["text"])
+    new Set(["text"]),
   );
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   return (

@@ -20,7 +20,7 @@ interface ChildComponentProps {
   onImageUpdated: (src: string) => void;
   onUpdate: (
     isvalid: boolean,
-    { firstname, surname }: { firstname: string; surname: string }
+    { firstname, surname }: { firstname: string; surname: string },
   ) => void;
 }
 
@@ -29,7 +29,7 @@ const EnterClientInfo: React.FC<ChildComponentProps> = ({
   onUpdate,
 }) => {
   const avatarUrl = useRef<string>(
-    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+    "https://avatarfiles.alphacoders.com/161/161002.jpg",
   );
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

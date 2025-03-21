@@ -106,7 +106,7 @@ export function VerifyPhoneHeader({
         </Button>
       </div>
       <p className="text-small text-default-500 text-center">
-        We've sent the code to your phone number.
+        We have sent the code to your phone number.
       </p>
     </div>
   );

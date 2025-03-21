@@ -4,19 +4,16 @@ import posts from "./blogs_data";
 import { useTranslation } from "react-i18next";
 
 const Comments: React.FC = () => {
-  
-  const { t } = useTranslation();  
+  const { t } = useTranslation();
 
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0 text-center">
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            {t('Blog.blogs.from')}
+            {t("Blog.blogs.from")}
           </h2>
-          <p className="mt-2 text-lg">
-          {t('Blog.blogs.learn')}
-          </p>
+          <p className="mt-2 text-lg">{t("Blog.blogs.learn")}</p>
         </div>
 
         <div className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-x-10 gap-y-16 border-t pt-10 sm:mt-16 sm:pt-16 lg:grid-cols-2 xl:grid-cols-3">
@@ -62,9 +59,12 @@ const Comments: React.FC = () => {
                 />
                 <div className="text-sm">
                   <p className="font-semibold ">
-                    <a href="#" className="hover:text-violet-600 transition-all">
+                    <button
+                      type="button"
+                      className="hover:text-violet-600 transition-all bg-transparent border-none p-0 cursor-pointer"
+                    >
                       {post.author}
-                    </a>
+                    </button>
                   </p>
                   <p className="">{post.role}</p>
                 </div>

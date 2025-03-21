@@ -2,6 +2,7 @@
 import React from "react";
 import { title } from "@/components/primitives";
 import { useTranslation } from "react-i18next";
+import { Button } from "@heroui/react";
 
 const Start_text: React.FC = () => {
   const { t } = useTranslation(); // ✅ Get translation function
@@ -23,33 +24,29 @@ const Start_text: React.FC = () => {
       <div className="mx-auto w-full px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0 text-center">
           <h2 className="text-5xl font-extrabold tracking-tight sm:text-7xl drop-shadow-md">
-            <span className={title({ color: "violet" })}>{t("Blog.title")}&nbsp;</span>
+            <span className={title({ color: "violet" })}>
+              {t("Blog.title")}&nbsp;
+            </span>
           </h2>
           <p className="mt-6 text-lg font-medium sm:text-xl">
             {t("Blog.subtitle")}
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                scrollToSection(750, 1200);
-              }}
+            <button
+              onClick={() => scrollToSection(750, 1200)}
               className="px-6 py-3 text-lg text-white font-medium bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 transition"
             >
               {t("Blog.explore")}
-            </a>
+            </button>
 
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
+            <Button
+              onPress={(event) => {
                 scrollToBottom();
               }}
               className="px-6 py-3 text-lg font-medium border border-indigo-600 rounded-lg shadow-md hover:bg-indigo-600 hover:text-white transition"
             >
               {t("Blog.subscribe")}
-            </a>
+            </Button>
           </div>
         </div>
 
@@ -65,7 +62,9 @@ const Start_text: React.FC = () => {
                 key={index}
                 className="shadow-sm rounded-lg p-6 border border-indigo-300 transform hover:scale-105 transition-all"
               >
-                <dd className="text-4xl font-bold tracking-tight text-indigo-700">{item.value}</dd>
+                <dd className="text-4xl font-bold tracking-tight text-indigo-700">
+                  {item.value}
+                </dd>
                 <dt className="mt-2 text-base">{item.label}</dt>
               </div>
             ))}

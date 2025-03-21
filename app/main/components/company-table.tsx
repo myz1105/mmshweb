@@ -517,10 +517,10 @@ export default function CompanyTable() {
   const router = useRouter();
   const [filterValue, setFilterValue] = React.useState<string>("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([])
+    new Set([]),
   );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
@@ -536,7 +536,7 @@ export default function CompanyTable() {
     if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid)
+      Array.from(visibleColumns).includes(column.uid),
     );
   }, [visibleColumns]);
 
@@ -545,7 +545,7 @@ export default function CompanyTable() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase())
+        user.name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (
@@ -553,7 +553,7 @@ export default function CompanyTable() {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+        Array.from(statusFilter).includes(user.status),
       );
     }
 
@@ -645,7 +645,7 @@ export default function CompanyTable() {
           return cellValue !== undefined ? cellValue : null; // Ensure a valid return
       }
     },
-    []
+    [],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -665,7 +665,7 @@ export default function CompanyTable() {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
     },
-    []
+    [],
   );
 
   const onSearchChange = React.useCallback((value: string) => {

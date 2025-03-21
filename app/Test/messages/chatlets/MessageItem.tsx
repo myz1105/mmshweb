@@ -25,7 +25,7 @@ const MessageItem: React.FC<MessageProps> = ({
   useEffect(() => {
     try {
       const storedColors = JSON.parse(
-        localStorage.getItem("userColors") || "{}"
+        localStorage.getItem("userColors") || "{}",
       );
       if (storedColors[sender]) {
         setColor(storedColors[sender]); //  Use stored color

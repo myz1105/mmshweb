@@ -50,14 +50,14 @@ interface SidebarProps {
 
 export default function Sidebar() {
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set(["home"])
+    new Set(["home"]),
   );
 
   const [isExtended, setIsExtended] = useState(true);
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   const handleSelectionChange = (keys: Set<string>) => {
@@ -87,10 +87,10 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
 
   const { client, getImg } = useClient();
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
-    getImg(client?.Info.Img?.Img64)
+    getImg(client?.Info.Img?.Img64),
   );
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set(["home"])
+    new Set(["home"]),
   );
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
   }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   //Contacts -------------------------------------------
@@ -374,10 +374,10 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
 export function SidebarShrinked({ onUpdate }: SidebarProps) {
   const { client, getImg } = useClient();
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(
-    getImg(client?.Info.Img?.Img64)
+    getImg(client?.Info.Img?.Img64),
   );
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set(["home"])
+    new Set(["home"]),
   );
 
   useEffect(() => {
@@ -386,7 +386,7 @@ export function SidebarShrinked({ onUpdate }: SidebarProps) {
   }, [client]);
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", "),
-    [selectedKeys]
+    [selectedKeys],
   );
 
   const handleSelectionChange = (keys: Set<string>) => {

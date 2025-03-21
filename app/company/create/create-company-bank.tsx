@@ -172,7 +172,7 @@ const BankAccountField: React.FC<BankAccount & { bank: Bank }> = ({
 }) => {
   const { updateBankAccount, addBankAccount, removeBankAccount } = useCompany();
   const [selectedOption, setSelectedOption] = React.useState<Selection>(
-    new Set(["USD"])
+    new Set(["USD"]),
   );
 
   const labelsMap = {
@@ -191,7 +191,7 @@ const BankAccountField: React.FC<BankAccount & { bank: Bank }> = ({
   };
 
   const selectedOptionValue = Array.from(
-    selectedOption
+    selectedOption,
   )[0] as keyof typeof labelsMap;
 
   // useEffect(() => {

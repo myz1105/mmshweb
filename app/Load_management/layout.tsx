@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
+import { ScrollShadow } from "@heroui/react";
 import { Navbar } from "@/components/navbar";
 import Sidebar from "@/components/main_components/sidebar";
-import { ScrollShadow } from "@heroui/react";
 
 const LoadManagementLayout = ({ children }: { children: React.ReactNode }) => {
   return (

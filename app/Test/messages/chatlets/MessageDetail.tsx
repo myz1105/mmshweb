@@ -39,7 +39,7 @@ const MessageDetail: React.FC<MessageDetailProps> = ({
   useEffect(() => {
     try {
       const storedColors = JSON.parse(
-        localStorage.getItem("userColors") || "{}"
+        localStorage.getItem("userColors") || "{}",
       );
       setUserColors(storedColors);
     } catch (error) {
@@ -55,7 +55,7 @@ const MessageDetail: React.FC<MessageDetailProps> = ({
     ? [{ sender, text, time, avatar }, ...replies]
     : [{ sender, text, time, avatar }];
   const allMessages = msgs.sort(
-    (a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()
+    (a, b) => new Date(a.time).getTime() - new Date(b.time).getTime(),
   );
 
   // Check user is writing or not

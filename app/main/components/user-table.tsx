@@ -132,10 +132,10 @@ export default function UserTable() {
 
   const [filterValue, setFilterValue] = React.useState<string>("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([])
+    new Set([]),
   );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(5);
@@ -151,7 +151,7 @@ export default function UserTable() {
     if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid)
+      Array.from(visibleColumns).includes(column.uid),
     );
   }, [visibleColumns]);
 
@@ -160,7 +160,7 @@ export default function UserTable() {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.Name.toLowerCase().includes(filterValue.toLowerCase())
+        user.Name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (
@@ -168,7 +168,7 @@ export default function UserTable() {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.Status)
+        Array.from(statusFilter).includes(user.Status),
       );
     }
 
@@ -277,7 +277,7 @@ export default function UserTable() {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
     },
-    []
+    [],
   );
 
   const onSearchChange = React.useCallback((value: string) => {

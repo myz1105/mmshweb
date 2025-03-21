@@ -2,7 +2,7 @@
 import { useState } from "react";
 import LoadManager from "./loadPacks/loadManager";
 import TruckManager from "./truckPacks/truckManager";
-import { Tabs, Tab } from "@heroui/react"
+import { Tabs, Tab } from "@heroui/react";
 
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(" ");
@@ -10,12 +10,11 @@ function classNames(...classes: string[]): string {
 
 export default function loadSettings() {
   const tabs = ["Load Management", "Truck Management"];
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
     <div className=" flex flex-col  px-6 py-3 max-w-3xl">
       <h1 className="text-[5vh] font-bold">Load Management Settings</h1>
-      <Tabs aria-label="Options" fullWidth >
+      <Tabs aria-label="Options" fullWidth>
         <Tab key={tabs[0]} title={tabs[0]}>
           <LoadManager />
         </Tab>
@@ -23,6 +22,6 @@ export default function loadSettings() {
           <TruckManager />
         </Tab>
       </Tabs>
-    </div>  
+    </div>
   );
 }

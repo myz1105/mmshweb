@@ -16,7 +16,6 @@ import {
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import {
-  isWeekend,
   today,
   getLocalTimeZone,
   Time,
@@ -102,10 +101,10 @@ const LoadReadyStateDescriptions: { [key in LoadReadyState]: string } = {
 
 const CreateLoadRoute: React.FC = () => {
   const [loadReadyState, setLoadReadyState] = useState<LoadReadyState>(
-    LoadReadyState.LoadIsReadyAt
+    LoadReadyState.LoadIsReadyAt,
   );
   const [workdayState, setWorkdayState] = useState<Workdays>(
-    Workdays.onlyWorkDays
+    Workdays.onlyWorkDays,
   );
 
   return (
@@ -138,14 +137,14 @@ const CreateLoadRoute: React.FC = () => {
                     selectedOptionValue,
                     LoadReadyState.LoadIsReadyAt,
                     (selectedOptionValue as LoadReadyState) ==
-                      LoadReadyState.LoadIsReadyAt
+                      LoadReadyState.LoadIsReadyAt,
                   );
                 }}
               >
                 {Object.values(LoadReadyState)
                   .filter(
                     (value): value is LoadReadyState =>
-                      typeof value === "number"
+                      typeof value === "number",
                   ) // Filter to only numeric values
                   .map((state) => (
                     <DropdownItem key={state}>
@@ -197,7 +196,7 @@ const CreateLoadRoute: React.FC = () => {
               >
                 {Object.values(Workdays)
                   .filter(
-                    (value): value is Workdays => typeof value === "number"
+                    (value): value is Workdays => typeof value === "number",
                   ) // Filter to only numeric values
                   .map((state) => (
                     <DropdownItem key={state}>

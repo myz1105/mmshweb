@@ -123,7 +123,7 @@ export const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
         });
       })
       .catch((err) =>
-        console.error("Error while connecting to SignalR Hub:", err)
+        console.error("Error while connecting to SignalR Hub:", err),
       );
 
     return () => {

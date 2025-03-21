@@ -109,7 +109,7 @@ const CreateCompanyDetails: React.FC = () => {
   const imageCropperRef = useRef<ImageCropperRef | null>(null);
   const [imageSource, setImageSource] = useState("");
   const avatarUrl = useRef<string>(
-    "https://avatarfiles.alphacoders.com/161/161002.jpg"
+    "https://avatarfiles.alphacoders.com/161/161002.jpg",
   );
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateCompany({
@@ -338,7 +338,7 @@ export const ContactInformation: React.FC<
   };
 
   const [selectedOption, setSelectedOption] = React.useState<Selection>(
-    new Set([type])
+    new Set([type]),
   );
 
   const labelsMap = {
@@ -362,7 +362,7 @@ export const ContactInformation: React.FC<
 
   // Convert the Set to an Array and get the first value.
   const selectedOptionValue = Array.from(
-    selectedOption
+    selectedOption,
   )[0] as keyof typeof labelsMap;
 
   return (
@@ -468,7 +468,7 @@ const AddressInfo: React.FC<
 > = ({ id, sattlement, location, onChange }) => {
   const { removeAddress, addAddress, addresses } = useCompany();
   const handleSattlementChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     onChange({ id, sattlement: event.target.value, location });
   };

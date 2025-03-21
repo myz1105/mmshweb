@@ -130,7 +130,7 @@ const CreateCompanyStepper: React.FC = () => {
                         <span> {contact.data}</span>
                       </div>
                     </Chip>
-                  )
+                  ),
               )}
               {addresses.map(
                 (address: {
@@ -155,7 +155,7 @@ const CreateCompanyStepper: React.FC = () => {
                         </span>
                       </div>
                     </Chip>
-                  )
+                  ),
               )}
             </div>
             <div className="flex gap-2 flex-wrap mt-1"></div>
@@ -223,7 +223,7 @@ const CreateCompanyStepper: React.FC = () => {
                         }
                       </div>
                     </Chip>
-                  )
+                  ),
               )}
             </div>
           </div>

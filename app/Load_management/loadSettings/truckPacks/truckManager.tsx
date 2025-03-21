@@ -14,19 +14,37 @@ import {
 export default function TruckManager() {
   const [trailerType, setTrailerType] = useState<string[]>([]);
   const [trailerLoading, setTrailerLoading] = useState<string[]>([]);
-  
+
   const [newtrailerType, setNewTrailerType] = useState("");
   const [newPackageType, setNewPackageType] = useState("");
 
   useEffect(() => {
-    setTrailerType(["Heavy Load", "Light Load", "Bulk", "Palletized Goods", "Heavy Load", "Light Load", "Bulk", "Palletized Goods"]);
-    setTrailerLoading(["Fragile", "Boxed Goods", "Liquid Containers", "Frozen Items", "Heavy Load", "Light Load", "Bulk", "Palletized Goods"]);
+    setTrailerType([
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+    ]);
+    setTrailerLoading([
+      "Fragile",
+      "Boxed Goods",
+      "Liquid Containers",
+      "Frozen Items",
+      "Heavy Load",
+      "Light Load",
+      "Bulk",
+      "Palletized Goods",
+    ]);
   }, []);
 
   function addTrailerType(newType: string) {
     if (newType.trim()) {
-        setTrailerType([...trailerType, newType.trim()]);
-        setNewTrailerType("");
+      setTrailerType([...trailerType, newType.trim()]);
+      setNewTrailerType("");
     }
   }
 
@@ -60,7 +78,6 @@ export default function TruckManager() {
           </Button>
         </div>
 
-
         {/* Load Types  Table */}
         <div className="max-h-[250px] block overflow-y-auto">
           <Table aria-label="Load Types Table">
@@ -84,7 +101,9 @@ export default function TruckManager() {
         </div>
       </div>
 
-      <h1 className="mt-[30px] text-2xl font-semibold">Trailer Loading Direction</h1>
+      <h1 className="mt-[30px] text-2xl font-semibold">
+        Trailer Loading Direction
+      </h1>
 
       {/* Trailer loading direction Input */}
       <div className="space-y-2">

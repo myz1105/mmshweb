@@ -57,7 +57,7 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [companyCreateState, setCompanyCreateState] = useState(
-    CompanyCreateState.EnterCompanyDetails
+    CompanyCreateState.EnterCompanyDetails,
   );
 
   const [companyDetails, setCompanyDetails] = useState<string>("");
@@ -384,7 +384,7 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
     }
     const newBankAccounts = [...prevBankAccounts];
     const accountIndex = newBankAccounts[bankIndex].AccountNumbers.findIndex(
-      (a) => a.id === bankAccount.id
+      (a) => a.id === bankAccount.id,
     );
     if (accountIndex === -1) {
       return prevBankAccounts;
@@ -402,7 +402,7 @@ export const CreateCompanyProvider: React.FC<{ children: React.ReactNode }> = ({
       const newBankAccounts = [...prevBankAccounts];
       if (newBankAccounts.length === 1) prevBankAccounts;
       const accountIndex = newBankAccounts[bankIndex].AccountNumbers.findIndex(
-        (a) => a.id === accountId
+        (a) => a.id === accountId,
       );
       if (accountIndex === -1) {
         return prevBankAccounts;

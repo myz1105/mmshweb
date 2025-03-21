@@ -15,7 +15,7 @@ interface SignalRContextProps {
 }
 
 const SignalRContext = createContext<SignalRContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 interface SignalRProviderProps {
@@ -26,7 +26,7 @@ export const SignalRProvider: React.FC<
   SignalRProviderProps & { hubName: string }
 > = ({ children, hubName }) => {
   const [connection, setConnection] = useState<signalR.HubConnection | null>(
-    null
+    null,
   );
   const [isConnected, setIsConnected] = useState(false);
 

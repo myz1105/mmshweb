@@ -35,7 +35,7 @@ export default function Authentication() {
   }>();
   const [canSubmit, setCanSubmit] = useState(false);
   const [state, setState] = useState<AuthenticationState>(
-    AuthenticationState.EnterPhoneNumber
+    AuthenticationState.EnterPhoneNumber,
   );
   const [loading, setLoading] = useState(false);
   const [verifyCode, setVerifyCode] = useState("");
@@ -57,11 +57,11 @@ export default function Authentication() {
       try {
         const number = phoneUtil.parseAndKeepRawInput(
           phoneNumber?.phone,
-          phoneNumber?.country[1]
+          phoneNumber?.country[1],
         );
         var checkValidation = phoneUtil.isValidNumberForRegion(
           number,
-          phoneNumber?.country[1]
+          phoneNumber?.country[1],
         );
         setCanSubmit(checkValidation);
       } catch (error) {
@@ -230,14 +230,14 @@ export default function Authentication() {
       setLoading(false);
     }
     if (state === AuthenticationState.AuthReady) {
-      const router = useRouter();
+      
       router.push("/main");
     }
   };
 
   const handleClientInfo = (
     isvalid: boolean,
-    clientdata: { firstname: string; surname: string }
+    clientdata: { firstname: string; surname: string },
   ) => {
     setCanSubmit(isvalid);
     setClientInfo(clientdata);

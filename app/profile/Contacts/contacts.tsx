@@ -86,8 +86,8 @@ export default function ContactsModal({
                       const searchValue = e.target.value.toLowerCase();
                       setContacts(
                         users.filter((user) =>
-                          user.name.toLowerCase().includes(searchValue)
-                        )
+                          user.name.toLowerCase().includes(searchValue),
+                        ),
                       );
                     }}
                   ></Input>

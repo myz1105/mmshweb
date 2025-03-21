@@ -1,4 +1,4 @@
-import { Button, Checkbox, Divider } from "@heroui/react";
+import {  Checkbox } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 
@@ -103,14 +103,14 @@ const TreeView: React.FC<TreeViewProps> = ({
   const renderTree = (
     nodes: TreeNode[],
     isExtended?: boolean,
-    isParent?: boolean
+    isParent?: boolean,
   ) => {
     if (isExtended) {
       return nodes.map((node) => (
         <div key={node.id}>
           <div
             className={`flex items-center gap-1`}
-            onClick={() => selectNode(node.id)}
+            
           >
             <div
               className={`w-[10px] h-fit self-center ${!isParent ? "border-b-small border-default-200 dark:border-default-100" : ""}`}
@@ -140,13 +140,11 @@ const TreeView: React.FC<TreeViewProps> = ({
         <div className={`flex items-center gap-1`}>
           <div
             className={`cursor-pointer transition-transform duration-300 ease-in-out transform ${expandedNodes.has(node.id) ? "rotate-90" : ""}`}
-            onClick={() => toggleNode(node.id)}
           >
             <Icon icon="line-md:chevron-right" />
           </div>
           <div
             className="cursor-pointer flex items-center"
-            onClick={() => selectNode(node.id)}
           >
             {node.name}
           </div>

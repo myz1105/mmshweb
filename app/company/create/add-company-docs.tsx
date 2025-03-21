@@ -64,7 +64,7 @@ const FileDropzone: React.FC<any> = ({ className }: { className: string }) => {
         const newFiles = acceptedFiles
           .filter((file) => !existingFileNames.has(file.name))
           .map((file) =>
-            Object.assign(file, { preview: URL.createObjectURL(file) })
+            Object.assign(file, { preview: URL.createObjectURL(file) }),
           );
         return [...prevFiles, ...newFiles];
       });
@@ -99,7 +99,7 @@ const FileDropzone: React.FC<any> = ({ className }: { className: string }) => {
               onPress={() =>
                 (
                   document.querySelector(
-                    'input[type="file"]'
+                    'input[type="file"]',
                   ) as HTMLInputElement
                 )?.click()
               }

@@ -3,7 +3,7 @@ import { PixelCrop } from "react-image-crop";
 const setCanvasPreview = (
   image: HTMLImageElement, // HTMLImageElement
   canvas: HTMLCanvasElement, // HTMLCanvasElement
-  crop: PixelCrop // PixelCrop
+  crop: PixelCrop, // PixelCrop
 ): void => {
   const ctx = canvas.getContext("2d");
   if (!ctx) {
@@ -39,7 +39,7 @@ const setCanvasPreview = (
     0,
     0,
     image.naturalWidth,
-    image.naturalHeight
+    image.naturalHeight,
   );
 
   ctx.restore();

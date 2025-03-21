@@ -65,7 +65,7 @@ const ImageCropper = forwardRef<ImageCropperRef, ImageCropperProps>(
         setCanvasPreview(
           imgRef.current,
           previewCanvasRef.current,
-          convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height)
+          convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height),
         );
         const dataUrl = previewCanvasRef.current.toDataURL();
         updateAvatar(dataUrl);
@@ -92,7 +92,7 @@ const ImageCropper = forwardRef<ImageCropperRef, ImageCropperProps>(
         },
         ASPECT_RATIO,
         width,
-        height
+        height,
       );
       const centeredCrop = centerCrop(crop, width, height);
       setCrop(centeredCrop);
@@ -100,9 +100,10 @@ const ImageCropper = forwardRef<ImageCropperRef, ImageCropperProps>(
 
     return (
       <>
-        <label className="block mb-3 w-fit">
+        <label htmlFor="profile-photo" className="block mb-3 w-fit">
           <span className="sr-only">Choose profile photo</span>
           <Input
+            id="profile-photo"
             type="file"
             accept="image/*"
             onChange={onSelectFile}
@@ -145,7 +146,9 @@ const ImageCropper = forwardRef<ImageCropperRef, ImageCropperProps>(
         )}
       </>
     );
-  }
+  },
 );
+
+ImageCropper.displayName = "ImageCropper";
 
 export default ImageCropper;

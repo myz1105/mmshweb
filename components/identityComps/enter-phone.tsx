@@ -21,7 +21,7 @@ interface PhoneNumberProps {
 
 export default function EnterPhone({ onUpdate }: PhoneNumberProps) {
   const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(
-    null
+    null,
   );
   const [placeholder, setPlaceHolder] = useState<string>("");
   const [formattedPhone, setFormattedPhone] = useState<string>("");
