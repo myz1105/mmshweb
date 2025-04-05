@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from 'react';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import SimplePeer from 'simple-peer';
@@ -5,15 +6,16 @@ import { BaseAddress } from '@/types/api';
 import { useClient } from '@/contexts/profile-management/client-context';
 import { useSignalR } from '@/contexts/profile-management/signalR-context';
 
-interface VideoCallProps{
-    callerId?:string,
-    signalData?:string
+interface VideoCallProps {
+    callerId: string;
+    signalData?: string | null;
 }
 
 const VideoCall: React.FC<VideoCallProps> = ({callerId,signalData}) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const [peer, setPeer] = useState<SimplePeer.Instance | null>(null);
     const {connection} = useSignalR()
+
 
     useEffect(()=>{
        
@@ -110,7 +112,14 @@ const VideoCall: React.FC<VideoCallProps> = ({callerId,signalData}) => {
     return (
         <div>
             <button onClick={createOffer}>Start Call</button>
-            <video ref={videoRef} autoPlay />
+            <video ref={videoRef} autoPlay>
+                <track
+                    kind="captions"
+                    srcLang="en"
+                    src="path/to/captions.vtt" // Replace with the actual path to your captions file
+                    label="English"
+                />
+            </video>
         </div>
     );
 };

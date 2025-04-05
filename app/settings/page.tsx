@@ -14,9 +14,9 @@ import React, { Children, useEffect, useState } from "react";
 import { useSettings } from "./settings-context";
 import { useRouter } from "next/navigation";
 
-const SettingsPage: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+
+
+const SettingsPage: React.FC = () => {
   const { setLocation } = useSettings();
   const router = useRouter();
   useEffect(() => {
