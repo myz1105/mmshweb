@@ -44,6 +44,8 @@ interface UserType {
   Status: string;
   Role: number; // Role remains a string
   Img: string;
+  IsOnline: boolean;
+  LastSeen: any;
 }
 interface Column {
   name: string;
@@ -54,6 +56,7 @@ interface Column {
 // Define the sort descriptor type
 import { Key } from "@react-types/shared";
 import { addToast } from "@heroui/toast";
+import { formatDate } from "@/utils/date-utils";
 
 interface SortDescriptor {
   column: Key;
@@ -209,17 +212,31 @@ export default function UserTable() {
               radius: "lg",
               src: user.Img ? getImage(user.Img) : undefined,
             }}
-            description={getRoleName(user.Role)}
+            description={
+              <Chip
+                className="capitalize border-none"
+                color={user.IsOnline ? "success" : "warning"}
+                size="sm"
+                variant="dot"
+              >
+                {user.IsOnline ? "Online" : formatDate(user.LastSeen)}
+              </Chip>
+            }
             name={user.Name + " " + user.Surname}
           ></User>
         );
       case "Role":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">
-              {getRoleName(user.Role)}
-            </p>
-          </div>
+          <Chip
+            className="capitalize"
+            color={
+              statusColorMap[user.Status] as "success" | "danger" | "warning"
+            }
+            size="sm"
+            variant="flat"
+          >
+            {getRoleName(cellValue)}
+          </Chip>
         );
       case "Status":
         return (

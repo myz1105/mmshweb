@@ -37,11 +37,8 @@ export const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
     return undefined; // Return undefined if client.Img is not available
   };
   const getImage = (img?: string, size?: string): string | undefined => {
-    if (client && client.Info && client.Info.Img) {
-      const baseImgUrl = `${BaseAddressAPI}Img/Download/${img}`;
-      return size ? `${baseImgUrl}?directory=${size}` : baseImgUrl;
-    }
-    return undefined; // Return undefined if client.Img is not available
+    const baseImgUrl = `${BaseAddressAPI}Img/Download/${img}`;
+    return size ? `${baseImgUrl}?directory=${size}` : baseImgUrl;
   };
   useEffect(() => {
     const loginConfig = localStorage.getItem("loginConfig");

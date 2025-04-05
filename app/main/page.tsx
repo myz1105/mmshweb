@@ -27,9 +27,7 @@ const MainPage: React.FC = () => {
           aria-label="Companies"
           subtitle="4 new company requests"
           title="Companies"
-        >
-          <CompanyTable />
-        </AccordionItem>
+        ></AccordionItem>
         <AccordionItem
           key="2"
           aria-label="Janelle Lenard"

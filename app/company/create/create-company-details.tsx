@@ -25,73 +25,24 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState, useRef } from "react";
-import { useCompany, CompanyCreateState } from "../company-context";
+import {
+  useCreateCompany,
+  CompanyCreateState,
+} from "../contexts/create-company-context";
 import ImageCropper, {
   ImageCropperRef,
 } from "@/components/image-tools/image-crop";
+import { CompanyType } from "./constants";
+import { getPlaces } from "@/types/api";
+import AddressBox, {
+  FieldState,
+} from "@/components/mini_components/addressselector";
 
 interface Contact {
   id: number;
   type: string;
   data: string;
 }
-
-export const animals = [
-  {
-    label: "Cat",
-    key: "cat",
-    description: "The second most popular pet in the world",
-  },
-  {
-    label: "Dog",
-    key: "dog",
-    description: "The most popular pet in the world",
-  },
-  {
-    label: "Elephant",
-    key: "elephant",
-    description: "The largest land animal",
-  },
-  { label: "Lion", key: "lion", description: "The king of the jungle" },
-  { label: "Tiger", key: "tiger", description: "The largest cat species" },
-  { label: "Giraffe", key: "giraffe", description: "The tallest land animal" },
-  {
-    label: "Dolphin",
-    key: "dolphin",
-    description: "A widely distributed and diverse group of aquatic mammals",
-  },
-  {
-    label: "Penguin",
-    key: "penguin",
-    description: "A group of aquatic flightless birds",
-  },
-  {
-    label: "Zebra",
-    key: "zebra",
-    description: "A several species of African equids",
-  },
-  {
-    label: "Shark",
-    key: "shark",
-    description:
-      "A group of elasmobranch fish characterized by a cartilaginous skeleton",
-  },
-  {
-    label: "Whale",
-    key: "whale",
-    description: "Diverse group of fully aquatic placental marine mammals",
-  },
-  {
-    label: "Otter",
-    key: "otter",
-    description: "A carnivorous mammal in the subfamily Lutrinae",
-  },
-  {
-    label: "Crocodile",
-    key: "crocodile",
-    description: "A large semiaquatic reptile",
-  },
-];
 
 const CreateCompanyDetails: React.FC = () => {
   const {
@@ -103,7 +54,8 @@ const CreateCompanyDetails: React.FC = () => {
     updateCompany,
     company,
     setCompanyCreateState,
-  } = useCompany();
+    companyTypes,
+  } = useCreateCompany();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const imageCropperRef = useRef<ImageCropperRef | null>(null);
@@ -111,19 +63,12 @@ const CreateCompanyDetails: React.FC = () => {
   const avatarUrl = useRef<string>(
     "https://avatarfiles.alphacoders.com/161/161002.jpg",
   );
+  const [places, setPlaces] = useState();
+
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateCompany({
       name: event.target.value.toUpperCase(),
       type: company.type,
-      inn: company.inn,
-      oked: company.oked,
-      img: company.img,
-    });
-  };
-  const handleTypeChange = (event: any) => {
-    updateCompany({
-      name: company.name,
-      type: event as string,
       inn: company.inn,
       oked: company.oked,
       img: company.img,
@@ -175,6 +120,17 @@ const CreateCompanyDetails: React.FC = () => {
   const handleCropImage = () => {
     if (imageCropperRef.current) {
       imageCropperRef.current.cropImage(); // Call the cropImage function from child
+    }
+  };
+
+  const handleSelectionChange = (e: any) => {
+    const types = companyTypes as CompanyType[];
+    const selectedType = types.find((type) => type.Id == e);
+
+    if (selectedType) {
+      updateCompany({ ...company, type: selectedType });
+    } else {
+      console.error("Selected type not found");
     }
   };
 
@@ -247,11 +203,13 @@ const CreateCompanyDetails: React.FC = () => {
               label="Type"
               variant="faded"
               className="grow min-w-[250px]" // Full width on small screens, half width on larger screens
-              defaultItems={animals}
+              defaultItems={companyTypes}
               labelPlacement="outside"
               placeholder="Company type"
               description="Select company type"
-              onSelectionChange={handleTypeChange}
+              defaultSelectedKey={company.type?.Id}
+              defaultInputValue={company.type?.Shortname}
+              onSelectionChange={handleSelectionChange}
               selectorIcon={
                 <Icon
                   icon="ic:baseline-search"
@@ -259,10 +217,12 @@ const CreateCompanyDetails: React.FC = () => {
                 />
               }
             >
-              {(animal) => (
-                <AutocompleteItem key={animal.key}>
-                  {animal.label}
-                </AutocompleteItem>
+              {(item: CompanyType) => (
+                <AutocompleteItem
+                  key={item.Id}
+                  title={item.Shortname}
+                  description={item.Type}
+                ></AutocompleteItem>
               )}
             </Autocomplete>
           </div>
@@ -290,9 +250,6 @@ const CreateCompanyDetails: React.FC = () => {
             />
           </div>
         </div>
-        <Card shadow="none">
-          <CardBody></CardBody>
-        </Card>
         <div className="text-xl text-default-600 dark:text-default-400 my-2">
           Contacts
         </div>
@@ -315,9 +272,15 @@ const CreateCompanyDetails: React.FC = () => {
         <div className="text-xl text-default-600 dark:text-default-400 mt-5">
           Address
         </div>
-        {addresses.map((address: Address) => (
-          <AddressInfo key={address.id} {...address} onChange={updateAddress} />
-        ))}
+        <div className="flex flex-col gap-3">
+          {addresses.map((address: Address) => (
+            <AddressInfo
+              key={address.id}
+              {...address}
+              onChange={updateAddress}
+            />
+          ))}
+        </div>
 
         <Divider className="my-5 " />
       </div>
@@ -328,7 +291,7 @@ const CreateCompanyDetails: React.FC = () => {
 export const ContactInformation: React.FC<
   Contact & { onChange: (contact: Contact) => void }
 > = ({ id, type, data, onChange }) => {
-  const { removeContact, addContact } = useCompany();
+  const { removeContact, addContact } = useCreateCompany();
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ id, type: event.target.value, data });
   };
@@ -461,44 +424,29 @@ interface Address {
   id: number;
   sattlement: string;
   location: string;
+  fieldState?: FieldState;
 }
 
 const AddressInfo: React.FC<
   Address & { onChange: (contact: Address) => void }
-> = ({ id, sattlement, location, onChange }) => {
-  const { removeAddress, addAddress, addresses } = useCompany();
-  const handleSattlementChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    onChange({ id, sattlement: event.target.value, location });
+> = ({ id, sattlement, location, fieldState, onChange }) => {
+  const { removeAddress, addAddress, addresses } = useCreateCompany();
+  const handleSattlementChange = (event: FieldState) => {
+    onChange({ id, sattlement: event.inputValue, location, fieldState: event });
   };
   const handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ id, sattlement, location: event.target.value });
+    onChange({ id, sattlement, location: event.target.value, fieldState });
   };
+
   return (
     <Card shadow="none" className="h-fit">
       <CardBody>
-        <Autocomplete
-          variant="faded"
-          defaultItems={animals}
-          placeholder="Search a settlement"
-          description="Select settlement"
-          onSelectionChange={(selection) => {
-            handleSattlementChange({
-              target: { value: selection },
-            } as React.ChangeEvent<HTMLInputElement>);
+        <AddressBox
+          value={fieldState}
+          onChange={(result) => {
+            handleSattlementChange(result);
           }}
-          selectorIcon={
-            <Icon
-              icon="ic:baseline-search"
-              className="text-default-600 dark:text-default-400"
-            />
-          }
-        >
-          {(animal) => (
-            <AutocompleteItem key={animal.key}>{animal.label}</AutocompleteItem>
-          )}
-        </Autocomplete>
+        />
         <Input
           variant="faded"
           description="Write address of the company"

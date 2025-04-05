@@ -1,12 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Sidebar from "@/components/main_components/sidebar";
 import { Footer } from "@/components/footer";
 import { ScrollShadow } from "@heroui/react";
-import { getLocalStorage } from "@/utils/localstorage";
-import { redirect } from "next/navigation";
-import { CreateCompanyProvider } from "./company-context";
+import { CompanyProvider } from "./contexts/company-context";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,9 +12,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-grow pt-1">
         <Sidebar />
         <ScrollShadow className="h-[92vh] w-full overflow-auto" size={20}>
-          <main className="h-full min-h-full w-full px-2 ">
-            <CreateCompanyProvider>{children}</CreateCompanyProvider>
-          </main>
+          <CompanyProvider>
+            <main className="h-full min-h-full w-full px-2 ">{children}</main>
+          </CompanyProvider>
         </ScrollShadow>
       </div>
     </div>

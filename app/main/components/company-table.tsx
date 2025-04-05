@@ -21,20 +21,21 @@ import { Icon } from "@iconify/react";
 
 // Define User type
 interface CompanyType {
-  id: number;
-  name: string;
-  type: string;
-  inn: string;
-  oked: string;
-  contacts: any;
-  status: string;
-  img: string;
-  addresses: string[];
+  Id: number;
+  Name: string;
+  Type: { Id: any; Shortname: string; Type: string };
+  Inn: string;
+  Oked: string;
+  Contacts: any;
+  Status: string;
+  Img: { Name: string };
+  Addresses: string[];
 }
 
 interface ContactType {
-  type: string;
-  data: string;
+  Id: any;
+  Type: string;
+  Data: string;
 }
 
 // Define the columns structure
@@ -47,6 +48,7 @@ interface Column {
 // Define the sort descriptor type
 import { Key } from "@react-types/shared";
 import { useRouter } from "next/navigation";
+import { useClient } from "@/contexts/profile-management/client-context";
 
 interface SortDescriptor {
   column: Key;
@@ -54,443 +56,19 @@ interface SortDescriptor {
 }
 
 export const columns: Column[] = [
-  { name: "ID", uid: "id", sortable: true },
-  { name: "NAME", uid: "name", sortable: true },
-  { name: "TYPE", uid: "type", sortable: true },
-  { name: "INN", uid: "inn", sortable: true },
-  { name: "OKED", uid: "oked" },
-  { name: "CONTACTS", uid: "contacts" },
-  { name: "STATUS", uid: "status", sortable: true },
-  { name: "ACTIONS", uid: "actions" },
+  { name: "ID", uid: "Id", sortable: true },
+  { name: "NAME", uid: "Name", sortable: true },
+  { name: "INN", uid: "Inn", sortable: true },
+  { name: "OKED", uid: "Oked" },
+  { name: "CONTACTS", uid: "Contacts" },
+  { name: "STATUS", uid: "Status", sortable: true },
+  { name: "ACTIONS", uid: "Actions" },
 ];
 
 export const statusOptions = [
   { name: "Active", uid: "active" },
   { name: "Paused", uid: "paused" },
   { name: "Checking", uid: "checking" },
-];
-
-export const users: CompanyType[] = [
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
-  {
-    id: 1,
-    name: "Tech Solutions Inc.",
-    type: "IT Services",
-    inn: "123456789",
-    oked: "6201",
-    contacts: [
-      { type: "email", data: "info@techsolutions.com" },
-      { type: "phone", data: "+1234567890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company1",
-    addresses: ["123 Tech Street, Silicon Valley, CA"],
-    status: "active",
-  },
-  {
-    id: 2,
-    name: "Green Energy Co.",
-    type: "Renewable Energy",
-    inn: "987654321",
-    oked: "3511",
-    contacts: [
-      { type: "email", data: "contact@greenenergy.com" },
-      { type: "phone", data: "+9876543210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company2",
-    addresses: ["456 Green Avenue, Austin, TX"],
-    status: "paused",
-  },
-  {
-    id: 3,
-    name: "HealthCare Plus",
-    type: "Healthcare",
-    inn: "456123789",
-    oked: "8610",
-    contacts: [
-      { type: "email", data: "support@healthcareplus.com" },
-      { type: "phone", data: "+4561237890" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company3",
-    addresses: ["789 Wellness Blvd, Miami, FL"],
-    status: "checking",
-  },
-  {
-    id: 4,
-    name: "EduTech Innovators",
-    type: "Education Technology",
-    inn: "321654987",
-    oked: "8542",
-    contacts: [
-      { type: "email", data: "hello@edutech.com" },
-      { type: "phone", data: "+3216549870" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company4",
-    addresses: ["101 Learning Lane, Boston, MA"],
-    status: "active",
-  },
-  {
-    id: 5,
-    name: "AgriGrow Ltd.",
-    type: "Agriculture",
-    inn: "654789321",
-    oked: "0111",
-    contacts: [
-      { type: "email", data: "info@agrigrow.com" },
-      { type: "phone", data: "+6547893210" },
-    ],
-    img: "https://i.pravatar.cc/150?u=company5",
-    addresses: ["202 Farming Road, Des Moines, IA"],
-    status: "paused",
-  },
 ];
 
 export function capitalize(s: string): string {
@@ -506,15 +84,21 @@ const statusColorMap: Record<string, string> = {
 };
 
 const INITIAL_VISIBLE_COLUMNS = [
-  "name",
-  "inn",
-  "contacts",
-  "status",
-  "actions",
+  "Name",
+  "Inn",
+  "Contacts",
+  "Status",
+  "Actions",
 ];
 
-export default function CompanyTable() {
+export default function CompanyTable({
+  companies,
+}: {
+  companies: CompanyType[];
+}) {
   const router = useRouter();
+  const { getImage } = useClient();
+
   const [filterValue, setFilterValue] = React.useState<string>("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),
@@ -541,11 +125,11 @@ export default function CompanyTable() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...companies];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.name.toLowerCase().includes(filterValue.toLowerCase()),
+        user.Name.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (
@@ -553,12 +137,12 @@ export default function CompanyTable() {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status),
+        Array.from(statusFilter).includes(user.Status),
       );
     }
 
     return filteredUsers;
-  }, [users, filterValue, statusFilter]);
+  }, [companies, filterValue, statusFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -580,48 +164,53 @@ export default function CompanyTable() {
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback(
-    (user: CompanyType, columnKey: string) => {
-      const cellValue = user[columnKey as keyof CompanyType];
-
+    (company: CompanyType, columnKey: string) => {
+      const cellValue = company[columnKey as keyof CompanyType];
       switch (columnKey) {
-        case "name":
+        case "Name":
           return (
             <User
-              avatarProps={{ radius: "lg", src: user.img }}
-              description={user.inn}
-              name={user.name + " " + user.type}
+              avatarProps={{
+                radius: "lg",
+                src: getImage(company.Img.Name, "Icons64"),
+              }}
+              description={company.Inn}
+              name={company.Name + " " + company.Type.Shortname}
             />
           );
-        case "inn":
+        case "Inn":
           return (
             <div className="flex flex-col">
-              <p className="text-bold text-small capitalize">{user.inn}</p>
+              <p className="text-bold text-small capitalize">{company.Inn}</p>
             </div>
           );
-        case "contacts":
+        case "Contacts":
           return (
             <div className="flex flex-col gap-1">
-              {user.contacts.map((cont: ContactType) => (
-                <div key={cont.type}>
-                  {cont.type}: {cont.data}
+              {company.Contacts.map((cont: ContactType) => (
+                <div key={cont.Id}>
+                  {cont.Type}: {cont.Data}
                 </div>
               ))}
             </div>
           );
-        case "status":
+        case "Status":
           return (
             <Chip
               className="capitalize"
               color={
-                statusColorMap[user.status] as "success" | "danger" | "warning"
+                statusColorMap[company.Status] as
+                  | "success"
+                  | "danger"
+                  | "warning"
               }
               size="sm"
               variant="flat"
             >
-              {user.status}
+              {company.Status}
             </Chip>
           );
-        case "actions":
+        case "Actions":
           return (
             <div className="relative flex justify-end items-center gap-2">
               <Dropdown>
@@ -757,7 +346,7 @@ export default function CompanyTable() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {companies.length} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -778,7 +367,7 @@ export default function CompanyTable() {
     statusFilter,
     visibleColumns,
     onRowsPerPageChange,
-    users.length,
+    companies.length,
     onSearchChange,
   ]);
 
@@ -856,7 +445,7 @@ export default function CompanyTable() {
       </TableHeader>
       <TableBody emptyContent={"No loads found"} items={sortedItems}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.Id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey.toString())}</TableCell>
             )}

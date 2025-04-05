@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 import CompanyTable from "../main/components/company-table";
-
-// /c:/Users/Asus/source/repos/mmshweb-heroui/app/company/page.tsx
+import { useCompany } from "./contexts/company-context";
 
 const Companies: React.FC = () => {
+  const { companies } = useCompany();
+
   return (
     <div className=" mx-1 h-full p-1 pb-3">
-      <CompanyTable />
+      {companies && <CompanyTable companies={companies} />}
     </div>
   );
 };

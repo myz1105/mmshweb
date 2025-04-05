@@ -4,13 +4,18 @@ import { Icon } from "@iconify/react";
 import { Button, Input, Checkbox, Link } from "@heroui/react";
 import CreateCompanyStepper from "./stepper";
 import CreateCompanyDetails from "./create-company-details";
-import { CompanyCreateState, useCompany } from "../company-context";
+import {
+  CompanyCreateState,
+  useCreateCompany,
+} from "../contexts/create-company-context";
 import CreateCompanyBanks from "./create-company-bank";
 import AddCompanyDocs from "./add-company-docs";
+import { useRouter } from "next/navigation";
 
 const CreateCompanyPage: React.FC = () => {
+  const router = useRouter();
   const { canGoBack, canGoForward, goBack, goForward, companyCreateState } =
-    useCompany();
+    useCreateCompany();
 
   const handleBack = () => {
     goBack();
@@ -30,7 +35,12 @@ const CreateCompanyPage: React.FC = () => {
             )
           )}
           <div className="flex justify-between max-w-3xl gap-6 px-6">
-            <Button variant="bordered">
+            <Button
+              variant="bordered"
+              onPress={() => {
+                router.replace("/company");
+              }}
+            >
               <Icon icon="material-symbols:cancel-outline" fontSize={18} />{" "}
               Cancel
             </Button>

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import {
   Input,
@@ -314,6 +316,9 @@ export function SidebarExtended({ onUpdate }: SidebarProps) {
                   }
                   key="settings"
                   textValue="Settings" // Add textValue prop
+                  onPress={() => {
+                    router.push("/settings");
+                  }}
                 >
                   <div className="pt-1 ms-3 font-semibold dark:text-gray-300 text-gray-600">
                     Settings

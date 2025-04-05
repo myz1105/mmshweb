@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import {
   Modal,
@@ -230,6 +232,7 @@ export function AddContact({ isOpen, onOpenChange }: ContactsModalProps) {
 
   return (
     <Modal
+      size="sm"
       isDismissable={false}
       isKeyboardDismissDisabled={true}
       isOpen={isOpen}

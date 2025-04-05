@@ -15,14 +15,14 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import {
-  useCompany,
+  useCreateCompany,
   CompanyCreateState,
   BankAccount,
   Bank,
-} from "../company-context";
+} from "../contexts/create-company-context";
 
 const CreateCompanyBanks: React.FC = () => {
-  const { setCompanyCreateState, bankAccounts } = useCompany();
+  const { setCompanyCreateState, bankAccounts } = useCreateCompany();
 
   useEffect(() => {
     setCompanyCreateState(CompanyCreateState.EnterCompanyBankDetails);
@@ -59,7 +59,7 @@ const BankdAccountInfo: React.FC<Bank> = ({
   Address,
   AccountNumbers,
 }) => {
-  const { addBank, updateBank, removeBank, bankAccounts } = useCompany();
+  const { addBank, updateBank, removeBank, bankAccounts } = useCreateCompany();
 
   return (
     <Card shadow="none" className="h-fit my-2">
@@ -76,6 +76,7 @@ const BankdAccountInfo: React.FC<Bank> = ({
                 updateBank({
                   id: id,
                   Name: val,
+                  MFO: MFO,
                   Address: Address,
                   AccountNumbers: AccountNumbers,
                 });
@@ -170,7 +171,8 @@ const BankAccountField: React.FC<BankAccount & { bank: Bank }> = ({
   AccountType,
   bank,
 }) => {
-  const { updateBankAccount, addBankAccount, removeBankAccount } = useCompany();
+  const { updateBankAccount, addBankAccount, removeBankAccount } =
+    useCreateCompany();
   const [selectedOption, setSelectedOption] = React.useState<Selection>(
     new Set(["USD"]),
   );

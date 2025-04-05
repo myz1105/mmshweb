@@ -1,11 +1,14 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
 import { Step } from "@/components/main_components/stepper";
-import { Badge, Chip, Divider, Progress } from "@heroui/react";
+import { Badge, Chip, Divider, Progress, Spinner } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { IoIosPerson } from "react-icons/io";
 import { Button, Input, Checkbox, Link } from "@heroui/react";
-import { CompanyCreateState, useCompany } from "../company-context";
+import {
+  CompanyCreateState,
+  useCreateCompany,
+} from "../contexts/create-company-context";
 
 interface CheckIconProps {
   size?: number;
@@ -69,7 +72,9 @@ const CreateCompanyStepper: React.FC = () => {
     bankDataCompilationPercentage,
     isCompanyDocumentsValid,
     companyDocsCompilationPercentage,
-  } = useCompany();
+    SaveCompany,
+    isOnSaving,
+  } = useCreateCompany();
 
   return (
     <div className="hidden lg:flex lg:visible h-full  flex-col py-8 px-6  ring-1 ring-gray-900/5 border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black">
@@ -90,7 +95,7 @@ const CreateCompanyStepper: React.FC = () => {
                   size="sm"
                   color={isCompanyDetailsValid ? "success" : "default"}
                 >
-                  {company.name} {company.type}
+                  {company.name} {company.type?.Shortname}
                 </Chip>
               )}
               {company.inn && (
@@ -240,20 +245,15 @@ const CreateCompanyStepper: React.FC = () => {
           companyCreateState === CompanyCreateState.EnterCompanyDocuments
         }
       />
-      <Step
-        width={300}
-        isChecked={true}
-        value={50}
-        title="Type of services"
-        description="Rossiya - Uzbekistan cal;kd;als as;ldj as;ldj alskdkjash dkasjh dkjash dkjas kjdgaskjhdgkasjgd"
-        icon={<Icon icon="bi:building-gear" fontSize={35} />}
-        isFocused={true}
-      />
 
       <Button
         color="success"
         className="mt-5 font-bold text-current"
-        isDisabled={canSave === false}
+        // isDisabled={canSave === false}
+        startContent={isOnSaving && <Spinner />}
+        onPress={() => {
+          SaveCompany();
+        }}
       >
         Save
       </Button>

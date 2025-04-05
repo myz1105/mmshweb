@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { CompanyCreateState, useCompany } from "../company-context";
+import {
+  CompanyCreateState,
+  useCreateCompany,
+} from "../contexts/create-company-context";
 import { Divider, Image, Chip } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { Button } from "@heroui/button";
 
 const CreateCompanyBanks: React.FC = () => {
-  const { setCompanyCreateState } = useCompany();
+  const { setCompanyCreateState } = useCreateCompany();
 
   useEffect(() => {
     setCompanyCreateState(CompanyCreateState.EnterCompanyDocuments);
@@ -55,7 +58,7 @@ const CreateCompanyBanks: React.FC = () => {
 export default CreateCompanyBanks;
 
 const FileDropzone: React.FC<any> = ({ className }: { className: string }) => {
-  const { files, setFiles, removeFile } = useCompany();
+  const { files, setFiles, removeFile } = useCreateCompany();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles?.length) {
       setFiles((prevFiles: File[]) => {
