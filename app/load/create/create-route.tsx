@@ -15,78 +15,9 @@ import {
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import {
-  today,
-  getLocalTimeZone,
-  Time,
-} from "@internationalized/date";
-
-export const animals = [
-  {
-    label: "Cat",
-    key: "cat",
-    description: "The second most popular pet in the world",
-  },
-  {
-    label: "Dog",
-    key: "dog",
-    description: "The most popular pet in the world",
-  },
-  {
-    label: "Elephant",
-    key: "elephant",
-    description: "The largest land animal",
-  },
-  { label: "Lion", key: "lion", description: "The king of the jungle" },
-  { label: "Tiger", key: "tiger", description: "The largest cat species" },
-  { label: "Giraffe", key: "giraffe", description: "The tallest land animal" },
-  {
-    label: "Dolphin",
-    key: "dolphin",
-    description: "A widely distributed and diverse group of aquatic mammals",
-  },
-  {
-    label: "Penguin",
-    key: "penguin",
-    description: "A group of aquatic flightless birds",
-  },
-  {
-    label: "Zebra",
-    key: "zebra",
-    description: "A several species of African equids",
-  },
-  {
-    label: "Shark",
-    key: "shark",
-    description:
-      "A group of elasmobranch fish characterized by a cartilaginous skeleton",
-  },
-  {
-    label: "Whale",
-    key: "whale",
-    description: "Diverse group of fully aquatic placental marine mammals",
-  },
-  {
-    label: "Otter",
-    key: "otter",
-    description: "A carnivorous mammal in the subfamily Lutrinae",
-  },
-  {
-    label: "Crocodile",
-    key: "crocodile",
-    description: "A large semiaquatic reptile",
-  },
-];
-
-export enum LoadReadyState {
-  LoadIsReadyAt,
-  Always,
-  NotReadyYet,
-}
-export enum Workdays {
-  onlyWorkDays,
-  Everyday,
-}
+import { today, getLocalTimeZone, Time } from "@internationalized/date";
+import { AddressSelectorBox } from "@/components/mini_components/addressselector";
+import { LoadReadyState, Workdays } from "../utils/types";
 
 const WorkdayDescriptions: { [key in Workdays]: string } = {
   [Workdays.Everyday]: "Everyday",
@@ -94,7 +25,7 @@ const WorkdayDescriptions: { [key in Workdays]: string } = {
 };
 
 const LoadReadyStateDescriptions: { [key in LoadReadyState]: string } = {
-  [LoadReadyState.LoadIsReadyAt]: "Ready to download",
+  [LoadReadyState.LoadIsReadyAt]: "Ready for loading",
   [LoadReadyState.Always]: "Constantly",
   [LoadReadyState.NotReadyYet]: "No load, request a rate",
 };
@@ -133,7 +64,6 @@ const CreateLoadRoute: React.FC = () => {
                 onSelectionChange={(key) => {
                   const selectedOptionValue = Array.from(key)[0];
                   setLoadReadyState(selectedOptionValue as LoadReadyState);
-                
                 }}
               >
                 {Object.values(LoadReadyState)
@@ -149,7 +79,7 @@ const CreateLoadRoute: React.FC = () => {
               </DropdownMenu>
             </Dropdown>
           </ButtonGroup>
-          <div className="text-xs text-default px-2 py-1 text-default-600 dark:text-default-400">
+          <div className="text-xs  px-2 py-1 text-default-600 dark:text-default-400">
             Select load state
           </div>
         </div>
@@ -200,7 +130,7 @@ const CreateLoadRoute: React.FC = () => {
                   ))}
               </DropdownMenu>
             </Dropdown>
-            <div className="text-xs text-default px-2 py-1 text-default-600 dark:text-default-400">
+            <div className="text-xs px-2 py-1 text-default-600 dark:text-default-400">
               Select workday
             </div>
           </div>
@@ -210,26 +140,10 @@ const CreateLoadRoute: React.FC = () => {
       <div className="text-xl text-default-600 dark:text-default-400">
         Loading
       </div>
-      <div className="flex items-start justify-start gap-3 flex-wrap w-full">
-        <Autocomplete
-          label="Settlement"
-          variant="faded"
-          className="max-w-xs"
-          defaultItems={animals}
-          labelPlacement="outside"
-          placeholder="Search a settlement"
-          description="Select settlement"
-          selectorIcon={
-            <Icon
-              icon="ic:baseline-search"
-              className="text-default-600 dark:text-default-400"
-            />
-          }
-        >
-          {(animal) => (
-            <AutocompleteItem key={animal.key}>{animal.label}</AutocompleteItem>
-          )}
-        </Autocomplete>
+      <div className="flex items-end justify-start gap-3 flex-wrap w-full">
+        <div>
+          <AddressSelectorBox onChange={() => {}} />
+        </div>
         <div className="flex gap-3 flex-wrap">
           <Input
             className="w-80"
@@ -271,26 +185,10 @@ const CreateLoadRoute: React.FC = () => {
       <div className="text-xl text-default-600 dark:text-default-400">
         Unloading
       </div>
-      <div className="flex items-start justify-start gap-3 flex-wrap w-full">
-        <Autocomplete
-          label="Settlement"
-          variant="faded"
-          className="max-w-xs"
-          defaultItems={animals}
-          labelPlacement="outside"
-          placeholder="Search a settlement"
-          description="Select settlement"
-          selectorIcon={
-            <Icon
-              icon="ic:baseline-search"
-              className="text-default-600 dark:text-default-400"
-            />
-          }
-        >
-          {(animal) => (
-            <AutocompleteItem key={animal.key}>{animal.label}</AutocompleteItem>
-          )}
-        </Autocomplete>
+      <div className="flex items-end justify-start gap-3 flex-wrap w-full">
+        <div>
+          <AddressSelectorBox onChange={() => {}} />
+        </div>
         <div className="flex gap-3 flex-wrap">
           <Input
             className="w-80"
@@ -308,6 +206,11 @@ const CreateLoadRoute: React.FC = () => {
             label="Address in the locality"
             labelPlacement="outside"
             type="text"
+            onChange={(event) => {
+              const val = event.target.value
+                .toLowerCase()
+                .replace(/(^\w|\s*,\s*\w)/g, (char) => char.toUpperCase());
+            }}
           />
         </div>
       </div>
@@ -320,6 +223,9 @@ const CreateLoadRoute: React.FC = () => {
           fullWidth={false}
           labelPlacement="outside"
           minValue={today(getLocalTimeZone())}
+          onChange={(value) => {
+            console.log(value);
+          }}
         />
         <TimeInput
           label="From"
@@ -334,6 +240,9 @@ const CreateLoadRoute: React.FC = () => {
           variant="faded"
           fullWidth={false}
           defaultValue={new Time(17)}
+          onChange={(value) => {
+            console.log(value);
+          }}
         />
         <Checkbox className="self-end">24 hours a day</Checkbox>
       </div>

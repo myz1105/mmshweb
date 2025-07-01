@@ -1,4 +1,4 @@
-import {  Checkbox } from "@heroui/react";
+import { Checkbox } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 
@@ -108,10 +108,7 @@ const TreeView: React.FC<TreeViewProps> = ({
     if (isExtended) {
       return nodes.map((node) => (
         <div key={node.id}>
-          <div
-            className={`flex items-center gap-1`}
-            
-          >
+          <div className={`flex items-center gap-1`}>
             <div
               className={`w-[10px] h-fit self-center ${!isParent ? "border-b-small border-default-200 dark:border-default-100" : ""}`}
             ></div>
@@ -121,7 +118,7 @@ const TreeView: React.FC<TreeViewProps> = ({
                 onChange={() => selectNode(node.id)}
                 size="sm"
               >
-                {node.id} {node.name}
+                {node.name}
               </Checkbox>
             </div>
           </div>
@@ -143,11 +140,7 @@ const TreeView: React.FC<TreeViewProps> = ({
           >
             <Icon icon="line-md:chevron-right" />
           </div>
-          <div
-            className="cursor-pointer flex items-center"
-          >
-            {node.name}
-          </div>
+          <div className="cursor-pointer flex items-center">{node.name}</div>
         </div>
 
         {node.children && expandedNodes.has(node.id) && (
@@ -158,7 +151,7 @@ const TreeView: React.FC<TreeViewProps> = ({
   };
 
   return (
-    <div className="w-full  px-1 py-2 rounded-small border-small border-default-200 dark:border-default-100">
+    <div className="w-full overflow-auto  px-1 py-3 rounded-small border-small border-default-200 dark:border-default-100">
       {renderTree(nodes, isExtended, true)}
     </div>
   );

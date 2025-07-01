@@ -15,11 +15,7 @@ import CreateLoadRoute from "./create-route";
 import CreateTrailer from "./required-trailer";
 import ContactInformation from "./contact-information";
 import { LoadCreationStatus } from "./constants";
-
-
-
-
-
+import LoadVisibilityAndStatus from "./load-visibility";
 
 const CreatePage: React.FC = () => {
   const handleOnChecked = (value: boolean) => {};
@@ -47,6 +43,10 @@ const CreatePage: React.FC = () => {
           )}
           {loadCreationState === LoadCreationStatus.EnterContactAndPrices && (
             <ContactInformation />
+          )}
+          {loadCreationState ===
+            LoadCreationStatus.SetLoadVisibilityAndStatus && (
+            <LoadVisibilityAndStatus />
           )}
           <div className="flex justify-between max-w-3xl gap-6 px-6">
             <Button variant="bordered">
@@ -77,6 +77,19 @@ const CreatePage: React.FC = () => {
                     setLoadCreationState(LoadCreationStatus.EnterRoute);
                   else if (loadCreationState === LoadCreationStatus.EnterRoute)
                     setLoadCreationState(LoadCreationStatus.EnterTraileDetails);
+                  else if (
+                    loadCreationState === LoadCreationStatus.EnterTraileDetails
+                  )
+                    setLoadCreationState(
+                      LoadCreationStatus.EnterContactAndPrices,
+                    );
+                  else if (
+                    loadCreationState ===
+                    LoadCreationStatus.EnterContactAndPrices
+                  )
+                    setLoadCreationState(
+                      LoadCreationStatus.SetLoadVisibilityAndStatus,
+                    );
                   else
                     setLoadCreationState(LoadCreationStatus.EnterLoadDetails);
                 }}

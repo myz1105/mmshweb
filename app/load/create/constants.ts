@@ -3,4 +3,5 @@ export enum LoadCreationStatus {
   EnterRoute,
   EnterTraileDetails,
   EnterContactAndPrices,
+  SetLoadVisibilityAndStatus,
 }

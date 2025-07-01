@@ -6,66 +6,12 @@ import {
   Divider,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import React from "react";
-
-export const animals = [
-  {
-    label: "Cat",
-    key: "cat",
-    description: "The second most popular pet in the world",
-  },
-  {
-    label: "Dog",
-    key: "dog",
-    description: "The most popular pet in the world",
-  },
-  {
-    label: "Elephant",
-    key: "elephant",
-    description: "The largest land animal",
-  },
-  { label: "Lion", key: "lion", description: "The king of the jungle" },
-  { label: "Tiger", key: "tiger", description: "The largest cat species" },
-  { label: "Giraffe", key: "giraffe", description: "The tallest land animal" },
-  {
-    label: "Dolphin",
-    key: "dolphin",
-    description: "A widely distributed and diverse group of aquatic mammals",
-  },
-  {
-    label: "Penguin",
-    key: "penguin",
-    description: "A group of aquatic flightless birds",
-  },
-  {
-    label: "Zebra",
-    key: "zebra",
-    description: "A several species of African equids",
-  },
-  {
-    label: "Shark",
-    key: "shark",
-    description:
-      "A group of elasmobranch fish characterized by a cartilaginous skeleton",
-  },
-  {
-    label: "Whale",
-    key: "whale",
-    description: "Diverse group of fully aquatic placental marine mammals",
-  },
-  {
-    label: "Otter",
-    key: "otter",
-    description: "A carnivorous mammal in the subfamily Lutrinae",
-  },
-  {
-    label: "Crocodile",
-    key: "crocodile",
-    description: "A large semiaquatic reptile",
-  },
-];
+import React, { useState } from "react";
+import { loadData } from "../utils/fakeLoadData";
 
 const CreateLoadDetails: React.FC = () => {
+  const lData = loadData.GoodsAndItems.map((item) => ({ name: item }));
+  const pData = loadData.Packages.map((item) => ({ name: item }));
   return (
     <div className="max-w-3xl flex flex-col justify-start items-start gap-3 p-4">
       <div className="text-2xl font-semibold mb-5">Load details</div>
@@ -77,7 +23,7 @@ const CreateLoadDetails: React.FC = () => {
           label="Load"
           variant="faded"
           className="max-w-xs"
-          defaultItems={animals}
+          defaultItems={lData}
           labelPlacement="outside"
           placeholder="Search a load"
           description="Select load type name"
@@ -88,9 +34,7 @@ const CreateLoadDetails: React.FC = () => {
             />
           }
         >
-          {(animal) => (
-            <AutocompleteItem key={animal.key}>{animal.label}</AutocompleteItem>
-          )}
+          {(d) => <AutocompleteItem key={d.name}>{d.name}</AutocompleteItem>}
         </Autocomplete>
         <div className="flex gap-3 flex-wrap">
           <Input
@@ -142,7 +86,7 @@ const CreateLoadDetails: React.FC = () => {
           label="Package"
           variant="faded"
           className="max-w-xs"
-          defaultItems={animals}
+          defaultItems={pData}
           labelPlacement="outside"
           placeholder="Search a package type"
           description="(Optional) Select package type name"
@@ -153,9 +97,7 @@ const CreateLoadDetails: React.FC = () => {
             />
           }
         >
-          {(animal) => (
-            <AutocompleteItem key={animal.key}>{animal.label}</AutocompleteItem>
-          )}
+          {(d) => <AutocompleteItem key={d.name}>{d.name}</AutocompleteItem>}
         </Autocomplete>
         <div className="flex gap-3 flex-wrap">
           <Input

@@ -12,6 +12,7 @@ import {
 import TreeView, { TreeNode } from "@/components/main_components/tree-view";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
+import { LoadingUnloadingFeatures, TrailerTypes } from "../utils/fakeLoadData";
 
 export enum LoadReadyState {
   LoadIsReadyAt,
@@ -63,17 +64,17 @@ const CreateTrailer: React.FC = () => {
     <div className="max-w-3xl flex flex-col justify-start items-start gap-3 p-4">
       <div className="text-2xl font-semibold mb-5">Trailer</div>
       <div className="flex items-stretch justify-stretch gap-3 flex-wrap w-full">
-        <div className="grow self-stretch flex flex-col gap-1">
+        <div className="grow self-stretch flex flex-col gap-1 max-h-[500px] w-full">
           <div className="text-sm text-default-600 dark:text-default-500">
             Trailer
           </div>
           <TreeView
-            nodes={sampleData}
+            nodes={TrailerTypes}
             isExtended={true}
             selectionMode="multi"
           />
         </div>
-        <div className="grow self-stretch flex flex-col gap-1">
+        <div className="grow self-stretch flex flex-col gap-1 max-h-[500px]">
           <div className="text-sm text-default-600 dark:text-default-500">
             Loading
           </div>
@@ -85,16 +86,13 @@ const CreateTrailer: React.FC = () => {
               selectionMode="multiple"
               variant="flat"
               onSelectionChange={setSelectedKeys}
+              items={LoadingUnloadingFeatures}
             >
-              <ListboxItem key="text">Text</ListboxItem>
-              <ListboxItem key="number">Number</ListboxItem>
-              <ListboxItem key="date">Date</ListboxItem>
-              <ListboxItem key="single_date">Single Date</ListboxItem>
-              <ListboxItem key="iteration">Iteration</ListboxItem>
+              {(item) => <ListboxItem key={item.name}>{item.name}</ListboxItem>}
             </Listbox>
           </ListboxWrapper>
         </div>
-        <div className="grow self-stretch flex flex-col gap-1">
+        <div className="grow self-stretch flex flex-col gap-1 max-h-[500px]">
           <div className="text-sm text-default-600 dark:text-default-500">
             Unloading
           </div>
@@ -106,12 +104,9 @@ const CreateTrailer: React.FC = () => {
               selectionMode="multiple"
               variant="flat"
               onSelectionChange={setSelectedKeys}
+              items={LoadingUnloadingFeatures}
             >
-              <ListboxItem key="text">Text</ListboxItem>
-              <ListboxItem key="number">Number</ListboxItem>
-              <ListboxItem key="date">Date</ListboxItem>
-              <ListboxItem key="single_date">Single Date</ListboxItem>
-              <ListboxItem key="iteration">Iteration</ListboxItem>
+              {(item) => <ListboxItem key={item.name}>{item.name}</ListboxItem>}
             </Listbox>
           </ListboxWrapper>
         </div>
@@ -208,7 +203,7 @@ const CreateTrailer: React.FC = () => {
 export default CreateTrailer;
 
 export const ListboxWrapper = ({ children }: { children: any }) => (
-  <div className="grow border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+  <div className="grow border-small px-1 py-3  overflow-auto rounded-small border-default-200 dark:border-default-100">
     {children}
   </div>
 );

@@ -48,7 +48,7 @@ interface AddressComponent {
 }
 
 // Define the structure of the address object
-interface Address {
+export interface Address {
   address: string; // Object's address
   formatted_address: string; // Formatted address
   component: AddressComponent[]; // Array of address components
