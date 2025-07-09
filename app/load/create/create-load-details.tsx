@@ -8,10 +8,13 @@ import {
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
 import { loadData } from "../utils/fakeLoadData";
+import { useLoadCreation } from "../contexts/create-load-context";
 
 const CreateLoadDetails: React.FC = () => {
   const lData = loadData.GoodsAndItems.map((item) => ({ name: item }));
   const pData = loadData.Packages.map((item) => ({ name: item }));
+  const { loadDetails, updateLoadDetails } = useLoadCreation();
+
   return (
     <div className="max-w-3xl flex flex-col justify-start items-start gap-3 p-4">
       <div className="text-2xl font-semibold mb-5">Load details</div>
@@ -33,6 +36,10 @@ const CreateLoadDetails: React.FC = () => {
               className="text-default-600 dark:text-default-400"
             />
           }
+          selectedKey={loadDetails.name}
+          onSelectionChange={(val) => {
+            updateLoadDetails({ ...loadDetails, name: val?.toString() });
+          }}
         >
           {(d) => <AutocompleteItem key={d.name}>{d.name}</AutocompleteItem>}
         </Autocomplete>
@@ -42,6 +49,22 @@ const CreateLoadDetails: React.FC = () => {
             className="max-w-[155px]"
             placeholder="ex: 22T"
             description="Total weight of the load"
+            value={
+              loadDetails && loadDetails.weight ? loadDetails.weight.value : ""
+            }
+            onChange={(val) => {
+              loadDetails
+                ? updateLoadDetails({
+                    ...loadDetails,
+                    weight: {
+                      ...loadDetails.weight,
+                      value: val.target.value,
+                    },
+                  })
+                : updateLoadDetails({
+                    weight: { value: val.target.value },
+                  });
+            }}
             endContent={
               <div className="flex items-center">
                 <label className="sr-only" htmlFor="currency">
@@ -51,6 +74,24 @@ const CreateLoadDetails: React.FC = () => {
                   className="outline-none border-0 bg-transparent text-default-400 text-small"
                   id="currency"
                   name="currency"
+                  onChange={(val) => {
+                    loadDetails
+                      ? updateLoadDetails({
+                          ...loadDetails,
+                          weight: {
+                            ...loadDetails.weight,
+                            unit: val.target.value,
+                          },
+                        })
+                      : updateLoadDetails({
+                          weight: { unit: val.target.value },
+                        });
+                  }}
+                  value={
+                    loadDetails && loadDetails.weight
+                      ? loadDetails.weight.unit
+                      : "T"
+                  }
                 >
                   <option>kg</option>
                   <option>T</option>
@@ -74,6 +115,22 @@ const CreateLoadDetails: React.FC = () => {
             label="Volume"
             labelPlacement="outside"
             type="number"
+            value={
+              loadDetails && loadDetails.volume ? loadDetails.volume.value : ""
+            }
+            onChange={(val) => {
+              loadDetails
+                ? updateLoadDetails({
+                    ...loadDetails,
+                    volume: {
+                      ...loadDetails.volume,
+                      value: val.target.value,
+                    },
+                  })
+                : updateLoadDetails({
+                    volume: { value: val.target.value },
+                  });
+            }}
           />
         </div>
       </div>
@@ -96,6 +153,16 @@ const CreateLoadDetails: React.FC = () => {
               className="text-default-600 dark:text-default-400"
             />
           }
+          selectedKey={loadDetails.package ? loadDetails.package.name : ""}
+          onSelectionChange={(val) => {
+            const pack = loadDetails.package
+              ? { ...loadDetails.package, name: val?.toString() }
+              : { name: val?.toString() };
+            updateLoadDetails({
+              ...loadDetails,
+              package: { ...pack },
+            });
+          }}
         >
           {(d) => <AutocompleteItem key={d.name}>{d.name}</AutocompleteItem>}
         </Autocomplete>
@@ -110,6 +177,16 @@ const CreateLoadDetails: React.FC = () => {
             label="Quantity"
             labelPlacement="outside"
             type="number"
+            value={loadDetails.package ? loadDetails.package.quantity : ""}
+            onChange={(val) => {
+              const pack = loadDetails.package
+                ? { ...loadDetails.package, quantity: val.target.value }
+                : { quantity: val.target.value };
+              updateLoadDetails({
+                ...loadDetails,
+                package: { ...pack },
+              });
+            }}
           />
           <Input
             variant="faded"
@@ -121,6 +198,23 @@ const CreateLoadDetails: React.FC = () => {
             label="Diameter"
             labelPlacement="outside"
             type="number"
+            value={
+              loadDetails.package && loadDetails.package.diameter
+                ? loadDetails.package.diameter.value
+                : ""
+            }
+            onChange={(val) => {
+              const pack = loadDetails.package
+                ? {
+                    ...loadDetails.package,
+                    diameter: { value: val.target.value, unit: "m" },
+                  }
+                : { diameter: { value: val.target.value, unit: "m" } };
+              updateLoadDetails({
+                ...loadDetails,
+                package: { ...pack },
+              });
+            }}
           />
         </div>
       </div>
@@ -135,6 +229,23 @@ const CreateLoadDetails: React.FC = () => {
           label="Length"
           labelPlacement="outside"
           type="number"
+          value={
+            loadDetails.package && loadDetails.package.length
+              ? loadDetails.package.length.value
+              : ""
+          }
+          onChange={(val) => {
+            const pack = loadDetails.package
+              ? {
+                  ...loadDetails.package,
+                  length: { value: val.target.value, unit: "m" },
+                }
+              : { length: { value: val.target.value, unit: "m" } };
+            updateLoadDetails({
+              ...loadDetails,
+              package: { ...pack },
+            });
+          }}
         />
         <Input
           variant="faded"
@@ -146,6 +257,23 @@ const CreateLoadDetails: React.FC = () => {
           label="Width"
           labelPlacement="outside"
           type="number"
+          value={
+            loadDetails.package && loadDetails.package.width
+              ? loadDetails.package.width.value
+              : ""
+          }
+          onChange={(val) => {
+            const pack = loadDetails.package
+              ? {
+                  ...loadDetails.package,
+                  width: { value: val.target.value, unit: "m" },
+                }
+              : { width: { value: val.target.value, unit: "m" } };
+            updateLoadDetails({
+              ...loadDetails,
+              package: { ...pack },
+            });
+          }}
         />
         <Input
           variant="faded"
@@ -157,6 +285,23 @@ const CreateLoadDetails: React.FC = () => {
           label="Height"
           labelPlacement="outside"
           type="number"
+          value={
+            loadDetails.package && loadDetails.package.height
+              ? loadDetails.package.height.value
+              : ""
+          }
+          onChange={(val) => {
+            const pack = loadDetails.package
+              ? {
+                  ...loadDetails.package,
+                  height: { value: val.target.value, unit: "m" },
+                }
+              : { height: { value: val.target.value, unit: "m" } };
+            updateLoadDetails({
+              ...loadDetails,
+              package: { ...pack },
+            });
+          }}
         />
       </div>
       <Divider className="my-5 " />

@@ -127,7 +127,7 @@ export function AddressSelectorBox({
   onChange,
 }: {
   value?: Address;
-  onChange: (result: Address) => void;
+  onChange: (result?: Address) => void;
 }) {
   const [fieldState, setFieldState] = React.useState<FieldState>(
     value
@@ -164,6 +164,7 @@ export function AddressSelectorBox({
 
     // Then call onChange
     if (selectedItem) onChange(selectedItem.address);
+    else onChange(undefined);
   };
 
   const onInputChange = async (value: string) => {

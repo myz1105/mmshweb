@@ -12,53 +12,20 @@ import {
 import TreeView, { TreeNode } from "@/components/main_components/tree-view";
 import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import { LoadingUnloadingFeatures, TrailerTypes } from "../utils/fakeLoadData";
-
-export enum LoadReadyState {
-  LoadIsReadyAt,
-  Always,
-  NotReadyYet,
-}
-export enum Workdays {
-  onlyWorkDays,
-  Everyday,
-}
-
-const sampleData: TreeNode[] = [
-  {
-    id: 1,
-    name: "Node 1",
-    children: [
-      {
-        id: 2,
-        name: "Node 1.1",
-        children: [
-          { id: 3, name: "Node 1.1.1" },
-          { id: 4, name: "Node 1.1.2" },
-        ],
-      },
-      { id: 5, name: "Node 1.2" },
-    ],
-  },
-  {
-    id: 6,
-    name: "Node 2",
-    children: [
-      { id: 7, name: "Node 2.1" },
-      { id: 8, name: "Node 2.2" },
-    ],
-  },
-];
+import {
+  LoadingUnloadingFeatures,
+  Permissions,
+  Requirements,
+  TrailerTypes,
+} from "../utils/fakeLoadData";
+import { useLoadCreation } from "../contexts/create-load-context";
+import {
+  LoadingVolumeFeature,
+  LoadingVolumeFeatureDescription,
+} from "../utils/types";
 
 const CreateTrailer: React.FC = () => {
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set(["text"]),
-  );
-
-  const selectedValue = React.useMemo(
-    () => Array.from(selectedKeys).join(", "),
-    [selectedKeys],
-  );
+  const { trailerDetails, updateTrailerDetails } = useLoadCreation();
 
   return (
     <div className="max-w-3xl flex flex-col justify-start items-start gap-3 p-4">
@@ -72,6 +39,20 @@ const CreateTrailer: React.FC = () => {
             nodes={TrailerTypes}
             isExtended={true}
             selectionMode="multi"
+            onChange={(val) => {
+              const types = val.map((e: TreeNode) => {
+                return { name: e.name };
+              });
+
+              if (trailerDetails) {
+                updateTrailerDetails({
+                  ...trailerDetails,
+                  trailerTypes: types,
+                });
+              } else {
+                updateTrailerDetails({ trailerTypes: types });
+              }
+            }}
           />
         </div>
         <div className="grow self-stretch flex flex-col gap-1 max-h-[500px]">
@@ -82,10 +63,48 @@ const CreateTrailer: React.FC = () => {
             <Listbox
               disallowEmptySelection
               aria-label="Multiple selection example"
-              selectedKeys={selectedKeys}
+              selectedKeys={
+                trailerDetails && trailerDetails.loadingFeature
+                  ? new Set(
+                      Array.from(
+                        trailerDetails.loadingFeature.map(
+                          (e: { name: string }) => {
+                            return e.name;
+                          },
+                        ),
+                      ),
+                    )
+                  : undefined
+              }
               selectionMode="multiple"
               variant="flat"
-              onSelectionChange={setSelectedKeys}
+              onSelectionChange={(val) => {
+                if (val instanceof Set) {
+                  const valuesArray = Array.from(val.values()); // Convert Set to Array
+                  const types = valuesArray.map((e) => {
+                    return { name: e };
+                  });
+                  if (trailerDetails) {
+                    updateTrailerDetails({
+                      ...trailerDetails,
+                      loadingFeature: types,
+                    });
+                  } else {
+                    updateTrailerDetails({ loadingFeature: types });
+                  }
+                } else if (val === "all") {
+                  if (trailerDetails) {
+                    updateTrailerDetails({
+                      ...trailerDetails,
+                      loadingFeature: LoadingUnloadingFeatures,
+                    });
+                  } else {
+                    updateTrailerDetails({
+                      loadingFeature: LoadingUnloadingFeatures,
+                    });
+                  }
+                }
+              }}
               items={LoadingUnloadingFeatures}
             >
               {(item) => <ListboxItem key={item.name}>{item.name}</ListboxItem>}
@@ -100,10 +119,48 @@ const CreateTrailer: React.FC = () => {
             <Listbox
               disallowEmptySelection
               aria-label="Multiple selection example"
-              selectedKeys={selectedKeys}
+              selectedKeys={
+                trailerDetails && trailerDetails.unloadingFeature
+                  ? new Set(
+                      Array.from(
+                        trailerDetails.unloadingFeature.map(
+                          (e: { name: string }) => {
+                            return e.name;
+                          },
+                        ),
+                      ),
+                    )
+                  : undefined
+              }
               selectionMode="multiple"
               variant="flat"
-              onSelectionChange={setSelectedKeys}
+              onSelectionChange={(val) => {
+                if (val instanceof Set) {
+                  const valuesArray = Array.from(val.values()); // Convert Set to Array
+                  const types = valuesArray.map((e) => {
+                    return { name: e };
+                  });
+                  if (trailerDetails) {
+                    updateTrailerDetails({
+                      ...trailerDetails,
+                      unloadingFeature: types,
+                    });
+                  } else {
+                    updateTrailerDetails({ unloadingFeature: types });
+                  }
+                } else if (val === "all") {
+                  if (trailerDetails) {
+                    updateTrailerDetails({
+                      ...trailerDetails,
+                      unloadingFeature: LoadingUnloadingFeatures,
+                    });
+                  } else {
+                    updateTrailerDetails({
+                      unloadingFeature: LoadingUnloadingFeatures,
+                    });
+                  }
+                }
+              }}
               items={LoadingUnloadingFeatures}
             >
               {(item) => <ListboxItem key={item.name}>{item.name}</ListboxItem>}
@@ -124,6 +181,19 @@ const CreateTrailer: React.FC = () => {
             labelPlacement="outside"
             placeholder="1"
             type="number"
+            value={trailerDetails ? trailerDetails.numberOfCars : ""}
+            onValueChange={(val) => {
+              if (trailerDetails) {
+                updateTrailerDetails({
+                  ...trailerDetails,
+                  numberOfCars: val,
+                });
+              } else {
+                updateTrailerDetails({
+                  numberOfCars: val,
+                });
+              }
+            }}
           />
           <Input
             variant="faded"
@@ -137,48 +207,183 @@ const CreateTrailer: React.FC = () => {
             labelPlacement="outside"
             placeholder="1-9"
             type="number"
+            value={trailerDetails ? trailerDetails.adr : ""}
+            onValueChange={(val) => {
+              if (trailerDetails) {
+                updateTrailerDetails({
+                  ...trailerDetails,
+                  adr: val,
+                });
+              } else {
+                updateTrailerDetails({
+                  adr: val,
+                });
+              }
+            }}
           />
         </div>
         <div className="flex flex-col gap-3">
           <RadioGroup
             color="default"
             label="Loading"
-            defaultValue="buenos-aires"
+            value={
+              trailerDetails
+                ? LoadingVolumeFeatureDescription[
+                    trailerDetails.loadingVolumeFeature as LoadingVolumeFeature
+                  ].shortName
+                : ""
+            }
+            onValueChange={(val) => {
+              let value: LoadingVolumeFeature;
+              if (val == "FTL") {
+                value = LoadingVolumeFeature.FTL;
+              } else {
+                value = LoadingVolumeFeature.FTLOrLTL;
+              }
+              if (trailerDetails) {
+                updateTrailerDetails({
+                  ...trailerDetails,
+                  loadingVolumeFeature: value,
+                });
+              } else {
+                updateTrailerDetails({
+                  loadingVolumeFeature: value,
+                });
+              }
+            }}
           >
-            <Radio description="FTL" value="buenos-aires">
-              Separate machine
-            </Radio>
-            <Radio description="FTL or LTL" value="canberra">
-              By separate vehicle or additional load
-            </Radio>
+            {Object.values(LoadingVolumeFeature)
+              .filter(
+                (value): value is LoadingVolumeFeature =>
+                  typeof value === "number",
+              ) // Filter to only numeric values
+              .map((state) => (
+                <Radio
+                  key={
+                    LoadingVolumeFeatureDescription[
+                      state as LoadingVolumeFeature
+                    ].key
+                  }
+                  description={
+                    LoadingVolumeFeatureDescription[
+                      state as LoadingVolumeFeature
+                    ].shortName
+                  }
+                  value={
+                    LoadingVolumeFeatureDescription[
+                      state as LoadingVolumeFeature
+                    ].shortName
+                  }
+                >
+                  {
+                    LoadingVolumeFeatureDescription[
+                      state as LoadingVolumeFeature
+                    ].description
+                  }
+                </Radio>
+              ))}
           </RadioGroup>
-          <Checkbox>2 drivers required</Checkbox>
+          <Checkbox
+            isSelected={
+              trailerDetails ? trailerDetails.isTwoDriverRequired : false
+            }
+            onValueChange={(val) => {
+              if (trailerDetails) {
+                updateTrailerDetails({
+                  ...trailerDetails,
+                  isTwoDriverRequired: val,
+                });
+              } else {
+                updateTrailerDetails({
+                  isTwoDriverRequired: val,
+                });
+              }
+            }}
+          >
+            2 drivers required
+          </Checkbox>
         </div>
       </div>
       <div>
         <CheckboxGroup
           color="default"
-          defaultValue={["buenos-aires", "san-francisco"]}
           label="Permissions"
           orientation="horizontal"
+          value={
+            trailerDetails && trailerDetails.permissions
+              ? Array.from(
+                  trailerDetails.permissions.map((r: { name: string }) => {
+                    return r.name;
+                  }),
+                )
+              : []
+          }
+          onValueChange={(val) => {
+            const data = val.map((e: string) => {
+              return {
+                name: e,
+              };
+            });
+            if (trailerDetails) {
+              updateTrailerDetails({
+                ...trailerDetails,
+                permissions: data,
+              });
+            } else {
+              updateTrailerDetails({
+                permissions: data,
+              });
+            }
+          }}
         >
-          <Checkbox value="buenos-aires">Buenos Aires</Checkbox>
-          <Checkbox value="sydney">Sydney</Checkbox>
-          <Checkbox value="san-francisco">San Francisco</Checkbox>
-          <Checkbox value="london">London</Checkbox>
-          <Checkbox value="tokyo">Tokyo</Checkbox>
+          {Permissions.map((r) => {
+            return (
+              <Checkbox key={r.name} value={r.name}>
+                {r.name}
+              </Checkbox>
+            );
+          })}
         </CheckboxGroup>
       </div>
       <div>
         <CheckboxGroup
           color="default"
-          defaultValue={["buenos-aires", "san-francisco"]}
           label="Requirements"
           orientation="horizontal"
+          value={
+            trailerDetails && trailerDetails.requirements
+              ? Array.from(
+                  trailerDetails.requirements.map((r: { name: string }) => {
+                    return r.name;
+                  }),
+                )
+              : []
+          }
+          onValueChange={(val) => {
+            const data = val.map((e: string) => {
+              return {
+                name: e,
+              };
+            });
+            if (trailerDetails) {
+              updateTrailerDetails({
+                ...trailerDetails,
+                requirements: data,
+              });
+            } else {
+              updateTrailerDetails({
+                requirements: data,
+              });
+            }
+          }}
         >
-          <Checkbox value="buenos-aires">Buenos Aires</Checkbox>
-          <Checkbox value="sydney">Sydney</Checkbox>
-          <Checkbox value="san-francisco">San Francisco</Checkbox>
+          {Requirements.map((r) => {
+            return (
+              <Checkbox key={r.name} value={r.name}>
+                {r.name}
+              </Checkbox>
+            );
+          })}
         </CheckboxGroup>
       </div>
       <div className="flex flex-col gap-1 me-2">
@@ -192,6 +397,19 @@ const CreateTrailer: React.FC = () => {
           labelPlacement="outside"
           placeholder="1"
           type="number"
+          value={trailerDetails ? trailerDetails.numberOfRequiredBelts : ""}
+          onValueChange={(val) => {
+            if (trailerDetails) {
+              updateTrailerDetails({
+                ...trailerDetails,
+                numberOfRequiredBelts: val,
+              });
+            } else {
+              updateTrailerDetails({
+                numberOfRequiredBelts: val,
+              });
+            }
+          }}
         />
       </div>
 

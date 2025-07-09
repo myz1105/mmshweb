@@ -12,16 +12,16 @@ export enum Workdays {
 
 export interface LoadDetails {
   name: string;
-  weight: string;
-  volume: string;
+  weight?: { value: number; unit: string };
+  volume?: { value: number; unit: string };
 
   package?: {
     name: string;
     quantity: number;
-    diameter: number;
-    length: number;
-    width: number;
-    height: number;
+    diameter: { value: number; unit: string };
+    length: { value: number; unit: string };
+    width: { value: number; unit: string };
+    height: { value: number; unit: string };
   };
 }
 
@@ -32,17 +32,13 @@ export interface LoadRoute {
     uploadValidation?: Workdays;
   };
   uploading: {
-    from: {
-      address?: Address;
-      location: string;
-    };
-    uploadindTime?: TimeRange;
+    address?: Address;
+    location: string;
+    uploadingTime?: TimeRange;
   };
   downloading: {
-    to: {
-      address?: Address;
-      location: string;
-    };
+    address?: Address;
+    location: string;
     downloadingTime?: DateTimeRange;
   };
 }
@@ -96,19 +92,14 @@ export interface TrailerDetails {
 }
 
 export interface ContractInformation {
-  loadPrice: {
-    amount: number;
+  loadPrice?: {
+    value: number;
     unit: string;
   };
-  shippingPrice: {
-    min: {
-      amount: number;
-      unit: string;
-    };
-    max: {
-      amount: number;
-      unit: string;
-    };
+  shippingPrice?: {
+    min: number;
+    max: number;
+    unit: string;
   };
   manager?: any;
   partner?: any;
@@ -128,6 +119,25 @@ export const LoadStatusDescription: { [key in LoadStatus]: string } = {
   [LoadStatus.Active]: "Ready for loading",
   [LoadStatus.Finished]: "Constantly",
   [LoadStatus.Inactive]: "No load, request a rate",
+};
+
+export const LoadingVolumeFeatureDescription: {
+  [key in LoadingVolumeFeature]: {
+    description: string;
+    key: LoadingVolumeFeature;
+    shortName: string;
+  };
+} = {
+  [LoadingVolumeFeature.FTL]: {
+    shortName: "FTL",
+    key: LoadingVolumeFeature.FTL,
+    description: "Separate machine",
+  },
+  [LoadingVolumeFeature.FTLOrLTL]: {
+    shortName: "FTL or LTL",
+    key: LoadingVolumeFeature.FTLOrLTL,
+    description: "By separate vehicle or additional load",
+  },
 };
 
 export interface LoadInformationFeatures {

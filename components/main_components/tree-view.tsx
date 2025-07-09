@@ -1,6 +1,6 @@
 import { Checkbox } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface TreeNode {
   id: number;
@@ -12,15 +12,40 @@ interface TreeViewProps {
   nodes: TreeNode[];
   isExtended?: boolean;
   selectionMode?: "multi" | "single";
+  onChange: (result?: any) => void;
 }
 
 const TreeView: React.FC<TreeViewProps> = ({
   nodes,
   isExtended,
   selectionMode = "single",
+  onChange,
 }) => {
   const [expandedNodes, setExpandedNodes] = useState<Set<number>>(new Set());
   const [selectedNodes, setSelectedNodes] = useState<Set<number>>(new Set());
+  const [nodeList, setNodeList] = useState<TreeNode[]>([]);
+
+  useEffect(() => {
+    const newNodeList: TreeNode[] = [];
+    yieldNodeById(nodes, selectedNodes, newNodeList);
+    setNodeList(newNodeList);
+    onChange(newNodeList);
+  }, [selectedNodes]);
+
+  const yieldNodeById = (
+    nodes: TreeNode[],
+    ids: Set<number>,
+    nodeList: TreeNode[],
+  ): void => {
+    for (const node of nodes) {
+      if (ids.has(node.id)) {
+        nodeList.push(node); // Push the node directly into the array
+      }
+      if (node.children) {
+        yieldNodeById(node.children, ids, nodeList);
+      }
+    }
+  };
 
   const findNodeById = (nodes: TreeNode[], id: number): TreeNode | null => {
     for (const node of nodes) {

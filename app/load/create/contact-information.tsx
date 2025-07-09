@@ -8,214 +8,19 @@ import {
   SelectItem,
   Avatar,
   Chip,
+  Card,
+  CardBody,
+  User,
+  Selection,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import React from "react";
-
-export const users = [
-  {
-    id: 1,
-    name: "Tony Reichert",
-    role: "CEO",
-    team: "Management",
-    status: "active",
-    age: "29",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/1.png",
-    email: "tony.reichert@example.com",
-  },
-  {
-    id: 2,
-    name: "Zoey Lang",
-    role: "Tech Lead",
-    team: "Development",
-    status: "paused",
-    age: "25",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/1.png",
-    email: "zoey.lang@example.com",
-  },
-  {
-    id: 3,
-    name: "Jane Fisher",
-    role: "Sr. Dev",
-    team: "Development",
-    status: "active",
-    age: "22",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/2.png",
-    email: "jane.fisher@example.com",
-  },
-  {
-    id: 4,
-    name: "William Howard",
-    role: "C.M.",
-    team: "Marketing",
-    status: "vacation",
-    age: "28",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/2.png",
-    email: "william.howard@example.com",
-  },
-  {
-    id: 5,
-    name: "Kristen Copper",
-    role: "S. Manager",
-    team: "Sales",
-    status: "active",
-    age: "24",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/3.png",
-    email: "kristen.cooper@example.com",
-  },
-  {
-    id: 6,
-    name: "Brian Kim",
-    role: "P. Manager",
-    team: "Management",
-    age: "29",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/3.png",
-    email: "brian.kim@example.com",
-    status: "active",
-  },
-  {
-    id: 7,
-    name: "Michael Hunt",
-    role: "Designer",
-    team: "Design",
-    status: "paused",
-    age: "27",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/4.png",
-    email: "michael.hunt@example.com",
-  },
-  {
-    id: 8,
-    name: "Samantha Brooks",
-    role: "HR Manager",
-    team: "HR",
-    status: "active",
-    age: "31",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/4.png",
-    email: "samantha.brooks@example.com",
-  },
-  {
-    id: 9,
-    name: "Frank Harrison",
-    role: "F. Manager",
-    team: "Finance",
-    status: "vacation",
-    age: "33",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/5.png",
-    email: "frank.harrison@example.com",
-  },
-  {
-    id: 10,
-    name: "Emma Adams",
-    role: "Ops Manager",
-    team: "Operations",
-    status: "active",
-    age: "35",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/5.png",
-    email: "emma.adams@example.com",
-  },
-  {
-    id: 11,
-    name: "Brandon Stevens",
-    role: "Jr. Dev",
-    team: "Development",
-    status: "active",
-    age: "22",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/7.png",
-    email: "brandon.stevens@example.com",
-  },
-  {
-    id: 12,
-    name: "Megan Richards",
-    role: "P. Manager",
-    team: "Product",
-    status: "paused",
-    age: "28",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/7.png",
-    email: "megan.richards@example.com",
-  },
-  {
-    id: 13,
-    name: "Oliver Scott",
-    role: "S. Manager",
-    team: "Security",
-    status: "active",
-    age: "37",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/8.png",
-    email: "oliver.scott@example.com",
-  },
-  {
-    id: 14,
-    name: "Grace Allen",
-    role: "M. Specialist",
-    team: "Marketing",
-    status: "active",
-    age: "30",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/8.png",
-    email: "grace.allen@example.com",
-  },
-  {
-    id: 15,
-    name: "Noah Carter",
-    role: "IT Specialist",
-    team: "I. Technology",
-    status: "paused",
-    age: "31",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/9.png",
-    email: "noah.carter@example.com",
-  },
-  {
-    id: 16,
-    name: "Ava Perez",
-    role: "Manager",
-    team: "Sales",
-    status: "active",
-    age: "29",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/9.png",
-    email: "ava.perez@example.com",
-  },
-  {
-    id: 17,
-    name: "Liam Johnson",
-    role: "Data Analyst",
-    team: "Analysis",
-    status: "active",
-    age: "28",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/11.png",
-    email: "liam.johnson@example.com",
-  },
-  {
-    id: 18,
-    name: "Sophia Taylor",
-    role: "QA Analyst",
-    team: "Testing",
-    status: "active",
-    age: "27",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/11.png",
-    email: "sophia.taylor@example.com",
-  },
-  {
-    id: 19,
-    name: "Lucas Harris",
-    role: "Administrator",
-    team: "Information Technology",
-    status: "paused",
-    age: "32",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/male/12.png",
-    email: "lucas.harris@example.com",
-  },
-  {
-    id: 20,
-    name: "Mia Robinson",
-    role: "Coordinator",
-    team: "Operations",
-    status: "active",
-    age: "26",
-    avatar: "https://d2u8k2ocievbld.cloudfront.net/memojis/female/12.png",
-    email: "mia.robinson@example.com",
-  },
-];
+import { useLoadCreation } from "../contexts/create-load-context";
+import { users } from "../utils/fakeLoadData";
 
 const ContactInformation: React.FC = () => {
+  const { contractInformation, updateContractInformation } = useLoadCreation();
+
   return (
     <div className="max-w-3xl flex flex-col justify-start items-start gap-3 p-4">
       <div className="text-2xl font-semibold mb-5">Contacts, Prices</div>
@@ -228,6 +33,28 @@ const ContactInformation: React.FC = () => {
             variant="faded"
             className="max-w-fit"
             description="Load price which is paid for the load"
+            value={
+              contractInformation && contractInformation.loadPrice
+                ? contractInformation.loadPrice.value
+                : ""
+            }
+            onValueChange={(val) => {
+              const price =
+                contractInformation && contractInformation.loadPrice
+                  ? { ...contractInformation.loadPrice, value: val }
+                  : { value: val };
+
+              if (contractInformation) {
+                updateContractInformation({
+                  ...contractInformation,
+                  loadPrice: price,
+                });
+              } else {
+                updateContractInformation({
+                  loadPrice: price,
+                });
+              }
+            }}
             endContent={
               <div className="flex items-center">
                 <label className="sr-only" htmlFor="currency">
@@ -237,6 +64,31 @@ const ContactInformation: React.FC = () => {
                   className="outline-none border-0 bg-transparent text-default-400 text-small"
                   id="currency"
                   name="currency"
+                  value={
+                    contractInformation && contractInformation.loadPrice
+                      ? contractInformation.loadPrice.unit
+                      : undefined
+                  }
+                  onChange={(val) => {
+                    const data =
+                      contractInformation && contractInformation.loadPrice
+                        ? {
+                            ...contractInformation.loadPrice,
+                            unit: val.target.value,
+                          }
+                        : { unit: val.target.value };
+
+                    if (contractInformation) {
+                      updateContractInformation({
+                        ...contractInformation,
+                        loadPrice: data,
+                      });
+                    } else {
+                      updateContractInformation({
+                        loadPrice: data,
+                      });
+                    }
+                  }}
                 >
                   <option>$</option>
                   <option>Uzs</option>
@@ -253,6 +105,28 @@ const ContactInformation: React.FC = () => {
               className="max-w-fit"
               description="Shipment price min"
               placeholder="min"
+              value={
+                contractInformation && contractInformation.shippingPrice
+                  ? contractInformation.shippingPrice.min
+                  : ""
+              }
+              onValueChange={(val) => {
+                const price =
+                  contractInformation && contractInformation.shippingPrice
+                    ? { ...contractInformation.shippingPrice, min: val }
+                    : { min: val };
+
+                if (contractInformation) {
+                  updateContractInformation({
+                    ...contractInformation,
+                    shippingPrice: price,
+                  });
+                } else {
+                  updateContractInformation({
+                    shippingPrice: price,
+                  });
+                }
+              }}
               endContent={
                 <div className="flex items-center">
                   <label className="sr-only" htmlFor="currency">
@@ -262,6 +136,31 @@ const ContactInformation: React.FC = () => {
                     className="outline-none border-0 bg-transparent text-default-400 text-small"
                     id="currency"
                     name="currency"
+                    value={
+                      contractInformation && contractInformation.shippingPrice
+                        ? contractInformation.shippingPrice.unit
+                        : undefined
+                    }
+                    onChange={(val) => {
+                      const data =
+                        contractInformation && contractInformation.shippingPrice
+                          ? {
+                              ...contractInformation.shippingPrice,
+                              unit: val.target.value,
+                            }
+                          : { unit: val.target.value };
+
+                      if (contractInformation) {
+                        updateContractInformation({
+                          ...contractInformation,
+                          shippingPrice: data,
+                        });
+                      } else {
+                        updateContractInformation({
+                          shippingPrice: data,
+                        });
+                      }
+                    }}
                   >
                     <option>$</option>
                     <option>Uzs</option>
@@ -278,6 +177,28 @@ const ContactInformation: React.FC = () => {
               className="max-w-fit"
               description="Shipment price maximum"
               placeholder="max"
+              value={
+                contractInformation && contractInformation.shippingPrice
+                  ? contractInformation.shippingPrice.max
+                  : ""
+              }
+              onValueChange={(val) => {
+                const price =
+                  contractInformation && contractInformation.shippingPrice
+                    ? { ...contractInformation.shippingPrice, max: val }
+                    : { max: val };
+
+                if (contractInformation) {
+                  updateContractInformation({
+                    ...contractInformation,
+                    shippingPrice: price,
+                  });
+                } else {
+                  updateContractInformation({
+                    shippingPrice: price,
+                  });
+                }
+              }}
               endContent={
                 <div className="flex items-center">
                   <label className="sr-only" htmlFor="currency">
@@ -287,6 +208,31 @@ const ContactInformation: React.FC = () => {
                     className="outline-none border-0 bg-transparent text-default-400 text-small"
                     id="currency"
                     name="currency"
+                    value={
+                      contractInformation && contractInformation.shippingPrice
+                        ? contractInformation.shippingPrice.unit
+                        : undefined
+                    }
+                    onChange={(val) => {
+                      const data =
+                        contractInformation && contractInformation.shippingPrice
+                          ? {
+                              ...contractInformation.shippingPrice,
+                              unit: val.target.value,
+                            }
+                          : { unit: val.target.value };
+
+                      if (contractInformation) {
+                        updateContractInformation({
+                          ...contractInformation,
+                          shippingPrice: data,
+                        });
+                      } else {
+                        updateContractInformation({
+                          shippingPrice: data,
+                        });
+                      }
+                    }}
                   >
                     <option>$</option>
                     <option>Uzs</option>
@@ -304,48 +250,103 @@ const ContactInformation: React.FC = () => {
       <div className="text-xl text-default-600 dark:text-default-400">
         Partner and load managers
       </div>
-      <div className="flex items-start justify-start gap-3 flex-wrap w-full">
-        <Select
-          classNames={{
-            base: "max-w-md",
-            trigger: "py-2",
-          }}
-          isMultiline={true}
-          items={users}
-          label="Manager"
-          labelPlacement="outside"
-          placeholder="Select a manager(s)"
-          renderValue={(items) => {
-            return (
-              <div className="flex flex-wrap gap-2">
-                {items.map((item) => (
-                  <Chip key={item.key}>{item.data?.name}</Chip>
-                ))}
-              </div>
-            );
-          }}
-          selectionMode="multiple"
-          variant="faded"
-        >
-          {(user) => (
-            <SelectItem key={user.id} textValue={user.name}>
-              <div className="flex gap-2 items-center">
-                <Avatar
-                  alt={user.name}
-                  className="flex-shrink-0"
-                  size="sm"
-                  src={user.avatar}
-                />
-                <div className="flex flex-col">
-                  <span className="text-small">{user.name}</span>
-                  <span className="text-tiny text-default-400">
-                    {user.email}
-                  </span>
-                </div>
-              </div>
-            </SelectItem>
-          )}
-        </Select>
+      <div className="flex gap-3 flex-col w-full">
+        <Card className="max-w-md border dark:border-gray-600" shadow="none">
+          <CardBody>
+            <div className="flex items-start justify-start gap-3 flex-col w-full">
+              <div>Creator</div>
+              <User
+                name="Milana Alimova"
+                description="Adminstrator"
+                avatarProps={{
+                  src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                }}
+              ></User>
+              <Select
+                classNames={{
+                  base: "max-w-md",
+                  trigger: "py-2",
+                }}
+                isMultiline={true}
+                items={users}
+                label="Manager (Owner)"
+                labelPlacement="outside"
+                placeholder="Select a manager(s)"
+                selectedKeys={
+                  contractInformation && contractInformation.manager
+                    ? new Set([String(contractInformation.manager.id)])
+                    : new Set([])
+                }
+                onSelectionChange={(val) => {
+                  const selectedId = val.anchorKey; // Get the selected ID
+
+                  const selectedPartner = users.find(
+                    (user) => user.id === Number(selectedId),
+                  ); // Find the selected partner object
+
+                  if (contractInformation) {
+                    updateContractInformation({
+                      ...contractInformation,
+                      manager: selectedPartner,
+                    });
+                  } else {
+                    updateContractInformation({ manager: selectedPartner });
+                  }
+                }}
+                renderValue={(items) => {
+                  return (
+                    <div className="flex flex-wrap gap-2">
+                      {items.map((item) => (
+                        <div key={item.key} className="flex gap-2 items-center">
+                          <Avatar
+                            alt={
+                              item.data?.firstname + " " + item.data?.lastname
+                            }
+                            className="flex-shrink-0"
+                            size="sm"
+                            src={item.data?.image}
+                          />
+                          <div className="flex flex-col">
+                            <span className="text-small">
+                              {item.data?.firstname + " " + item.data?.lastname}
+                            </span>
+                            <span className="text-tiny text-default-400">
+                              {item.data?.role}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }}
+                selectionMode="single"
+                variant="flat"
+              >
+                {(user) => (
+                  <SelectItem key={user.id} textValue={user.firstname}>
+                    <div className="flex gap-2 items-center">
+                      <Avatar
+                        alt={user.firstname}
+                        className="flex-shrink-0"
+                        size="sm"
+                        src={user.image}
+                      />
+                      <div className="flex flex-col">
+                        <span className="text-small">
+                          {user.firstname + " " + user.lastname}
+                        </span>
+                        <span className="text-tiny text-default-400">
+                          {user.role}
+                        </span>
+                      </div>
+                    </div>
+                  </SelectItem>
+                )}
+              </Select>
+            </div>
+          </CardBody>
+        </Card>
+
         <Select
           items={users}
           label="Partner"
@@ -353,20 +354,71 @@ const ContactInformation: React.FC = () => {
           placeholder="Select a partner"
           variant="faded"
           className="max-w-md"
+          classNames={{
+            innerWrapper: " py-1",
+            trigger: "h-fit",
+          }}
+          selectedKeys={
+            contractInformation && contractInformation.partner
+              ? new Set([String(contractInformation.partner.id)])
+              : new Set([])
+          }
+          onSelectionChange={(val) => {
+            const selectedId = val.anchorKey; // Get the selected ID
+
+            const selectedPartner = users.find(
+              (user) => user.id === Number(selectedId),
+            ); // Find the selected partner object
+
+            if (contractInformation) {
+              updateContractInformation({
+                ...contractInformation,
+                partner: selectedPartner,
+              });
+            } else {
+              updateContractInformation({ partner: selectedPartner });
+            }
+          }}
+          renderValue={(items) => {
+            return (
+              <div className="flex flex-wrap">
+                {items.map((user) => (
+                  <div className="flex gap-2 items-center" key={user.data?.id}>
+                    <Avatar
+                      alt={user.data?.firstname}
+                      className="flex-shrink-0"
+                      size="sm"
+                      src={user.data?.image}
+                    />
+                    <div className="flex flex-col">
+                      <span className="text-small">
+                        {user.data?.firstname + " " + user.data?.lastname}
+                      </span>
+                      <span className="text-tiny text-default-400">
+                        {user.data?.role}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          }}
         >
           {(user) => (
-            <SelectItem key={user.id} textValue={user.name}>
+            <SelectItem key={user.id} textValue={user.firstname}>
               <div className="flex gap-2 items-center">
                 <Avatar
-                  alt={user.name}
+                  alt={user.firstname}
                   className="flex-shrink-0"
                   size="sm"
-                  src={user.avatar}
+                  src={user.image}
                 />
                 <div className="flex flex-col">
-                  <span className="text-small">{user.name}</span>
+                  <span className="text-small">
+                    {user.firstname + " " + user.lastname}
+                  </span>
                   <span className="text-tiny text-default-400">
-                    {user.email}
+                    {user.role}
                   </span>
                 </div>
               </div>

@@ -29,7 +29,7 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isOnSaving, setOnSaving] = useState(false);
 
   const [loadCreationState, setLoadCreationState] = useState(
-    LoadCreationStatus.EnterLoadDetails,
+    LoadCreationStatus.EnterContactAndPrices,
   );
 
   const [isLoadDetailsValid, setLoadDetailsValidation] = useState(false);
@@ -60,27 +60,26 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [loadDetails, setLoadDetails] = useState<LoadDetails>({
     name: "",
-    weight: "",
-    volume: "",
+    weight: { value: 0, unit: "T" },
+    volume: { value: 0, unit: "m3" },
   });
   const [loadRoute, setLoadRoute] = useState<LoadRoute>({
     when: {
       state: LoadReadyState.LoadIsReadyAt,
     },
     uploading: {
-      from: {
-        location: "",
-      },
+      location: "",
     },
     downloading: {
-      to: {
-        location: "",
-      },
+      location: "",
     },
   });
   const [trailerDetails, setTrailerDetails] = useState<TrailerDetails>();
   const [contractInformation, setContractInformation] =
-    useState<ContractInformation>();
+    useState<ContractInformation>({
+      loadPrice: { value: 0, unit: "$" },
+      shippingPrice: { min: 0, max: 0, unit: "$" },
+    });
 
   const [loadVisibility, setLoadVisibility] =
     useState<LoadInformationFeatures>();
@@ -144,13 +143,18 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     let loadDetComp = !!(
-      (loadDetails.name && loadDetails.weight) ||
-      loadDetails.volume
+      loadDetails.name &&
+      ((loadDetails.weight && loadDetails.weight.value > 0) ||
+        (loadDetails.volume && loadDetails.volume.value > 0))
     );
     setLoadDetailsValidation(loadDetComp);
     let percentLoadDet = 0;
     if (loadDetails.name) percentLoadDet += 50;
-    if (loadDetails.weight || loadDetails.volume) percentLoadDet += 50;
+    if (
+      (loadDetails.weight && loadDetails.weight.value > 0) ||
+      (loadDetails.volume && loadDetails.volume.value > 0)
+    )
+      percentLoadDet += 50;
     setLoadDetailsCompilationPercentage(percentLoadDet);
   }, [loadDetails]);
 
@@ -161,34 +165,17 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
         ? loadRoute.when.dateInterval
         : true) &&
       loadRoute.uploading &&
-      loadRoute.uploading.from &&
-      loadRoute.uploading.from.address &&
+      loadRoute.uploading.address &&
       loadRoute.downloading &&
-      loadRoute.downloading.to &&
-      loadRoute.downloading.to.address
+      loadRoute.downloading.address
     );
     setLoadRouteValidation(loadRouteComp);
 
     let percentLoadRoute = 0;
-    if (loadRoute.when) percentLoadRoute += 25; // Adjust percentage as needed
-    if (
-      loadRoute.uploading &&
-      loadRoute.uploading.from &&
-      loadRoute.uploading.from.address
-    )
-      percentLoadRoute += 25;
-    if (
-      loadRoute.downloading &&
-      loadRoute.downloading.to &&
-      loadRoute.downloading.to.address
-    )
-      percentLoadRoute += 25;
-    if (
-      loadRoute.when &&
-      loadRoute.when.state === LoadReadyState.LoadIsReadyAt &&
-      loadRoute.when.dateInterval
-    )
-      percentLoadRoute += 25; // Adjust percentage as needed
+    if (loadRoute.uploading && loadRoute.uploading.address)
+      percentLoadRoute += 50;
+    if (loadRoute.downloading && loadRoute.downloading.address)
+      percentLoadRoute += 50;
     setLoadRouteCompilationPercentage(percentLoadRoute);
   }, [loadRoute]);
 
@@ -218,10 +205,10 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
       contractInformation.manager &&
       contractInformation.partner &&
       contractInformation.loadPrice &&
-      contractInformation.loadPrice.amount > 0 &&
+      contractInformation.loadPrice.value > 0 &&
       contractInformation.shippingPrice &&
-      contractInformation.shippingPrice.min.amount > 0 &&
-      contractInformation.shippingPrice.max.amount > 0
+      contractInformation.shippingPrice.min > 0 &&
+      contractInformation.shippingPrice.max > 0
     );
     setContactInformationValidation(cInfoValidation);
     // Percentage calculation logic
@@ -235,17 +222,17 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
     if (contractInformation.partner) cInfoPerct += 20;
     if (
       contractInformation.loadPrice &&
-      contractInformation.loadPrice.amount > 0
+      contractInformation.loadPrice.value > 0
     )
       cInfoPerct += 20;
     if (
       contractInformation.shippingPrice &&
-      contractInformation.shippingPrice.min.amount > 0
+      contractInformation.shippingPrice.min > 0
     )
       cInfoPerct += 20;
     if (
       contractInformation.shippingPrice &&
-      contractInformation.shippingPrice.max.amount > 0
+      contractInformation.shippingPrice.max > 0
     )
       cInfoPerct += 20;
 
@@ -282,17 +269,98 @@ export const CreateLoadProvider: React.FC<{ children: React.ReactNode }> = ({
     setLoadVisibilityCompilationPercentage(lVisPercnt);
   }, [loadVisibility]);
 
+  const goBack = () => {
+    if (canGoBack) {
+      if (loadCreationState === LoadCreationStatus.EnterRoute) {
+        setLoadCreationState(LoadCreationStatus.EnterLoadDetails);
+      } else if (loadCreationState === LoadCreationStatus.EnterTraileDetails) {
+        setLoadCreationState(LoadCreationStatus.EnterRoute);
+      } else if (
+        loadCreationState === LoadCreationStatus.EnterContactAndPrices
+      ) {
+        setLoadCreationState(LoadCreationStatus.EnterTraileDetails);
+      } else if (
+        loadCreationState === LoadCreationStatus.SetLoadVisibilityAndStatus
+      ) {
+        setLoadCreationState(LoadCreationStatus.EnterContactAndPrices);
+      }
+    }
+  };
+
+  const goForward = () => {
+    if (canGoForward) {
+      if (loadCreationState === LoadCreationStatus.EnterLoadDetails) {
+        setLoadCreationState(LoadCreationStatus.EnterRoute);
+      } else if (loadCreationState === LoadCreationStatus.EnterRoute) {
+        setLoadCreationState(LoadCreationStatus.EnterTraileDetails);
+      } else if (loadCreationState === LoadCreationStatus.EnterTraileDetails) {
+        setLoadCreationState(LoadCreationStatus.EnterContactAndPrices);
+      } else if (
+        loadCreationState === LoadCreationStatus.EnterContactAndPrices
+      ) {
+        setLoadCreationState(LoadCreationStatus.SetLoadVisibilityAndStatus);
+      }
+    }
+  };
+
+  const updateLoadDetails = (ld: LoadDetails) => {
+    setLoadDetails(ld);
+  };
+  const updateLoadRoute = (lr: LoadRoute) => {
+    setLoadRoute(lr);
+  };
+  const updateTrailerDetails = (tr: TrailerDetails) => {
+    setTrailerDetails(tr);
+  };
+  const updateContractInformation = (ci: ContractInformation) => {
+    console.log(ci);
+    setContractInformation(ci);
+  };
+  const updateLoadVisibility = (lv: LoadInformationFeatures) => {
+    setLoadVisibility(lv);
+  };
+
   return (
-    <CreateLoadContext.Provider value={{ loadCreationState }}>
+    <CreateLoadContext.Provider
+      value={{
+        loadCreationState,
+        loadDetails,
+        loadRoute,
+        trailerDetails,
+        contractInformation,
+        loadVisibility,
+        isLoadDetailsValid,
+        isLoadRouteValid,
+        isContactInformationValid,
+        isTrailerDetailsValid,
+        isLoadVisibilityValid,
+        loadDetailsCompilationPercentage,
+        loadRouteCompilationPercentage,
+        trailerDetailsCompilationPercentage,
+        contactInformationCompilationPercentage,
+        loadVisibilityCompilationPercentage,
+
+        updateLoadDetails,
+        updateLoadRoute,
+        updateTrailerDetails,
+        updateContractInformation,
+        updateLoadVisibility,
+        canGoBack,
+        canGoForward,
+        canSave,
+        goBack,
+        goForward,
+      }}
+    >
       {children}
     </CreateLoadContext.Provider>
   );
 };
 
-export const useCompany = () => {
+export const useLoadCreation = () => {
   const context = useContext(CreateLoadContext);
   if (!context) {
-    throw new Error("useCompany must be used within a CompanyProvider");
+    throw new Error("useLoadCreation must be used within a CreateLoadProvider");
   }
   return context;
 };

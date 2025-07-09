@@ -459,3 +459,16 @@ export const users = [
     role: "Manager",
   },
 ];
+
+export const Requirements = [
+  { name: "Hitch" },
+  { name: "Pneumatic drive" },
+  { name: "Ponies" },
+];
+
+export const Permissions = [
+  { name: "TIR (International Road Transport)" },
+  { name: "T1 (Customs Transit Document)" },
+  { name: "CMR (Consignment Note)" },
+  { name: "Medical record book" },
+];
