@@ -12,7 +12,7 @@ import {
   Avatar,
 } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import CompanyTable from "./components/company-table";
+import CompanyTable from "../company/components/company-table";
 import UserTable from "./components/user-table";
 
 const MainPage: React.FC = () => {

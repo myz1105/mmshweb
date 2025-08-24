@@ -1,18 +1,18 @@
 "use client";
-import { Button, Form, Spinner } from "@heroui/react";
+import { Button, Form } from "@heroui/react";
 import React from "react";
-import { EnterPhoneHeader } from "@/components/identityComps/enter-phone";
-import EnterPhone from "@/components/identityComps/enter-phone";
+import { EnterPhoneHeader } from "@/features/auth/components/identity/enter-phone";
+import EnterPhone from "@/features/auth/components/identity/enter-phone";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import { CountryData } from "react-international-phone";
 import { useState, useEffect } from "react";
-import { AuthenticationState } from "@/types/authentication";
-import { VerifyPhoneHeader } from "@/components/identityComps/verify-phone";
-import VerifyPhone from "@/components/identityComps/verify-phone";
-import EnterClientInfo from "@/components/identityComps/enter-client-info";
+import { AuthenticationState } from "@/types/legacy/authentication";
+import { VerifyPhoneHeader } from "@/features/auth/components/identity/verify-phone";
+import VerifyPhone from "@/features/auth/components/identity/verify-phone";
+import EnterClientInfo from "@/features/auth/components/identity/enter-client-info";
 import { addToast } from "@heroui/toast";
-import { BaseAddressAPI, setToken, Token } from "@/types/api";
-import { setLocalStorage } from "@/utils/localstorage";
+import { BaseAddressAPI, setToken, Token } from "@/types/legacy/api";
+import { setLocalStorage } from "@/utils/legacy/localstorage";
 import { Sura } from "next/font/google";
 type ClientParameters = {
   phoneNumber: string;
@@ -20,7 +20,7 @@ type ClientParameters = {
   deviceModel?: string;
   clientId?: string;
 };
-import { useClient } from "@/contexts/profile-management/client-context";
+import { useClient } from "@/contexts/legacy/profile-management/client-context";
 import { useRouter } from "next/navigation";
 
 export default function Authentication() {
@@ -97,6 +97,7 @@ export default function Authentication() {
             deviceModel: navigator.userAgent,
           }),
         });
+        console.log(res);
 
         if (!res.ok) {
           addToast({
@@ -152,6 +153,7 @@ export default function Authentication() {
           }
 
           const result = await res.json();
+          console.log(result);
           const { Message, Status, Data } = result;
           if (Status === 100) {
             setLocalStorage("loginConfig", {
@@ -226,7 +228,6 @@ export default function Authentication() {
       setLoading(false);
     }
     if (state === AuthenticationState.AuthReady) {
-      
       router.push("/main");
     }
   };

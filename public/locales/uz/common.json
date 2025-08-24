@@ -1,0 +1,58 @@
+{
+  "Navbar": {
+    "home": "Bosh sahifa",
+    "blog": "Blog",
+    "about": "Biz haqimizda",
+    "profile": "Profil",
+    "login": "Kirish",
+    "logout": "Chiqish",
+    "search": "Qidirish...",
+    "dashboard": "Boshqaruv paneli"
+  },
+  "Footer": {
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "Home": {
+    "solve_problems": "Logistika muammolaringizni hal qiling",
+    "subtitle_text": "MMSH Logistics - Transport va logistika xizmatlari bo'yicha ishonchli hamkoringiz",
+    "learn_more": "Ko'proq biling",
+    "instagram": "Instagram",
+    "get_started": "Boshlash uchun",
+    "login": "tizimga kiring"
+  },
+  "siteConfig": {
+    "name": "MMSH Logistics",
+    "description": "MMSH Logistics veb-ilovasi"
+  },
+  "Language": {
+    "en": "Inglizcha",
+    "ru": "Ruscha",
+    "uz": "O'zbekcha",
+    "switch": "Tilni o'zgartirish"
+  },
+  "Common": {
+    "loading": "Yuklanmoqda...",
+    "error": "Xatolik yuz berdi",
+    "success": "Muvaffaqiyat",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "create": "Yaratish",
+    "view": "Ko'rish",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "previous": "Oldingi",
+    "submit": "Yuborish",
+    "reset": "Qayta o'rnatish",
+    "search": "Qidirish",
+    "filter": "Filtr",
+    "sort": "Saralash",
+    "download": "Yuklab olish",
+    "upload": "Yuklash",
+    "confirm": "Tasdiqlash",
+    "yes": "Ha",
+    "no": "Yo'q",
+    "ok": "OK"
+  }
+}

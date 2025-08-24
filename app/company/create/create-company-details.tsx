@@ -34,19 +34,14 @@ import ImageCropper, {
 } from "@/components/image-tools/image-crop";
 import { CompanyType } from "./constants";
 import { getPlaces } from "@/types/api";
-import AddressBox, {
+import AddressBox,{
+  
   FieldState,
-} from "@/components/mini_components/addressselector";
-
-interface Contact {
-  id: number;
-  type: string;
-  data: string;
-}
+} from "@/components/forms/AddressSelector";
+import { Contact, ContactInformation } from "../utils";
 
 const CreateCompanyDetails: React.FC = () => {
   const {
-    addContact,
     contacts,
     updateContact,
     addresses,
@@ -55,7 +50,10 @@ const CreateCompanyDetails: React.FC = () => {
     company,
     setCompanyCreateState,
     companyTypes,
+    addContact,
+    removeContact,
   } = useCreateCompany();
+  console.log(contacts);
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const imageCropperRef = useRef<ImageCropperRef | null>(null);
@@ -258,10 +256,14 @@ const CreateCompanyDetails: React.FC = () => {
             <div className="flex items-start justify-start gap-3 flex-wrap w-full">
               {contacts.map((contact: Contact) => (
                 <ContactInformation
+                  value={contact}
+                  add={() => {
+                    addContact();
+                  }}
+                  remove={(val) => {
+                    removeContact(Number(val));
+                  }}
                   key={contact.id}
-                  id={contact.id}
-                  type={contact.type}
-                  data={contact.data}
                   onChange={updateContact} // Pass the updateContact function
                 />
               ))}
@@ -285,138 +287,6 @@ const CreateCompanyDetails: React.FC = () => {
         <Divider className="my-5 " />
       </div>
     </div>
-  );
-};
-
-export const ContactInformation: React.FC<
-  Contact & { onChange: (contact: Contact) => void }
-> = ({ id, type, data, onChange }) => {
-  const { removeContact, addContact } = useCreateCompany();
-  const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ id, type: event.target.value, data });
-  };
-
-  const handleDataChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ id, type, data: event.target.value });
-  };
-
-  const [selectedOption, setSelectedOption] = React.useState<Selection>(
-    new Set([type]),
-  );
-
-  const labelsMap = {
-    Phone: "Phone",
-    Telegram: "Telegram",
-    Whatsapp: "Whatsapp",
-    Instagram: "Instagram",
-    Web: "Web",
-    Email: "Email",
-    Others: "Others",
-  };
-  const iconMap = {
-    Phone: <Icon icon="line-md:phone" fontSize={18} />,
-    Telegram: <Icon icon="line-md:telegram" fontSize={18} />,
-    Whatsapp: <Icon icon="ic:baseline-whatsapp" fontSize={18} />,
-    Instagram: <Icon icon="line-md:instagram" fontSize={18} />,
-    Web: <Icon icon="ix:application-screen-globe" fontSize={18} />,
-    Email: <Icon icon="line-md:email" fontSize={18} />,
-    Others: <Icon icon="hugeicons:contact-01" fontSize={18} />,
-  };
-
-  // Convert the Set to an Array and get the first value.
-  const selectedOptionValue = Array.from(
-    selectedOption,
-  )[0] as keyof typeof labelsMap;
-
-  return (
-    <ButtonGroup variant="flat">
-      <Dropdown placement="bottom-start">
-        <DropdownTrigger>
-          <Button>
-            <div className="flex items-center gap-2">
-              {iconMap[selectedOptionValue]}
-              <Icon icon="ic:baseline-arrow-drop-down" fontSize={24} />
-            </div>
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection
-          aria-label="Merge options"
-          className="max-w-[300px]"
-          selectedKeys={selectedOption}
-          selectionMode="single"
-          onSelectionChange={(selection) => {
-            setSelectedOption(selection);
-            onChange({
-              id,
-              type: labelsMap[
-                Array.from(selection)[0] as keyof typeof labelsMap
-              ],
-              data,
-            });
-          }}
-        >
-          <DropdownItem key="Phone">
-            <div className="flex items-center gap-2">
-              {iconMap["Phone"]}
-              {labelsMap["Phone"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Telegram">
-            <div className="flex items-center gap-2">
-              {iconMap["Telegram"]}
-              {labelsMap["Telegram"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Whatsapp">
-            <div className="flex items-center gap-2">
-              {iconMap["Whatsapp"]}
-              {labelsMap["Whatsapp"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Instagram">
-            <div className="flex items-center gap-2">
-              {iconMap["Instagram"]}
-              {labelsMap["Instagram"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Web">
-            <div className="flex items-center gap-2">
-              {iconMap["Web"]}
-              {labelsMap["Web"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Email">
-            <div className="flex items-center gap-2">
-              {iconMap["Email"]}
-              {labelsMap["Email"]}
-            </div>
-          </DropdownItem>
-          <DropdownItem key="Others">
-            <div className="flex items-center gap-2">
-              {iconMap["Others"]}
-              {labelsMap["Others"]}
-            </div>
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-      <Input
-        color="default"
-        radius="none"
-        value={data}
-        onChange={handleDataChange}
-      />
-      {id > 1 && (
-        <Button isIconOnly onPress={() => removeContact(id)}>
-          <Icon icon="ic:baseline-delete" fontSize={18} />
-        </Button>
-      )}
-      {id === 1 && (
-        <Button isIconOnly onPress={() => addContact()}>
-          <Icon icon="ic:baseline-add" fontSize={18} />
-        </Button>
-      )}
-    </ButtonGroup>
   );
 };
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { IconSvgProps } from "@/types";
+import { IconSvgProps } from "@/types/legacy";
 export const MMSHLogo: React.FC<IconSvgProps> = ({
   size = 100,
   width,

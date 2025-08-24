@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { IoIosPerson } from "react-icons/io";
 import { Button } from "@heroui/react";
 import CreateTruckDetails from "./partner_details";
-import { LoadCreationStatus } from "@/app/load/create/constants";
+import { LoadCreationStatus } from "@/app/logistics/loads/create/constants";
 
 
 

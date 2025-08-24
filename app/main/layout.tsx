@@ -1,22 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { Navbar } from "@/components/navbar";
-import Sidebar from "@/components/main_components/sidebar";
+const Sidebar = lazy(() => import("@/components/main_components/sidebar"));
 import { Footer } from "@/components/footer";
 import { ScrollShadow } from "@heroui/react";
-import { getLocalStorage } from "@/utils/localstorage";
-import { redirect } from "next/navigation";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative flex flex-col h-screen overflow-hidden ">
+    <div className="relative flex flex-col h-screen overflow-hidden">
       <Navbar />
       <div className="flex flex-grow pt-1">
-        <Sidebar />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Sidebar />
+        </Suspense>
         <ScrollShadow className="h-[92vh] w-full overflow-auto">
           <main className="h-full w-full pb-2">{children}</main>
         </ScrollShadow>
       </div>
+      <Footer />
     </div>
   );
 };

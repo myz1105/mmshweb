@@ -14,13 +14,37 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/components/*": ["src/components/*"],
+      "@/components/main_components/*": ["src/components/layout/main/*"],
+      "@/components/mini_components/*": ["src/components/mini_components/*"],
+      "@/components/table-components/*": ["src/components/tables/table-components/*"],
+      "@/components/image-tools/*": ["src/components/media/image-tools/*"],
+      "@/components/country-selection": ["src/components/forms/CountrySelection.tsx"],
+      "@/components/theme-switch": ["src/components/ui/ThemeSwitch.tsx"],
+      "@/components/icons": ["src/components/ui/index.ts"],
+      "@/components/navbar": ["src/components/layout/Navbar.tsx"],
+      "@/components/footer": ["src/components/layout/Footer.tsx"],
+      "@/components/primitives": ["src/components/ui/index.ts"],
+      "@/features/*": ["src/features/*"],
+      "@/services/*": ["src/services/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/contexts/*": ["src/contexts/*"],
+      "@/contexts/profile-management/*": ["src/contexts/legacy/profile-management/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/utils/localstorage": ["src/utils/legacy/localstorage.ts"],
+      "@/utils/date-utils": ["src/utils/legacy/date-utils.ts"],
+      "@/types/*": ["src/types/*"],
+      "@/types/api": ["src/types/legacy/api.ts"],
+      "@/types/canvas-data": ["src/types/legacy/canvas-data.tsx"],
+      "@/constants/*": ["src/constants/*"]
     }
   },
   "include": [

@@ -13,7 +13,7 @@ import { addToast } from "@heroui/toast";
 import { get } from "http";
 import { type } from "os";
 import { CompanyType } from "../create/constants";
-import { FieldState } from "@/components/mini_components/addressselector";
+import { FieldState } from "@/components/forms/AddressSelector";
 import { useClient } from "@/contexts/profile-management/client-context";
 import { useRouter } from "next/navigation";
 const CreateCompanyContext = createContext<any | undefined>(undefined);
