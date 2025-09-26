@@ -1,2 +1,2 @@
-export { default as i18n } from './config';
-export { useTranslation } from 'react-i18next';
+// Export next-i18next utilities
+export { useTranslation, appWithTranslation } from "next-i18next";

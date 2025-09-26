@@ -1,0 +1,111 @@
+{
+  "Navbar": {
+    "home": "Главная",
+    "blog": "Блог",
+    "about": "О нас",
+    "profile": "Профиль",
+    "login": "Войти",
+    "logout": "Выйти",
+    "search": "Поиск...",
+    "dashboard": "Панель управления"
+  },
+  "Footer": {
+    "rights": "Все права защищены."
+  },
+  "Home": {
+    "solve_problems": "Решите свои логистические проблемы",
+    "subtitle_text": "MMSH Logistics - Ваш надежный партнер в области транспортировки и логистики",
+    "learn_more": "Узнать больше",
+    "instagram": "Инстаграм",
+    "get_started": "Начните с",
+    "login": "входа"
+  },
+  "siteConfig": {
+    "name": "MMSH Logistics",
+    "description": "Веб-приложение MMSH Logistics"
+  },
+  "Language": {
+    "en": "Английский",
+    "ru": "Русский",
+    "uz": "Узбекский",
+    "switch": "Сменить язык"
+  },
+  "Common": {
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "success": "Успех",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "view": "Просмотреть",
+    "back": "Назад",
+    "next": "Далее",
+    "previous": "Предыдущий",
+    "submit": "Отправить",
+    "reset": "Сбросить",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировать",
+    "download": "Скачать",
+    "upload": "Загрузить",
+    "confirm": "Подтвердить",
+    "yes": "Да",
+    "no": "Нет",
+    "ok": "ОК"
+  },
+  "About": {
+    "logistics_beyond_borders": "Логистика без границ",
+    "mmsh_logistics_path": "Путь MMSH Logistics",
+    "mmsh_logistics_description": "MMSH Logistics — ваш надежный партнер в сфере транспортировки и логистики, предлагающий бесшовные решения через границы.",
+    "mmsh_logistics_fleet": "Автопарк MMSH Logistics",
+    "mmsh_logistics_commitment": "Наша задача — предоставлять эффективные, надежные и глобальные логистические решения.",
+    "feature_global_reach": "Глобальный охват",
+    "feature_global_reach_desc": "Мы соединяем бизнес и клиентов по всему миру благодаря нашей широкой логистической сети.",
+    "feature_efficiency": "Эффективность",
+    "feature_efficiency_desc": "Наши процессы оптимизированы для скорости и надежности на каждом этапе.",
+    "feature_trust_reliability": "Доверие и надежность",
+    "feature_trust_reliability_desc": "Мы строим долгосрочные отношения благодаря стабильному и надежному сервису.",
+    "mmsh_logistics_vision": "Наша цель — двигать мир вперед с помощью инновационной логистики.",
+    "moving_world": "Двигаем мир вперед",
+    "mmsh_logistics_success": "Присоединяйтесь к множеству компаний, которые доверяют MMSH Logistics свой успех.",
+    "trusted_by_businesses": "Доверие компаний по всему миру",
+    "Statistics": {
+      "transactions": "Транзакции",
+      "assets": "Активы",
+      "new_users": "Новые пользователи",
+      "quote": "Наша приверженность совершенству обеспечивает наш и ваш успех.",
+      "ceo_name": "Джудит Блэк",
+      "ceo_title": "Генеральный директор, MMSH Logistics"
+    }
+  },
+  "Blog": {
+    "title": "Добро пожаловать в наш блог",
+    "subtitle": "Будьте в курсе последних новостей, идей и историй от MMSH Logistics.",
+    "explore": "Исследовать блоги",
+    "subscribe": "Подписаться",
+    "stats": {
+      "total": "Всего публикаций",
+      "reports": "Отчеты",
+      "contributors": "Авторы",
+      "years": "Лет работы"
+    },
+    "blogs": {
+      "from": "Из блога MMSH Logistics",
+      "learn": "Узнайте из наших последних идей, историй и обновлений."
+    }
+  },
+  "Subscription": {
+    "title": "Подпишитесь на нашу рассылку",
+    "subtitle": "Получайте последние новости и обновления на вашу почту.",
+    "email_placeholder": "Введите ваш email",
+    "subscribe_button": "Подписаться",
+    "benefits": {
+      "weekly_articles": "Еженедельные статьи",
+      "weekly_articles_description": "Получайте отобранные статьи и новости каждую неделю.",
+      "no_spam": "Без спама",
+      "no_spam_description": "Мы уважаем вашу конфиденциальность и никогда не будем отправлять спам."
+    }
+  }
+}

@@ -10,7 +10,7 @@ import {
   getActiveFormattingMask,
   parseCountry,
 } from "react-international-phone";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 interface PhoneNumberProps {
   onUpdate: (phoneData: {
@@ -21,7 +21,7 @@ interface PhoneNumberProps {
 }
 
 export default function EnterPhone({ onUpdate }: PhoneNumberProps) {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const [selectedCountry, setSelectedCountry] = useState<CountryData | null>(
     null,
   );
@@ -111,7 +111,7 @@ export default function EnterPhone({ onUpdate }: PhoneNumberProps) {
 }
 
 export function EnterPhoneHeader() {
-  const { t } = useTranslation();
+  const t = useTranslations();
   return (
     <div className="flex flex-col items-center pb-2">
       <MMSHLogo size={250} style={{ marginTop: "-150px" }} />

@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import { SocialMedia } from "@/components/ui/SocialMedia";
 import { Divider } from "@heroui/react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 export const Footer = () => {
   const [darkMode, setDarkMode] = useState(false);
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   useEffect(() => {
     if (darkMode) {

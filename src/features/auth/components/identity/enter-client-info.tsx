@@ -14,9 +14,11 @@ import {
 import React, { useState, useRef, useEffect } from "react";
 import { TbCameraPlus } from "react-icons/tb";
 // import Modal from "../image-tools/image-modal";
-import ImageCropper, { ImageCropperRef } from "@/components/media/image-tools/image-crop";
+import ImageCropper, {
+  ImageCropperRef,
+} from "@/components/media/image-tools/image-crop";
 import { BaseAddressAPI, Token } from "@/types/api";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 interface ChildComponentProps {
   onImageUpdated: (src: string) => void;
   onUpdate: (
@@ -29,7 +31,7 @@ const EnterClientInfo: React.FC<ChildComponentProps> = ({
   onImageUpdated,
   onUpdate,
 }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const avatarUrl = useRef<string>(
     "https://avatarfiles.alphacoders.com/161/161002.jpg",
   );

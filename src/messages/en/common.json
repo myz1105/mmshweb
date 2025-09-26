@@ -1,0 +1,111 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout",
+    "search": "Search...",
+    "dashboard": "Dashboard"
+  },
+  "Footer": {
+    "rights": "All rights reserved."
+  },
+  "Home": {
+    "solve_problems": "Solve your logistics problems",
+    "subtitle_text": "MMSH Logistics - Your reliable partner for transportation and logistics services",
+    "learn_more": "Learn More",
+    "instagram": "Instagram",
+    "get_started": "Get started by",
+    "login": "logging in"
+  },
+  "siteConfig": {
+    "name": "MMSH Logistics",
+    "description": "MMSH Logistics Web Application"
+  },
+  "Language": {
+    "en": "English",
+    "ru": "Russian",
+    "uz": "Uzbek",
+    "switch": "Switch language"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "download": "Download",
+    "upload": "Upload",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK"
+  },
+  "About": {
+    "logistics_beyond_borders": "Logistics Beyond Borders",
+    "mmsh_logistics_path": "The MMSH Logistics Path",
+    "mmsh_logistics_description": "MMSH Logistics is your reliable partner for transportation and logistics services, offering seamless solutions across borders.",
+    "mmsh_logistics_fleet": "MMSH Logistics Fleet",
+    "mmsh_logistics_commitment": "Our commitment is to provide efficient, trustworthy, and global logistics solutions.",
+    "feature_global_reach": "Global Reach",
+    "feature_global_reach_desc": "We connect businesses and customers worldwide with our extensive logistics network.",
+    "feature_efficiency": "Efficiency",
+    "feature_efficiency_desc": "Our processes are optimized for speed and reliability at every step.",
+    "feature_trust_reliability": "Trust & Reliability",
+    "feature_trust_reliability_desc": "We build long-term relationships through consistent, dependable service.",
+    "mmsh_logistics_vision": "Our vision is to move the world forward with innovative logistics.",
+    "moving_world": "Moving the World Forward",
+    "mmsh_logistics_success": "Join the many businesses who trust MMSH Logistics for their success.",
+    "trusted_by_businesses": "Trusted by businesses worldwide",
+    "Statistics": {
+      "transactions": "Transactions",
+      "assets": "Assets",
+      "new_users": "New Users",
+      "quote": "Our commitment to excellence drives our success and yours.",
+      "ceo_name": "Judith Black",
+      "ceo_title": "CEO, MMSH Logistics"
+    }
+  },
+  "Blog": {
+    "title": "Welcome to Our Blog",
+    "subtitle": "Stay updated with the latest news, insights, and stories from MMSH Logistics.",
+    "explore": "Explore Blogs",
+    "subscribe": "Subscribe",
+    "stats": {
+      "total": "Total Posts",
+      "reports": "Reports",
+      "contributors": "Contributors",
+      "years": "Years Active"
+    },
+    "blogs": {
+      "from": "From the MMSH Logistics Blog",
+      "learn": "Learn from our latest insights, stories, and updates."
+    }
+  },
+  "Subscription": {
+    "title": "Subscribe to Our Newsletter",
+    "subtitle": "Get the latest updates and news delivered to your inbox.",
+    "email_placeholder": "Enter your email address",
+    "subscribe_button": "Subscribe",
+    "benefits": {
+      "weekly_articles": "Weekly Articles",
+      "weekly_articles_description": "Receive curated articles and updates every week.",
+      "no_spam": "No Spam",
+      "no_spam_description": "We respect your privacy and will never send you spam."
+    }
+  }
+}

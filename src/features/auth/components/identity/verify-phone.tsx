@@ -2,14 +2,14 @@
 import { InputOtp, Button, Alert, CircularProgress } from "@heroui/react";
 import React, { useState, useRef, useEffect } from "react";
 import { MdOutlineEdit } from "react-icons/md";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 interface VerifyNumberProps {
   onUpdate: (code: string) => void; // Callback function type
 }
 
 export default function VerifyPhone({ onUpdate }: VerifyNumberProps) {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const [timeLeft, setTimeLeft] = useState<number>(60); // Timer set for 60 seconds
   const [isActive, setIsActive] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -56,14 +56,12 @@ export default function VerifyPhone({ onUpdate }: VerifyNumberProps) {
     <div className="flex flex-col items-center justify-center pb-2 w-full gap-4">
       <InputOtp length={5} variant="bordered" onValueChange={onUpdate} />
       <Alert
-        title={
-          timeLeft === 0 ? t("Common.try_again") : t("Common.send_sms")
-          }
-          aria-label={
+        title={timeLeft === 0 ? t("Common.try_again") : t("Common.send_sms")}
+        aria-label={
           timeLeft === 0
             ? t("Common.try_again_sms")
             : t("Common.send_sms_in", { time: timeLeft })
-          }
+        }
         color={timeLeft === 0 ? "primary" : "default"}
         endContent={
           timeLeft === 0 ? (
@@ -99,7 +97,7 @@ export function VerifyPhoneHeader({
   phoneNumber: string;
   onEditPressed: () => void;
 }) {
-  const { t } = useTranslation();
+  const t = useTranslations();
   return (
     <div className="flex flex-col items-center pb-2">
       <div className="flex items-center">

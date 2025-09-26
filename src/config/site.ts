@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl"; // ✅ Correct import for Next.js
 
 export interface NavItem {
   label: string;
@@ -33,7 +33,7 @@ export interface SiteConfig {
 }
 
 export const useSiteConfig = (): SiteConfig => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return {
     navItems: [

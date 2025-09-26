@@ -1,5 +1,5 @@
 "use client";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl"; // ✅ Correct import for Next.js
 
 // Server-side compatible site config (for static generation)
 export const getSiteConfig = (language: string = "en") => {
@@ -15,7 +15,7 @@ export const getSiteConfig = (language: string = "en") => {
       "Navbar.search": "Search...",
       "Navbar.dashboard": "Dashboard",
       "siteConfig.name": "MMSH Logistics",
-      "siteConfig.description": "MMSH Logistics Web Application"
+      "siteConfig.description": "MMSH Logistics Web Application",
     },
     ru: {
       "Navbar.home": "Главная",
@@ -27,7 +27,7 @@ export const getSiteConfig = (language: string = "en") => {
       "Navbar.search": "Поиск...",
       "Navbar.dashboard": "Панель управления",
       "siteConfig.name": "MMSH Logistics",
-      "siteConfig.description": "Веб-приложение MMSH Logistics"
+      "siteConfig.description": "Веб-приложение MMSH Logistics",
     },
     uz: {
       "Navbar.home": "Bosh sahifa",
@@ -39,11 +39,12 @@ export const getSiteConfig = (language: string = "en") => {
       "Navbar.search": "Qidirish...",
       "Navbar.dashboard": "Boshqaruv paneli",
       "siteConfig.name": "MMSH Logistics",
-      "siteConfig.description": "MMSH Logistics veb-ilovasi"
+      "siteConfig.description": "MMSH Logistics veb-ilovasi",
     },
   };
 
-  const t = (key: string) => translations[language]?.[key] || translations.en[key] || key;
+  const t = (key: string) =>
+    translations[language]?.[key] || translations.en[key] || key;
 
   return {
     name: "MMSH",
@@ -97,10 +98,12 @@ export const getSiteConfig = (language: string = "en") => {
   };
 };
 
-import { useHydrationSafeLanguage } from '@/hooks/useHydrationSafeLanguage';
+import { useHydrationSafeLanguage } from "@/hooks/useHydrationSafeLanguage";
+import { useLocale } from "next-intl";
 
 // Client-side hook (uses react-i18next)
 export const useSiteConfig = () => {
-  const language = useHydrationSafeLanguage();
+  const locale = useLocale();
+  const language = locale;
   return getSiteConfig(language);
 };

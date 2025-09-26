@@ -44,7 +44,7 @@ import { get } from "http";
 import { useClient } from "@/contexts/profile-management/client-context";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
-import ContactsModal from "@/app/profile/Contacts/contacts";
+import ContactsModal from "@/app/[locale]/profile/Contacts/contacts";
 
 interface SidebarProps {
   onUpdate: () => void;

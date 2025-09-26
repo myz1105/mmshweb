@@ -25,9 +25,13 @@
       "@/components/*": ["src/components/*"],
       "@/components/main_components/*": ["src/components/layout/main/*"],
       "@/components/mini_components/*": ["src/components/mini_components/*"],
-      "@/components/table-components/*": ["src/components/tables/table-components/*"],
+      "@/components/table-components/*": [
+        "src/components/tables/table-components/*"
+      ],
       "@/components/image-tools/*": ["src/components/media/image-tools/*"],
-      "@/components/country-selection": ["src/components/forms/CountrySelection.tsx"],
+      "@/components/country-selection": [
+        "src/components/forms/CountrySelection.tsx"
+      ],
       "@/components/theme-switch": ["src/components/ui/ThemeSwitch.tsx"],
       "@/components/icons": ["src/components/ui/index.ts"],
       "@/components/navbar": ["src/components/layout/Navbar.tsx"],
@@ -37,7 +41,9 @@
       "@/services/*": ["src/services/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/contexts/*": ["src/contexts/*"],
-      "@/contexts/profile-management/*": ["src/contexts/legacy/profile-management/*"],
+      "@/contexts/profile-management/*": [
+        "src/contexts/legacy/profile-management/*"
+      ],
       "@/utils/*": ["src/utils/*"],
       "@/utils/localstorage": ["src/utils/legacy/localstorage.ts"],
       "@/utils/date-utils": ["src/utils/legacy/date-utils.ts"],

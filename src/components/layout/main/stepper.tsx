@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Progress } from "@heroui/react";
 import { Icon } from "@iconify/react";
-import { use } from "i18next";
-
 interface StepperProps {
   steps: string[];
   currentStep: number;

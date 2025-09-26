@@ -15,8 +15,7 @@ import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { Button } from "@heroui/button";
-import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { useTranslations } from "next-intl";
 import { useSiteConfig } from "@/config/site"; // ✅ Use the new Hook instead of calling a function
 import { ThemeSwitch } from "@/components/theme-switch";
 import { useRouter } from "next/navigation";
@@ -28,10 +27,8 @@ import { User } from "@heroui/react";
 import { useState, useEffect } from "react";
 
 export const Navbar = () => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const siteConfig = useSiteConfig(); // ✅ Now correctly gets translations
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
 
   const searchInput = (
     <Input
@@ -54,6 +51,21 @@ export const Navbar = () => {
     />
   );
 
+  function useIsMobile() {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+      const check = () => setIsMobile(window.innerWidth < 640);
+      check();
+      window.addEventListener("resize", check);
+      return () => window.removeEventListener("resize", check);
+    }, []);
+    return isMobile;
+  }
+
+  // In your component:
+  const isMobile = useIsMobile();
+
+  const router = useRouter();
   const { client, getImg } = useClient();
   const [avatarSrc, setAvatarSrc] = useState<string | undefined>(undefined);
 
@@ -62,23 +74,13 @@ export const Navbar = () => {
       setAvatarSrc(getImg(client?.Info.Img?.Img64));
   }, [client]);
 
-  // Close mobile menu when navigating
-  const handleNavigation = (href: string) => {
-    setIsMenuOpen(false);
-    router.push(href);
-  };
-
   return (
     <HeroUINavbar
       maxWidth="full"
       position="sticky"
-      isMenuOpen={isMenuOpen}
-      onMenuOpenChange={setIsMenuOpen}
       classNames={{
         wrapper:
-          "border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black h-[7vh]",
-        menu: "pt-4 pb-6",
-        toggle: "text-default-500 hover:text-primary transition-colors",
+          "border border-default-200 bg-gradient-to-br from-white to-violet-50 dark:from-default-50 dark:to-black h-[7vh] ",
       }}
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -112,7 +114,6 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <SocialMedia />
-          <LanguageSwitcher />
           <ThemeSwitch />
         </NavbarItem>
         <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
@@ -130,53 +131,42 @@ export const Navbar = () => {
           </div>
         )}
       </NavbarContent>
+      {isMobile && (
+        <NavbarContent justify="end">
+          <Link
+            isExternal
+            aria-label="Instagram"
+            href="https://www.instagram.com/mmshlogistics"
+          >
+            <FaInstagram className="text-default-500 w-5 h-5 hover:text-pink-500 transition" />
+          </Link>
+          <Link
+            isExternal
+            aria-label="Telegram"
+            href="https://telegram.me/logistikammsh"
+          >
+            <FaTelegram className="text-default-500 w-5 h-5 hover:text-blue-500 transition" />
+          </Link>
+          <ThemeSwitch />
+          <NavbarMenuToggle />
+        </NavbarContent>
+      )}
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link
-          isExternal
-          aria-label="Instagram"
-          href="https://www.instagram.com/mmshlogistics"
-          className="text-default-500 hover:text-pink-500 transition-colors"
-        >
-          <FaInstagram className="w-5 h-5" />
-        </Link>
-        <Link
-          isExternal
-          aria-label="Telegram"
-          href="https://telegram.me/logistikammsh"
-          className="text-default-500 hover:text-blue-500 transition-colors"
-        >
-          <FaTelegram className="w-5 h-5" />
-        </Link>
-        <ThemeSwitch />
-        <NavbarMenuToggle 
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="text-default-600 hover:text-primary transition-colors"
-        />
-      </NavbarContent>
-
-      <NavbarMenu className="pt-4 pb-6">
+      <NavbarMenu>
         {client && (
-          <div className="px-4 mb-4">
+          <div className="p-1">
             <User
               avatarProps={{
-                size: "md",
                 src:
                   avatarSrc ||
                   "https://i.pravatar.cc/150?u=a04258114e29026702d",
               }}
               name={client?.Info.Name + " " + client?.Info.Surname}
-              description={client?.Info.Email}
-              className="justify-start"
             />
           </div>
         )}
-        
-        <div className="px-4 mb-4">
-          {searchInput}
-        </div>
-        
-        <div className="flex flex-col gap-1">
+        {searchInput}
+        <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.key}-${index}`}>
               <Link
@@ -191,20 +181,11 @@ export const Navbar = () => {
                 }
                 href={item.href}
                 size="lg"
-                className="w-full py-2 px-4 rounded-lg hover:bg-default-100 transition-colors"
-                onPress={() => handleNavigation(item.href)}
               >
                 {item.label} {/* ✅ Now translated */}
               </Link>
             </NavbarMenuItem>
           ))}
-        </div>
-        
-        <div className="mt-auto pt-4 px-4 border-t border-default-200">
-          <div className="flex items-center justify-between">
-            <LanguageSwitcher />
-            <SocialMedia />
-          </div>
         </div>
       </NavbarMenu>
     </HeroUINavbar>
