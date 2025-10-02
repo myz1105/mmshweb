@@ -14,7 +14,7 @@ import { Button } from "@heroui/button";
 import HRContract from "./hr-contract";
 
 const CreatePage: React.FC = () => {
-  const { hrStep, canGoBack, canGoForward, goBack, goForward } =
+  const { hrStep, canGoBack, canGoForward, goBack, goForward, saveEmployee } =
     useHRCreation();
 
   return (
@@ -49,7 +49,11 @@ const CreatePage: React.FC = () => {
                 color="success"
                 isDisabled={!canGoForward}
                 onPress={() => {
-                  goForward();
+                  if (hrStep === HRCreationState.Contract) {
+                    saveEmployee();
+                  } else {
+                    goForward();
+                  }
                 }}
               >
                 {hrStep === HRCreationState.Contract ? (

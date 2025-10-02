@@ -11,11 +11,12 @@ export enum ShippingCreationState {
 }
 
 export enum PassportType {
-  InternationalPassport,
-  DriverCard,
-  IdCard,
-  TruckPassport,
-  TrailerPassport,
+  Passport = 1,
+  IDCard = 2,
+  DriverLicense = 3,
+  TransportPassport = 4,
+  TrailerPassport = 5,
+  Other = 6,
 }
 
 export interface Passport {

@@ -44,12 +44,12 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
     surname: client?.Info.Surname || "",
     contacts: client?.Info.Contacts || [{ id: 1, type: "Phone", data: "" }],
     passport: {
-      type: 0,
+      type: 1,
     },
   });
 
   const isPassportValid = (passport: Passport): boolean =>
-    passport?.type === PassportType.InternationalPassport
+    passport?.type === PassportType.Passport
       ? !!passport?.frontSide
       : !!passport?.frontSide && !!passport?.backSide;
 
@@ -58,10 +58,15 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [employeePercentage, setDriverPassportPercentage] = useState(0);
 
+  const [passportDocument, setPassportDocument] = useState<any | null>(null);
+
   //---------------Face Detection Variables----------------
 
   const [modelsLoaded, setModelsLoaded] = useState(false);
-  const [contract, setContract] = useState({ agreed: false });
+  const [contract, setContract] = useState<Contract>({
+    agreed: false,
+    approved: false,
+  });
 
   useEffect(() => {
     const loadModels = async () => {
@@ -74,7 +79,45 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
     };
     loadModels();
     if (companyId) fetchCurrentCompany(companyId);
+    if (client) {
+      fetchPassport(client.Id);
+    }
   }, []);
+
+  useEffect(() => {
+    if (companyId) fetchCurrentCompany(companyId);
+    if (client) {
+      fetchPassport(client.Id);
+    }
+  }, [client, companyId]);
+
+  const fetchPassport = async (id: string) => {
+    const result = await fetch(
+      `${BaseAddressAPI}HR/Documents/CheckPassport/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    if (!result.ok) {
+      addToast({
+        description: result.statusText,
+        color: "warning",
+      });
+      return null;
+    }
+    const p = await result.json();
+
+    if (p) {
+      setPassportDocument(p);
+      setEmployee((prev) => ({
+        ...prev,
+        passport: { ...prev.passport, type: p.type },
+      }));
+    }
+  };
 
   //---------------END Face Detection Code--------------
 
@@ -139,12 +182,12 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
         }
         if (d.passport) {
           passPerc += d.passport.frontSide
-            ? d.passport.type === PassportType.InternationalPassport
+            ? d.passport.type === PassportType.Passport
               ? 40
               : 20
             : 0;
           passPerc += d.passport.backSide
-            ? d.passport.type === PassportType.InternationalPassport
+            ? d.passport.type === PassportType.Passport
               ? 0
               : 20
             : 0;
@@ -202,6 +245,7 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const data = await response.json();
       if (data) setCurrentCompany(data);
+      console.log("Current company:", data);
 
       setIsCurrentLoading(false);
     } catch (error) {
@@ -209,7 +253,70 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsCurrentLoading(false);
     }
   };
-  const saveEmployee = () => {};
+  const saveEmployee = () => {
+    if (!companyId) return;
+    if (client === null) return;
+    const form = new FormData();
+    if (passportDocument === null) {
+      form.append("pFrontFile", employee.passport.frontSide!);
+      employee.passport.backSide
+        ? form.append("pBackFile", employee.passport.backSide)
+        : null;
+      form.append("realImageFile", contract.originalImage!);
+    }
+    form.append(
+      "contract",
+      JSON.stringify({
+        Agreed: contract.agreed,
+        Approved: contract.approved,
+        Name: employee.name,
+        Surname: employee.surname,
+        CompanyId: companyId,
+      }),
+    );
+
+    console.log(
+      JSON.stringify({
+        Agreed: contract.agreed,
+        Approved: contract.approved,
+        Name: employee.name,
+        Surname: employee.surname,
+        CompanyId: companyId,
+      }),
+    );
+    console.log(employee.passport.type?.toString());
+
+    if (employee.passport.type)
+      form.append("passportType", employee.passport.type.toString());
+
+    const save = async () => {
+      const response = await fetch(`${BaseAddressAPI}HR/Job/${client.Id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data", // Let the browser set it
+        },
+        body: form,
+      });
+      console.log("Saving employee, response:", response);
+
+      if (!response.ok) {
+        addToast({
+          description: response.statusText,
+          color: "warning",
+        });
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Employee saved:", data);
+      addToast({
+        description: "Employee successfully created",
+        color: "success",
+      });
+    };
+    save();
+  };
 
   return (
     <HRCreationContext.Provider
@@ -230,6 +337,8 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
         employeePercentage,
         companyId,
         contractUrl,
+        passportDocument,
+        saveEmployee,
       }}
     >
       {children}

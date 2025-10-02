@@ -37,7 +37,7 @@ export const getFaceDescriptor = async (
 export const compareFaceDescriptors = (
   descriptor1: Float32Array,
   descriptor2: Float32Array,
-  threshold = 0.4,
+  threshold = 0.6, // 0.6 is commonly used for face-api.js
 ) => {
   const distance = faceapi.euclideanDistance(descriptor1, descriptor2);
   return {

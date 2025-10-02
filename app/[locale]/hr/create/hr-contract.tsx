@@ -160,6 +160,7 @@ export default function HRContract() {
         var d2 = await getFaceDescriptor(pImage);
         if (d1 && d2) {
           var result = compareFaceDescriptors(d1, d2);
+          console.log("Face match result:", result);
           setMatch(result);
           setTimeout(() => {
             setShowModal(false);

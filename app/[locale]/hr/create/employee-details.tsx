@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import {
   Card,
   CardBody,
@@ -14,6 +14,8 @@ import { useHRCreation } from "../contexts/hr-creation-context";
 import { FileDropzone } from "../../shipping/utils";
 import { Passport, PassportType } from "../../shipping/types";
 import { cropFaceFromImage } from "../utils/face-detect-utils";
+import { BaseAddressAPI } from "@/src/services";
+import { addToast } from "@heroui/toast";
 
 const PassportTypes = [
   {
@@ -27,7 +29,74 @@ const PassportTypes = [
 ];
 
 const CreateEmployeeDetails: React.FC = () => {
-  const { employee, updateEmployee, passportImageError } = useHRCreation();
+  const { employee, updateEmployee, passportImageError, passportDocument } =
+    useHRCreation();
+
+  useEffect(() => {
+    const getPassportFromUrl = async (document: any) => {
+      if (!document) return;
+      const { FileName, RootDirectory, SubDirectory } = document;
+      if (!FileName) return;
+
+      let imageUrl = `${BaseAddressAPI}Document/Download/${FileName}`;
+      const params = new URLSearchParams();
+      if (RootDirectory) params.append("rootDir", RootDirectory);
+      if (SubDirectory) params.append("subDir", SubDirectory);
+      if (Array.from(params).length > 0) {
+        imageUrl += `?${params.toString()}`;
+      }
+
+      let fileFromUrl: File | undefined;
+      try {
+        const response = await fetch(imageUrl);
+        if (!response.ok) {
+          addToast({ title: "error", description: response.statusText });
+          return;
+        }
+        const blob = await response.blob();
+        fileFromUrl = new File([blob], "downloaded-image.jpg", {
+          type: blob.type,
+        });
+        return fileFromUrl;
+      } catch (error) {
+        console.error("Failed to fetch image from URL", error);
+      }
+    };
+    if (passportDocument) {
+      getPassportFromUrl(passportDocument.FrontSide).then((file) => {
+        if (file) {
+          let data: Passport | undefined;
+          if (employee && employee.passport) {
+            data = { ...employee.passport, frontSide: file };
+          } else {
+            data = { frontSide: file };
+          }
+          if (employee) {
+            updateEmployee({ ...employee, passport: data });
+          } else {
+            updateEmployee({ passport: data });
+          }
+        }
+      });
+      if (passportDocument.BackSide) {
+        getPassportFromUrl(passportDocument.BackSide).then((file) => {
+          if (file) {
+            let data: Passport | undefined;
+            if (employee && employee.passport) {
+              data = { ...employee.passport, backSide: file };
+            } else {
+              data = { backSide: file };
+            }
+            if (employee) {
+              updateEmployee({ ...employee, passport: data });
+            } else {
+              updateEmployee({ passport: data });
+            }
+          }
+        });
+      }
+    }
+  }, [passportDocument]);
   const [image, setImage] = useState("");
 
   const contactTypes = [
@@ -48,20 +117,20 @@ const CreateEmployeeDetails: React.FC = () => {
         items={PassportTypes}
         selectedKey={
           employee && employee.passport
-            ? employee.passport.type === PassportType.IdCard
+            ? employee.passport.type === PassportType.IDCard
               ? "Id Card"
               : "International Passport"
             : undefined
         }
         onSelectionChange={(val) => {
-          let data: Passport = { type: PassportType.IdCard };
+          let data: Passport = { type: PassportType.IDCard };
           if (employee && employee.passport) {
             data = { ...employee.passport };
           }
           if (val === "Id Card") {
-            data = { ...data, type: PassportType.IdCard };
+            data = { ...data, type: PassportType.IDCard };
           } else {
-            data = { ...data, type: PassportType.InternationalPassport };
+            data = { ...data, type: PassportType.Passport };
           }
           if (employee) {
             updateEmployee({ ...employee, passport: data });
