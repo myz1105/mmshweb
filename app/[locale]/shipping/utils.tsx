@@ -156,14 +156,17 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
                   />
                 )}
                 <div className="text-default-600 text-wrap p-2 text-center">
-                  Drag & drop image here, or click to select image
+                  Drag & drop {isImageOverride ? "image" : "files"} here, or
+                  click to select {isImageOverride ? "an image" : "files"} from
+                  your computer
                 </div>
+                <div className="text-default-600"></div>
                 <Button
                   color="default"
                   className="w-fit"
                   onPress={() => inputRef.current?.click()}
                 >
-                  Select image
+                  Select {isImageOverride ? "Image" : "Files"}
                 </Button>
               </div>
             )}

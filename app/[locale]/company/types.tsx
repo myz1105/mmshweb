@@ -38,3 +38,34 @@ export const iconMap = {
   Email: <Icon icon="line-md:email" fontSize={18} />,
   Others: <Icon icon="hugeicons:contact-01" fontSize={18} />,
 };
+
+export enum DocumentType {
+  General = 0,
+  Passport = 1,
+  Contract = 2,
+  License = 3,
+  Permission = 4,
+  Certification = 5,
+  Other = 6,
+}
+
+export interface Document {
+  Id: number;
+  Name: string;
+  Filename: string;
+  Size: number;
+  Date: string; // Use string for ISO date format
+  Type: DocumentType;
+  UploadedBy?: string;
+}
+
+export interface CompanyContracts {
+  CompanyId: string;
+  HRContract?: Document;
+  PartnershipContract?: Document;
+}
+
+export enum CompanyContractSamples {
+  HRContract = 0,
+  PartnershipContract = 1,
+}

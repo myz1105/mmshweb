@@ -45,7 +45,8 @@ export default function HRContract() {
     distance: number;
   } | null>();
 
-  const { contract, updateContract, modelsLoaded, employee } = useHRCreation();
+  const { contract, updateContract, modelsLoaded, employee, contractUrl } =
+    useHRCreation();
 
   // Webcam settings
   const videoConstraints = {
@@ -200,7 +201,7 @@ export default function HRContract() {
       <div className="text-2xl font-semibold">Contract</div>
 
       <iframe
-        src="/documents/Certificate.pdf"
+        src={contractUrl}
         width="100%"
         height="600px"
         className="border border-gray-300"

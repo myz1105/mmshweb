@@ -22,6 +22,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@company/*": ["app/[locale]/company/*"],
+      "@hr/*": ["app/[locale]/hr/*"],
+      "@shipping/*": ["app/[locale]/shipping/*"],
       "@/components/*": ["src/components/*"],
       "@/components/main_components/*": ["src/components/layout/main/*"],
       "@/components/mini_components/*": ["src/components/mini_components/*"],

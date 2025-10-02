@@ -59,7 +59,6 @@ export const cropFaceFromImage = async (
         new faceapi.TinyFaceDetectorOptions(),
       );
 
-      console.log(detection);
       if (!detection) {
         resolve(null);
         return;

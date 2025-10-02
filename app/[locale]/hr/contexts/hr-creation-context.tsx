@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  use,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 import { Contract, Employee, HRCreationState } from "../types";
 import { Passport, PassportType } from "../../shipping/types";
@@ -13,6 +19,8 @@ import {
 import { BaseAddressAPI } from "@/types/api";
 import { useClient } from "@/src/contexts/legacy/profile-management/client-context";
 import { useSearchParams } from "next/navigation";
+import { Company, CompanyContracts } from "../../company/types";
+import { addToast } from "@heroui/toast";
 const HRCreationContext = createContext<any | undefined>(undefined);
 
 export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -22,6 +30,7 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
   const { client } = useClient();
   const params = useSearchParams();
   const companyId = params.get("companyId");
+  const contractUrl = `${BaseAddressAPI}Company/Contract/Download/${companyId}?contractType=0&&asFile=false`;
   const [hrStep, setHRStep] = useState<HRCreationState>(
     HRCreationState.Details,
   );
@@ -64,6 +73,7 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     };
     loadModels();
+    if (companyId) fetchCurrentCompany(companyId);
   }, []);
 
   //---------------END Face Detection Code--------------
@@ -167,7 +177,38 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
       return null;
     }
   };
+  const [currentCompany, setCurrentCompany] = useState<Company | null>(null);
+  const [isCurrentLoading, setIsCurrentLoading] = useState(false);
+  const { token } = useClient();
 
+  const fetchCurrentCompany = async (id: string) => {
+    setIsCurrentLoading(true);
+    try {
+      const response = await fetch(`${BaseAddressAPI}Company/Get/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        addToast({
+          description: response.statusText,
+          color: "warning",
+        });
+        setIsCurrentLoading(false);
+        return;
+      }
+
+      const data = await response.json();
+      if (data) setCurrentCompany(data);
+
+      setIsCurrentLoading(false);
+    } catch (error) {
+      console.error("Error fetching current company:", error);
+      setIsCurrentLoading(false);
+    }
+  };
   const saveEmployee = () => {};
 
   return (
@@ -187,6 +228,8 @@ export const HRCreationProvider: React.FC<{ children: React.ReactNode }> = ({
         updateEmployee,
         isEmployeeValid,
         employeePercentage,
+        companyId,
+        contractUrl,
       }}
     >
       {children}
